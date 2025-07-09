@@ -1,0 +1,26 @@
+.stampCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+}
+
+.stampImage {
+    width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+}
+
+.stampInfo {
+    padding: 12px;
+    text-align: center;
+}
+
+.stampTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}

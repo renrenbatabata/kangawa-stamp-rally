@@ -3,6 +3,7 @@ import styles from "./StampListPage.module.css";
 
 // 共通コンポーネント
 import header from "../../components/common/Header/Header.png";
+import StampCard from "../../components/StampCard/StampCard";
 
 // スタンプ画像
 import uncomplete from "../../assets/images/stamp_icon_uncomplete.png";
@@ -14,6 +15,8 @@ const StampListPage: React.FC = () => {
       <header>
         <img src={header} alt="Header" className={styles.header} />
       </header>
+
+      {/* スタンプ集めの進捗を表示するコンポーネント */}
       <div className={styles.stampCompleteContainer}>
         <h1 className={styles.title}>スタンプ集めの進捗</h1>
         <div className={styles.stampCompleteLists}>
@@ -24,6 +27,12 @@ const StampListPage: React.FC = () => {
           <img src={uncomplete} alt="Uncomplete Stamp" />
           <img src={complete} alt="Complete Stamp" />
         </div>
+      </div>
+
+      {/* スタンプの一覧を表示するコンポーネント */}
+      <div className={styles.stampListContainer}>
+        <h1 className={styles.title}>スタンプ一覧</h1>
+        <StampCard />
       </div>
     </div>
   );
