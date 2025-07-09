@@ -94,11 +94,11 @@
 /* スマートフォンでの見た目を考慮したメディアクエリ */
 @media (max-width: 768px) {
     .logo {
-        max-width: 90%;
+        max-width: 97%;
     }
 
     .startButton {
-        font-size: 20px;
-        padding: 12px 30px;
+        font-size: 27px;
+        padding: 20px 45px;
     }
 }

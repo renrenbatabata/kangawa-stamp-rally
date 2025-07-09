@@ -10,7 +10,9 @@ const StampListPage: React.FC = () => {
       <header>
         <img src={header} alt="Header" className={styles.header} />
       </header>
-      <h1>スタンプ一覧ページ</h1>
+      <div>
+        <h1 className={styles.title}>スタンプ集めの進捗</h1>
+      </div>
     </div>
   );
 };
