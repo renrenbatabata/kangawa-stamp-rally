@@ -1,70 +1,32 @@
-# React + TypeScript + Vite
+# かながわく区民まつり デジタルスタンプラリー
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
 
-Currently, two official plugins are available:
+このプロジェクトは、神奈川区区民まつりのために開発されたデジタルスタンプラリーの Web アプリケーションです。参加者はスマートフォンで各スタンプポイントに設置された QR コードを読み込むことで、手軽にスタンプを集めることができます。アプリのインストールは不要で、ブラウザから簡単に参加可能です。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+このアプリは React (TypeScript) で構築されたフロントエンドと、**Java (Spring Boot)** で構築されたバックエンド、そして RDB（リレーショナルデータベース）を利用し、厳密な参加者管理を可能にしています。
 
-## Expanding the ESLint configuration
+## 特徴
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **ブラウザで簡単参加**: アプリケーションのインストールは不要。スマートフォンの Web ブラウザで直接アクセスできます。
+- **QR コードスキャン**: 内蔵カメラを利用して、各ポイントの QR コードを読み込み、スタンプをゲット。
+- **厳密な参加者管理**: Java バックエンドとデータベースにより、ユニークユーザーの正確な識別とスタンプ獲得状況の一元管理を実現。不正防止にも対応。
+- **リアルタイム進捗表示**: スタンプの獲得状況がリアルタイムで更新され、現在の達成度が一目でわかります。
+- **分かりやすい UI/UX**: 直感的で親しみやすいデザインで、誰でも迷わず楽しめます。
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 技術スタック
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### フロントエンド
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **React**: UI 構築のための JavaScript ライブラリ
+- **TypeScript**: 型安全な JavaScript
+- **react-router-dom**: ページルーティング
+- **CSS Modules**: コンポーネントごとのスタイル管理
+- **QR コードスキャンライブラリ**: (例: `@yudiel/react-qr-scanner` または `react-qr-barcode-scanner`)
+- **Firebase Hosting**: フロントエンドアプリケーションのホスティング
+- **Firebase Analytics**: イベントのトラッキング、参加者数の把握（匿名）
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### バックエンド
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# kangawa-stamp-rally
+- **Java**: バックエンドの主要言語
+- **Spring Boot**: Java ベースの Web アプリケーションフレームワーク
