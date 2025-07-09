@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* ビューポートの高さに合わせて最低限の高さを確保 */
+    background-color: #DFFFD8;
+}
+
+/* ヘッダー部分 */
+.header {
+    width: 100%;
+}
