@@ -1,0 +1,104 @@
+/* HomePage.module.css */
+
+.homePage {
+    width: 100vw;
+    /* ビューポートの幅いっぱいに広げる */
+    height: 100vh;
+    /* ビューポートの高さとっぴりに広げる */
+    background-size: cover;
+    /* 背景画像がコンテナを覆うように拡大縮小 */
+    background-position: center;
+    /* 背景画像を中央に配置 */
+    background-repeat: no-repeat;
+    /* 背景画像を繰り返さない */
+    display: flex;
+    /* Flexboxを使って子要素を配置 */
+    justify-content: center;
+    /* 水平方向の中央揃え */
+    align-items: center;
+    /* 垂直方向の中央揃え */
+    position: relative;
+    /* オーバーレイのために必要 */
+    overflow: hidden;
+    /* 画像がはみ出さないように */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 背景画像の上に薄い半透明のレイヤーを重ねて、ロゴやボタンを見やすくする */
+    /* background-color: rgba(0, 0, 0, 0.2); /* 例: 薄い黒のオーバーレイ */
+    display: flex;
+    flex-direction: column;
+    /* 縦方向に要素を並べる */
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    /* ロゴとボタンの間のスペース */
+    padding: 20px;
+    /* 内側の余白 */
+    box-sizing: border-box;
+    /* paddingを含めて要素のサイズを計算 */
+}
+
+.logo {
+    max-width: 80%;
+    /* ロゴ画像の最大幅。親要素に対して80% */
+    height: auto;
+    /* 高さは自動調整 */
+    margin-bottom: 20px;
+    /* ロゴの下に少しスペース */
+}
+
+.startButton {
+    padding: 15px 40px;
+    /* 上下左右のパディング */
+    font-size: 24px;
+    /* 文字サイズ */
+    font-weight: bold;
+    /* 文字の太さ */
+    color: #fff;
+    /* 文字色 */
+    background-color: #ff6347;
+    /* ボタンの背景色 (トマト色) */
+    border: none;
+    /* ボーダーをなくす */
+    border-radius: 30px;
+    /* 角丸 */
+    cursor: pointer;
+    /* カーソルをポインターに */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* 影 */
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    /* ホバー時のアニメーション */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    /* 文字の影 */
+}
+
+.startButton:hover {
+    background-color: #ff4500;
+    /* ホバー時の色 (オレンジレッド) */
+    transform: translateY(-2px);
+    /* 少し上に移動 */
+}
+
+.startButton:active {
+    transform: translateY(0);
+    /* クリック時 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* スマートフォンでの見た目を考慮したメディアクエリ */
+@media (max-width: 768px) {
+    .logo {
+        max-width: 90%;
+    }
+
+    .startButton {
+        font-size: 20px;
+        padding: 12px 30px;
+    }
+}
