@@ -1,0 +1,20 @@
+/* src/styles/global.css */
+
+/* ブラウザのデフォルトマージン・パディングをリセット */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* 横方向のスクロールバーを非表示にする (必要であれば) */
+}
+
+/* 他のグローバルなスタイルがあればここに記述 */
+/* 例: 全体のフォント設定 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
