@@ -1,6 +1,6 @@
 import "./styles/global.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 
 const App: React.FC = () => {
   return (
