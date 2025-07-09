@@ -54,9 +54,9 @@
 }
 
 .startButton {
-    padding: 15px 40px;
+    padding: 30px 80px;
     /* 上下左右のパディング */
-    font-size: 24px;
+    font-size: 42px;
     /* 文字サイズ */
     font-weight: bold;
     /* 文字の太さ */
@@ -66,7 +66,7 @@
     /* ボタンの背景色 (トマト色) */
     border: none;
     /* ボーダーをなくす */
-    border-radius: 30px;
+    border-radius: 60px;
     /* 角丸 */
     cursor: pointer;
     /* カーソルをポインターに */
@@ -79,7 +79,7 @@
 }
 
 .startButton:hover {
-    background-color: #ff4500;
+    background-color: #ff865a;
     /* ホバー時の色 (オレンジレッド) */
     transform: translateY(-2px);
     /* 少し上に移動 */
