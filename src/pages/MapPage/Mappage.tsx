@@ -1,12 +1,18 @@
-import header from "../../components/common/Header/Header.png";
-import styles from "./MapPage.module.css";
+import Header from "../../components/common/Header/Header";
+import FooterNav from "../../components/common/FooterNav/FooterNav";
+// import styles from "./MapPage.module.css";
 
 const MapPage: React.FC = () => {
   return (
     <div>
-      <header>
-        <img src={header} alt="Header" className={styles.header} />
-      </header>
+      {/* ヘッダーコンポーネント */}
+      <Header />
+
+      {/* マップのコンテンツ */}
+      <p>マップコンテンツ入れる</p>
+
+      {/* フッターのナビゲーション */}
+      <FooterNav />
     </div>
   );
 };
