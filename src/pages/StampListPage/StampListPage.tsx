@@ -44,7 +44,9 @@ const StampListPage: React.FC = () => {
       </div>
 
       {/* フッターのナビゲーション */}
-      <FooterNav />
+      <footer>
+        <FooterNav />
+      </footer>
     </div>
   );
 };
