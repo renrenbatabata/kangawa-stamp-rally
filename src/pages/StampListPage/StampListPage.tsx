@@ -4,6 +4,7 @@ import styles from "./StampListPage.module.css";
 // 共通コンポーネント
 import header from "../../components/common/Header/Header.png";
 import StampCard from "../../components/StampCard/StampCard";
+import FooterNav from "../../components/common/FooterNav/FooterNav";
 
 // スタンプ画像
 import uncomplete from "../../assets/images/stamp_icon_uncomplete.png";
@@ -41,6 +42,9 @@ const StampListPage: React.FC = () => {
           <StampCard />
         </div>
       </div>
+
+      {/* フッターのナビゲーション */}
+      <FooterNav />
     </div>
   );
 };
