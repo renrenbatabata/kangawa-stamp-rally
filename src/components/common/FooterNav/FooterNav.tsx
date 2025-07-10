@@ -8,19 +8,19 @@ import cameraIcon from "./icon/camera.png";
 const FooterNav: React.FC = () => {
   return (
     <div className={styles.footerNav}>
-      <div className={`${styles.footerNavItem} ${styles.home}`}>
+      <button className={`${styles.footerNavItem} ${styles.home}`}>
         <img src={homeIcon} alt="Home" />
         <p>ホーム</p>
-      </div>
-      <div className={styles.footerNavItem}>
+      </button>
+      <button className={styles.footerNavItem}>
         <div className={styles.camera}>
           <img src={cameraIcon} alt="Camera" />
         </div>
-      </div>
-      <div className={`${styles.footerNavItem} ${styles.map}`}>
+      </button>
+      <button className={`${styles.footerNavItem} ${styles.map}`}>
         <img src={mapIcon} alt="Map" />
         <p>マップ</p>
-      </div>
+      </button>
     </div>
   );
 };
