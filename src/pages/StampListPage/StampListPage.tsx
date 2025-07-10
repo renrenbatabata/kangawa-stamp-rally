@@ -2,7 +2,7 @@
 import styles from "./StampListPage.module.css";
 
 // 共通コンポーネント
-import header from "../../components/common/Header/Header.png";
+import Header from "../../components/common/Header/Header";
 import StampCard from "../../components/StampCard/StampCard";
 import FooterNav from "../../components/common/FooterNav/FooterNav";
 
@@ -13,9 +13,8 @@ import complete from "../../assets/images/stamp_icon_complete.png";
 const StampListPage: React.FC = () => {
   return (
     <div className={styles.container}>
-      <header>
-        <img src={header} alt="Header" className={styles.header} />
-      </header>
+      {/* ヘッダーコンポーネント */}
+      <Header />
 
       {/* スタンプ集めの進捗を表示するコンポーネント */}
       <div className={styles.stampCompleteContainer}>
@@ -44,9 +43,8 @@ const StampListPage: React.FC = () => {
       </div>
 
       {/* フッターのナビゲーション */}
-      <footer>
-        <FooterNav />
-      </footer>
+
+      <FooterNav />
     </div>
   );
 };

@@ -6,10 +6,7 @@
     background-color: #DFFFD8;
 }
 
-/* ヘッダー部分 */
-.header {
-    width: 100%;
-}
+
 
 .stampCompleteContainer {
     display: flex;
