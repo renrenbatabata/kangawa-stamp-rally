@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 //アイコン
 import homeIcon from "./icon/home.png";
 import mapIcon from "./icon/map.png";
-import cameraIcon from "./icon/camera.png";
+import CameraButton from "../CamaraButton/CameraButton";
 
 const FooterNav: React.FC = () => {
   const navigate = useNavigate();
@@ -15,9 +15,11 @@ const FooterNav: React.FC = () => {
   const handleMapClick = () => {
     navigate("/map");
   };
+
   const handleCameraClick = () => {
     navigate("/camera");
   };
+
   return (
     <div className={styles.footerNav}>
       <button
@@ -27,11 +29,8 @@ const FooterNav: React.FC = () => {
         <img src={homeIcon} alt="Home" />
         <p>ホーム</p>
       </button>
-      <button className={styles.footerNavItem} onClick={handleCameraClick}>
-        <div className={styles.camera}>
-          <img src={cameraIcon} alt="Camera" />
-        </div>
-      </button>
+      <CameraButton onClick={handleCameraClick} />
+
       <button
         className={`${styles.footerNavItem} ${styles.map}`}
         onClick={handleMapClick}
