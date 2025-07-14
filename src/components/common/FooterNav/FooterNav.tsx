@@ -29,7 +29,10 @@ const FooterNav: React.FC = () => {
         <img src={homeIcon} alt="Home" />
         <p>ホーム</p>
       </button>
-      <CameraButton onClick={handleCameraClick} />
+      {/* カメラボタン */}
+      <div className={styles.cameraButtonContainer}>
+        <CameraButton onClick={handleCameraClick} />
+      </div>
 
       <button
         className={`${styles.footerNavItem} ${styles.map}`}
