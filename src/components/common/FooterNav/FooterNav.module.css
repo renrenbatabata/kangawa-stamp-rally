@@ -37,29 +37,6 @@
     text-align: center;
 }
 
-/* 中央のカメラアイコンの特殊なスタイル */
-
-.camera {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: -30px;
-    width: 80px;
-    height: 60px;
-    z-index: 1001;
-    display: flex;
-    justify-content: center;
-    background-color: #ffffff;
-    border-color: #64dd8c;
-    border-width: 10px;
-    border-style: solid;
-    border-radius: 50%;
-}
-
-.camera img {
-    bottom: 20px;
-}
-
 
 
 /* スマートフォンでの見た目を考慮したメディアクエリ（必要であれば調整） */
@@ -80,18 +57,6 @@
         bottom: 3px;
     }
 
-
-    .camera {
-        width: 60px;
-        height: 80%;
-        top: -25px;
-    }
-
-    .camera img {
-        width: 40px;
-        height: 40px;
-        padding: 11px;
-    }
 
     .footerNavItem p {
         font-size: 0.8em;
