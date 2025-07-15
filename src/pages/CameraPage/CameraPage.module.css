@@ -1,7 +1,6 @@
 /* src/pages/CameraPage/CameraPage.module.css */
 
 .cameraPage {
-    /* background-color: #f0f0f0; を削除 */
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -14,7 +13,7 @@
     align-items: center;
 }
 
-/* ✅ 追加: カメラ映像を全画面背景として表示 */
+/* カメラ映像を全画面背景として表示 */
 .cameraBackground {
     position: absolute;
     top: 0;
@@ -29,7 +28,7 @@
     /* UI要素よりも下に配置 */
 }
 
-/* ✅ 追加: UI要素を重ねるためのオーバーレイコンテナ */
+/* UI要素を重ねるためのオーバーレイコンテナ */
 .uiOverlay {
     position: relative;
     /* UI要素の配置基準 */
@@ -53,16 +52,13 @@
 /* 吹き出しメッセージ */
 .speechBubble {
     background-color: #ffffff;
-    border-radius: 15px;
-    padding: 10px 20px;
-    /* margin-bottom: 30px; */
-    /* uiOverlayのjustify-content: space-betweenで自動調整 */
+    border-radius: 20px;
+    padding: 13px 24px;
     position: relative;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 80%;
     text-align: center;
-    /* ✅ 追加: トップに固定するためにmargin-top: auto; を削除 */
-    margin-top: 0;
+    margin-top: 2em;
 }
 
 .speechBubble::after {
@@ -80,13 +76,12 @@
 
 .bubbleText {
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-weight: bold;
     color: #5d4037;
 }
 
 /* カメラプレビューエリア (視覚的なガイド枠として機能) */
-/* ✅ .cameraPreviewArea を .cameraScanGuide に変更 */
 .cameraScanGuide {
     width: 90%;
     max-width: 400px;
@@ -94,15 +89,12 @@
     padding-bottom: 90%;
     /* 1:1のアスペクト比維持 */
     position: relative;
-    /* background-color: #cccccc; */
-    /* カメラ映像が背景になるので不要 */
     border: 4px solid #ffffff;
     /* 白い枠線 */
     border-radius: 10px;
     overflow: hidden;
     /* エラーオーバーレイがはみ出さないように */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    /* ✅ 追加: 中央に配置 */
     flex-grow: 1;
     /* 残りのスペースを埋めて、他の要素を上下に押しのける */
     display: flex;
@@ -111,12 +103,8 @@
     align-items: center;
 }
 
-/* .cameraFeed は .cameraBackground に変更されたため削除 */
-/* .cameraFeed { ... } を削除 */
-
 .cameraErrorOverlay {
     position: absolute;
-    /* 親の .cameraScanGuide に対して絶対配置 */
     top: 0;
     left: 0;
     width: 100%;
@@ -155,10 +143,7 @@
 
 /* カメラボタンコンテナ */
 .buttonContainer {
-    /* margin-top: auto; */
-    /* uiOverlayのjustify-content: space-betweenで自動調整 */
     margin-bottom: 0;
-    /* 下端に配置するため */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -166,12 +151,12 @@
 }
 
 .scanningMessage {
-    font-size: 0.9em;
+    font-size: 2em;
     color: #fff;
     /* 背景が映像になるので文字色を白に */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     /* 映像の複雑さに対応 */
-    margin-top: 5px;
+    margin: 2em 0 2.2em;
 }
 
 /* スマートフォンでの見た目を考慮したメディアクエリ */
@@ -181,7 +166,7 @@
     }
 
     .bubbleText {
-        font-size: 1.1em;
+        font-size: 1.3em;
     }
 
     .cameraScanGuide {
