@@ -17,7 +17,7 @@ const FooterNav: React.FC = () => {
   };
 
   const handleCameraClick = () => {
-    navigate("/camera");
+    navigate("/scan");
   };
 
   return (
