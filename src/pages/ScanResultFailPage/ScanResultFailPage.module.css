@@ -1,0 +1,131 @@
+/* src/pages/ScanResultFailPage/ScanResultFailPage.module.css */
+
+.failPage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* 水平方向中央揃え */
+    align-items: center;
+    /* 垂直方向中央揃え */
+    background-color: #f8e0e0;
+    /* 失敗を示す薄い赤系の背景色 */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.cardContainer {
+    background-color: #ffffff;
+    /* 白いカード背景 */
+    border-radius: 15px;
+    /* 角丸 */
+    padding: 40px 20px;
+    /* 内側の余白 */
+    display: flex;
+    flex-direction: column;
+    /* 要素を縦に並べる */
+    align-items: center;
+    /* 水平方向中央揃え */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    /* カードの影 */
+    max-width: 350px;
+    /* カードの最大幅を制限 */
+    width: 90%;
+    /* 小さい画面での幅調整 */
+    position: relative;
+    text-align: center;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #d32f2f;
+    /* 失敗を示す赤色 */
+    margin-bottom: 20px;
+    white-space: nowrap;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.failImage {
+    /* 失敗アイコンのスタイル */
+    width: 50%;
+    /* カードの幅に対する割合 */
+    max-width: 120px;
+    /* 最大幅 */
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.message {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 40px;
+    /* 閉じるボタンとの間隔 */
+    line-height: 1.5;
+    /* 行間 */
+}
+
+.closeButton {
+    background-color: #888;
+    /* グレー系の背景色 */
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.closeButton:hover {
+    background-color: #666;
+    transform: scale(1.05);
+}
+
+.closeButton:active {
+    transform: scale(0.98);
+}
+
+.closeIcon {
+    color: #fff;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* スマートフォンでの見た目を考慮したメディアクエリ */
+@media (max-width: 480px) {
+    .cardContainer {
+        padding: 30px 15px;
+    }
+
+    .title {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+
+    .failImage {
+        width: 60%;
+        max-width: 100px;
+        margin-bottom: 15px;
+    }
+
+    .message {
+        font-size: 1em;
+        margin-bottom: 30px;
+    }
+
+    .closeButton {
+        width: 45px;
+        height: 45px;
+    }
+
+    .closeIcon {
+        font-size: 1.6em;
+    }
+}

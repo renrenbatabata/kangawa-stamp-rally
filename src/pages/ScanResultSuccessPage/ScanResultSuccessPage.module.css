@@ -1,0 +1,133 @@
+/* src/pages/ScanResultSuccessPage/ScanResultSuccessPage.module.css */
+
+.successPage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* 水平方向中央揃え */
+    align-items: center;
+    /* 垂直方向中央揃え */
+    background-color: #dcdcdc;
+    /* 背景のグレー色 */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* はみ出しを隠す */
+}
+
+.cardContainer {
+    background-color: #ffffff;
+    /* 白いカード背景 */
+    border-radius: 15px;
+    /* 角丸 */
+    padding: 40px 20px;
+    /* 内側の余白 */
+    display: flex;
+    flex-direction: column;
+    /* 要素を縦に並べる */
+    align-items: center;
+    /* 水平方向中央揃え */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    /* カードの影 */
+    max-width: 350px;
+    /* カードの最大幅を制限 */
+    width: 90%;
+    /* 小さい画面での幅調整 */
+    position: relative;
+    /* 閉じるボタンの配置基準 */
+    text-align: center;
+}
+
+.title {
+    font-size: 2em;
+    /* 文字を大きく */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    /* スタンプ画像との間隔 */
+    white-space: nowrap;
+    /* テキストの折り返しを防ぐ */
+    /* テキストの影で視認性を高める */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.stampImage {
+    width: 70%;
+    /* カードの幅に対する割合で画像サイズを調整 */
+    max-width: 200px;
+    /* 画像の最大幅を設定 */
+    height: auto;
+    /* 高さは自動調整 */
+    object-fit: contain;
+    /* 画像が歪まないように */
+    margin-bottom: 40px;
+    /* 閉じるボタンとの間隔 */
+}
+
+.closeButton {
+    background-color: #888;
+    /* グレー系の背景色 */
+    border: none;
+    border-radius: 50%;
+    /* 円形にする */
+    width: 50px;
+    /* ボタンの幅 */
+    height: 50px;
+    /* ボタンの高さ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* 影 */
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.closeButton:hover {
+    background-color: #666;
+    transform: scale(1.05);
+    /* ホバー時に少し拡大 */
+}
+
+.closeButton:active {
+    transform: scale(0.98);
+    /* クリック時に少し縮む */
+}
+
+.closeIcon {
+    color: #fff;
+    /* 文字色を白に */
+    font-size: 1.8em;
+    /* 「X」の文字サイズ */
+    font-weight: bold;
+    line-height: 1;
+    /* 行の高さを調整して中央に */
+}
+
+/* スマートフォンでの見た目を考慮したメディアクエリ */
+@media (max-width: 480px) {
+    .cardContainer {
+        padding: 30px 15px;
+    }
+
+    .title {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+    }
+
+    .stampImage {
+        width: 80%;
+        max-width: 180px;
+        margin-bottom: 30px;
+    }
+
+    .closeButton {
+        width: 45px;
+        height: 45px;
+    }
+
+    .closeIcon {
+        font-size: 1.6em;
+    }
+}

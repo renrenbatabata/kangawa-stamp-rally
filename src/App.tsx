@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage/HomePage";
 import StampListPage from "./pages/StampListPage/StampListPage";
 import MapPage from "./pages/MapPage/Mappage";
 import CameraPage from "./pages/CameraPage/CameraPage";
+import ScanResultSuccessPage from "./pages/ScanResultSuccessPage/ScanResultSuccessPage";
+import ScanResultFailPage from "./pages/ScanResultFailPage/ScanResultFailPage";
 
 const App: React.FC = () => {
   return (
@@ -13,6 +15,8 @@ const App: React.FC = () => {
         <Route path="/stamps" element={<StampListPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/scan" element={<CameraPage />} />
+        <Route path="/scan/success" element={<ScanResultSuccessPage />} />
+        <Route path="/scan/fail" element={<ScanResultFailPage />} />
       </Routes>
     </BrowserRouter>
   );
