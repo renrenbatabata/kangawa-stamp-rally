@@ -67,10 +67,12 @@ const CameraPage: React.FC = () => {
             // 例: QRコードの内容が"stamp_point_"で始まる場合を成功とみなす
             if (qrData.startsWith("stamp_point_")) {
               navigate("/scan/success"); // 成功画面へ遷移
+
+              // ここでQRコードの内容に基づく処理を追加することも可能
+              //  スタンプポイントのIDを抽出してAPIに送信する
             } else {
               navigate("/scan/fail"); // 失敗画面へ遷移
             }
-            // --- 仮の処理ここまで ---
           }
 
           // エラーが発生したが、それが「QRコードが見つからない」というNotFoundExceptionでない場合

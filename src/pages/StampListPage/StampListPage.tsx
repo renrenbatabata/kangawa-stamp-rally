@@ -1,4 +1,3 @@
-// import { useEffect, useState } from "react";
 import styles from "./StampListPage.module.css";
 
 // 共通コンポーネント
@@ -11,6 +10,16 @@ import uncomplete from "../../assets/images/stamp_icon_uncomplete.png";
 import complete from "../../assets/images/stamp_icon_complete.png";
 
 const StampListPage: React.FC = () => {
+  // スタンプの一覧を管理する状態
+  const stamps = [
+    { id: 1, title: "スタンプ1", completed: false },
+    { id: 2, title: "スタンプ2", completed: false },
+    { id: 3, title: "スタンプ3", completed: true },
+    { id: 4, title: "スタンプ4", completed: false },
+    { id: 5, title: "スタンプ5", completed: true },
+    { id: 6, title: "スタンプ6", completed: false },
+  ];
+
   return (
     <div className={styles.container}>
       {/* ヘッダーコンポーネント */}
@@ -33,12 +42,13 @@ const StampListPage: React.FC = () => {
       <div className={styles.stampListContainer}>
         <h1 className={styles.title}>スタンプ一覧</h1>
         <div className={styles.stampList}>
-          <StampCard />
-          <StampCard />
-          <StampCard />
-          <StampCard />
-          <StampCard />
-          <StampCard />
+          {stamps.map((stamp) => (
+            <StampCard
+              id={stamp.id}
+              title={stamp.title}
+              completed={stamp.completed}
+            />
+          ))}
         </div>
       </div>
 
