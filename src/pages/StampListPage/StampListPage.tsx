@@ -12,12 +12,12 @@ import complete from "../../assets/images/stamp_icon_complete.png";
 const StampListPage: React.FC = () => {
   // スタンプの一覧を管理する状態
   const stamps = [
-    { id: 1, title: "スタンプ1", completed: false },
-    { id: 2, title: "スタンプ2", completed: false },
+    { id: 1, title: "スタンプ1", completed: true },
+    { id: 2, title: "スタンプ2", completed: true },
     { id: 3, title: "スタンプ3", completed: true },
-    { id: 4, title: "スタンプ4", completed: false },
+    { id: 4, title: "スタンプ4", completed: true },
     { id: 5, title: "スタンプ5", completed: true },
-    { id: 6, title: "スタンプ6", completed: false },
+    { id: 6, title: "スタンプ6", completed: true },
   ];
 
   return (
