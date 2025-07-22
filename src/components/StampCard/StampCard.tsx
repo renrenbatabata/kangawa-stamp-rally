@@ -2,12 +2,13 @@
 
 import styles from "./StampCard.module.css";
 // スタンプ画像のパスを定義
-import Stamp01 from "../../assets/stamp_points/stamp_point_ 1.png";
-import Stamp02 from "../../assets/stamp_points/stamp_point_ 2.png";
-import Stamp03 from "../../assets/stamp_points/stamp_point_ 3.png";
-import Stamp04 from "../../assets/stamp_points/stamp_point_ 4.png";
-import Stamp05 from "../../assets/stamp_points/stamp_point_ 5.png";
-import Stamp06 from "../../assets/stamp_points/stamp_point_ 6.png";
+import Stamp01 from "../../assets/stamp_points/stamp_point_1.png";
+import Stamp02 from "../../assets/stamp_points/stamp_point_2.png";
+import Stamp03 from "../../assets/stamp_points/stamp_point_3.png";
+import Stamp04 from "../../assets/stamp_points/stamp_point_4.png";
+import Stamp05 from "../../assets/stamp_points/stamp_point_5.png";
+import Stamp06 from "../../assets/stamp_points/stamp_point_6.png";
+
 import StampUnComplete from "../../assets/images/stamp_icon_unachieved.png";
 
 const Stamp: { [key in "1" | "2" | "3" | "4" | "5" | "6"]: string } = {

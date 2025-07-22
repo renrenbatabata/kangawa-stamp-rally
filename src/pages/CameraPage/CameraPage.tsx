@@ -66,6 +66,9 @@ const CameraPage: React.FC = () => {
             const qrData = result.getText();
             // 例: QRコードの内容が"stamp_point_"で始まる場合を成功とみなす
             if (qrData.startsWith("stamp_point_")) {
+              // スタンプポイントのIDを抽出
+              const stampId = qrData.split("_").pop();
+              console.log("Stamp ID detected:", stampId);
               navigate("/scan/success"); // 成功画面へ遷移
 
               // ここでQRコードの内容に基づく処理を追加することも可能
