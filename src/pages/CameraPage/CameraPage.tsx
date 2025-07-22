@@ -69,7 +69,7 @@ const CameraPage: React.FC = () => {
               // スタンプポイントのIDを抽出
               const stampId = qrData.split("_").pop();
               console.log("Stamp ID detected:", stampId);
-              navigate("/scan/success"); // 成功画面へ遷移
+              navigate("/quiz"); //クイズ画面答えたら→ 成功画面へ遷移
 
               // ここでQRコードの内容に基づく処理を追加することも可能
               //  スタンプポイントのIDを抽出してAPIに送信する
