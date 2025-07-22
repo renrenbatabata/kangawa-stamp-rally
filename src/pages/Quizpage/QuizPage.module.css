@@ -50,9 +50,27 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 
-    &:hover {
-        background-color: #2889ff;
-    }
+}
+
+.quizOption.selected {
+    background-color: #2889ff;
+    color: white;
+}
+
+/* .quizOption.correctAnswer {
+    background-color: #4caf50;
+    color: white;
+}
+
+.quizOption.incorrectAnswer {
+    background-color: #f44336;
+    color: white;
+} */
+
+.quizAnswer {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #333;
 }
 
 .quizButton {

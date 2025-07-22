@@ -1,12 +1,47 @@
+import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import styles from "./QuizPage.module.css";
 import background from "../../assets/images/background.png";
 
 const QuizPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  // クイズのデータ仮（実際はAPIやデータベースから取得する）
   const quizData = {
     id: 1,
     question: "かながわ区の『区の木』はどんな木でしょうか？",
     options: ["さくら", "いちょう", "もみじ", "くすのき"],
     answer: "さくら", // 正解の選択肢
+  };
+
+  // ユーザーの選択肢を管理する
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  // クイズが完了したかどうかを管理する
+  const [quizCompleted, setQuizCompleted] = useState(false);
+
+  // 正解かどうかを管理する
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+
+  // クイズの選択肢をクリックしたときのハンドラー
+  const handleOptionClick = (option: string) => {
+    setSelectedOption(option);
+    // 正解かどうかをチェック
+    if (option === quizData.answer) {
+      setIsCorrect(true);
+    } else {
+      setIsCorrect(false);
+    }
+  };
+
+  // クイズが完了したときのハンドラー
+  const handleQuizComplete = () => {
+    if (selectedOption) {
+      setQuizCompleted(true);
+    } else {
+      alert("選択肢を選んでください！");
+    }
   };
 
   return (
@@ -19,13 +54,54 @@ const QuizPage: React.FC = () => {
         <h2 className={styles.quizQuestion}>{quizData.question}</h2>
         <ul className={styles.quizOptions}>
           {quizData.options.map((option, index) => (
-            <li key={index} className={styles.quizOption}>
+            <li
+              key={index}
+              className={`${styles.quizOption}
+           ${selectedOption === option ? styles.selected : ""}
+           `}
+              onClick={() => handleOptionClick(option)}
+            >
               {option}
             </li>
           ))}
         </ul>
 
-        <button className={styles.quizButton}>こたえをみる！</button>
+        {/* 答えのメッセージ表示エリア */}
+        {quizCompleted && (
+          <div className={styles.answerDisplayArea}>
+            {" "}
+            {/* 新しいdivで囲む */}
+            <p
+              className={`${styles.answerMessage} ${
+                isCorrect ? styles.correct : styles.incorrect
+              }`}
+            >
+              {isCorrect
+                ? "大正解！🎉"
+                : `残念！正解は「${quizData.answer}」です。`}
+            </p>
+          </div>
+        )}
+        {/* クイズ完了ボタン */}
+
+        {!quizCompleted && (
+          <button
+            className={styles.quizButton}
+            onClick={() => {
+              handleQuizComplete();
+            }}
+          >
+            こたえをみる！
+          </button>
+        )}
+        {quizCompleted && (
+          <button
+            className={styles.quizButton}
+            onClick={() => navigate("/scan/success")}
+          >
+            スタンプをもらう！
+          </button>
+        )}
       </div>
     </div>
   );
