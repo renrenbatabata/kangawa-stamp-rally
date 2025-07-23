@@ -29,8 +29,9 @@ const StampListPage: React.FC = () => {
       <Header />
 
       {/* スタンプ集めの進捗を表示するコンポーネント */}
-      <div className={styles.stampCompleteContainer}>
-        <h1 className={styles.title}>スタンプ集めの進捗</h1>
+      <h1 className={styles.title}>スタンプ集めの進捗</h1>
+
+      <div className={styles.progressContainer}>
         <StampBadge progress={progress} />
       </div>
 

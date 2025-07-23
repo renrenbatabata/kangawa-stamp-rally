@@ -59,7 +59,7 @@
     content: '';
     position: absolute;
     top: 10%;
-    left: 10%;
+    left: 2%;
     width: 20px;
     height: 20px;
     background-color: rgba(255, 255, 255, 0.6);
@@ -73,8 +73,8 @@
 .cuteBadge::after {
     content: '';
     position: absolute;
-    bottom: 15%;
-    right: 15%;
+    bottom: 10%;
+    right: 10%;
     width: 15px;
     height: 15px;
     background-color: rgba(255, 255, 255, 0.7);
@@ -120,34 +120,36 @@
 
 @media (max-width: 480px) {
     .cuteBadgeContainer {
-        width: 80px;
-        height: 80px;
+        width: 90px;
+        height: 90px;
     }
 
     .cuteBadge {
-        font-size: 1.2em;
+        font-size: 2em;
         border-width: 2px;
     }
 
     .progressCurrent {
-        font-size: 1.0em;
+        font-size: 1.3em;
     }
 
     .progressSeparator {
+        margin-top: 0.5em;
         font-size: 0.7em;
     }
 
     .progressTotal {
+        margin-top: 0.5em;
         font-size: 0.8em;
     }
 
     .cuteBadge::before {
-        width: 10px;
-        height: 10px;
+        width: 20px;
+        height: 20px;
     }
 
     .cuteBadge::after {
-        width: 8px;
-        height: 8px;
+        width: 10px;
+        height: 10px;
     }
 }
