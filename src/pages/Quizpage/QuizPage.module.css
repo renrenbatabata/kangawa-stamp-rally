@@ -57,15 +57,23 @@
     color: white;
 }
 
-/* .quizOption.correctAnswer {
-    background-color: #4caf50;
+.answerMessage {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.correct {
+    background-color: #9effa1fc;
+    border: 1px solid #4caf50;
     color: white;
 }
 
-.quizOption.incorrectAnswer {
+.incorrect {
     background-color: #f44336;
     color: white;
-} */
+}
 
 .quizAnswer {
     font-size: 1.5rem;

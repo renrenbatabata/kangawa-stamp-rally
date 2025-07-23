@@ -9,12 +9,27 @@ const QuizPage: React.FC = () => {
   const navigate = useNavigate();
 
   // クイズのデータ仮（実際はAPIやデータベースから取得する）
-  const quizData = {
+  const postQuizData = {
     id: 1,
     question: "かながわ区の『区の木』はどんな木でしょうか？",
     options: ["さくら", "いちょう", "もみじ", "くすのき"],
     answer: "さくら", // 正解の選択肢
   };
+
+  // クイズデータの型を定義
+  type QuizData = {
+    id: number;
+    question: string;
+    options: string[];
+    answer: string;
+  };
+
+  // クイズデータの状態を管理（初期値を設定）
+  const [quizData, setQuizData] = useState<QuizData>(postQuizData);
+
+  // クイズデータを設定
+  // ここでは仮のデータを使用、実際にはAPIから取得する。
+  setQuizData(postQuizData);
 
   // ユーザーの選択肢を管理する
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -77,8 +92,8 @@ const QuizPage: React.FC = () => {
               }`}
             >
               {isCorrect
-                ? "大正解！🎉"
-                : `残念！正解は「${quizData.answer}」です。`}
+                ? "せいかい！🎉"
+                : `ざんねん！正解は「${quizData.answer}」です。`}
             </p>
           </div>
         )}
