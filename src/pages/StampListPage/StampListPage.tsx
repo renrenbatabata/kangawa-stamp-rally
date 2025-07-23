@@ -1,4 +1,5 @@
 import styles from "./StampListPage.module.css";
+import { useUserContext } from "../../UserContext";
 
 // 共通コンポーネント
 import Header from "../../components/common/Header/Header";
@@ -10,6 +11,8 @@ import uncomplete from "../../assets/images/stamp_icon_uncomplete.png";
 import complete from "../../assets/images/stamp_icon_complete.png";
 
 const StampListPage: React.FC = () => {
+  const uid = useUserContext(); // UserContextからUIDを取得
+  console.log("User UID:", uid); // UIDをコンソールに出力（デバッグ用）
   // スタンプの一覧を管理する状態
   const stamps = [
     { id: 1, title: "スタンプ1", completed: true },
