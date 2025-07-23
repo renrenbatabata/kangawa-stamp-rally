@@ -25,7 +25,7 @@ const QuizPage: React.FC = () => {
   };
 
   // クイズデータの状態を管理（初期値を設定）
-  const [quizData, setQuizData] = useState<QuizData>(postQuizData);
+  const [quizData] = useState<QuizData>(postQuizData);
 
   // クイズデータを設定
   // ここでは仮のデータを使用、実際にはAPIから取得する。
