@@ -21,7 +21,7 @@
 }
 
 .title {
-    font-size: 14px;
+    font-size: 1em;
     font-weight: bold;
     color: #625454;
 }
@@ -48,6 +48,13 @@
     padding: 20px;
     background-color: #ffffff;
     box-sizing: border-box;
+}
+
+.listTitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #625454;
+    margin-bottom: 20px;
 }
 
 .stampList {

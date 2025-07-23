@@ -40,7 +40,7 @@ const StampListPage: React.FC = () => {
 
       {/* スタンプの一覧を表示するコンポーネント */}
       <div className={styles.stampListContainer}>
-        <h1 className={styles.title}>スタンプ一覧</h1>
+        <h1 className={styles.listTitle}>スタンプ一覧</h1>
         <div className={styles.stampList}>
           {stamps.map((stamp) => (
             <StampCard
