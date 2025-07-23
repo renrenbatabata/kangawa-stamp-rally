@@ -3,17 +3,14 @@
 .successPage {
     width: 100vw;
     height: 100vh;
+    background-size: cover;
+    background-position: center;
     display: flex;
-    justify-content: center;
-    /* 水平方向中央揃え */
+    flex-direction: column;
     align-items: center;
-    /* 垂直方向中央揃え */
-    background-color: #dcdcdc;
-    /* 背景のグレー色 */
+    justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    overflow: hidden;
-    /* はみ出しを隠す */
 }
 
 .cardContainer {

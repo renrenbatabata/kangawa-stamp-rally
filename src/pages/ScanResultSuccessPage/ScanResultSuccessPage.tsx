@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./ScanResultSuccessPage.module.css";
 
+import background from "../../assets/images/background.png";
+
 // 獲得済みスタンプの画像アセットをインポート
 // import stampAchievedImage from "../../assets/images/stamp_icon_achieved.png"; // 成功時のスタンプロゴ
 
@@ -25,7 +27,10 @@ const ScanResultSuccessPage: React.FC = () => {
   const stamps = [Stamp01, Stamp02, Stamp03, Stamp04, Stamp05, Stamp06];
 
   return (
-    <div className={styles.successPage}>
+    <div
+      className={styles.successPage}
+      style={{ backgroundImage: `url(${background})` }}
+    >
       <div className={styles.cardContainer}>
         <h1 className={styles.title}>スタンプゲット!!</h1>
 

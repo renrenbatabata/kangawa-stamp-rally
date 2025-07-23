@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./ScanResultFailPage.module.css";
+import background from "../../assets/images/background.png";
 
 // 失敗時のイメージに合わせたアイコンがあればインポート
 import failIcon from "../../assets/images/stamp_icon_unachieved.png"; // 仮の失敗アイコン
@@ -14,7 +15,10 @@ const ScanResultFailPage: React.FC = () => {
   };
 
   return (
-    <div className={styles.failPage}>
+    <div
+      className={styles.failPage}
+      style={{ backgroundImage: `url(${background})` }}
+    >
       <div className={styles.cardContainer}>
         <h1 className={styles.title}>読みとり しっぱい</h1>
 

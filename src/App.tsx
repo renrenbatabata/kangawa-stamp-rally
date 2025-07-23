@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import StampListPage from "./pages/StampListPage/StampListPage";
 import MapPage from "./pages/MapPage/Mappage";
-import QuizPage from "./pages//Quizpage/QuizPage";
+import QuizPage from "./pages/Quizpage/QuizPage";
 import CameraPage from "./pages/CameraPage/CameraPage";
 import ScanResultSuccessPage from "./pages/ScanResultSuccessPage/ScanResultSuccessPage";
 import ScanResultFailPage from "./pages/ScanResultFailPage/ScanResultFailPage";

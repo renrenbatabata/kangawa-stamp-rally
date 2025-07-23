@@ -29,7 +29,6 @@ const QuizPage: React.FC = () => {
 
   // クイズデータを設定
   // ここでは仮のデータを使用、実際にはAPIから取得する。
-  setQuizData(postQuizData);
 
   // ユーザーの選択肢を管理する
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -91,9 +90,15 @@ const QuizPage: React.FC = () => {
                 isCorrect ? styles.correct : styles.incorrect
               }`}
             >
-              {isCorrect
-                ? "せいかい！🎉"
-                : `ざんねん！正解は「${quizData.answer}」です。`}
+              {isCorrect ? (
+                "せいかい！🎉"
+              ) : (
+                <>
+                  ざんねん！
+                  <br />
+                  正解は「{quizData.answer}」です。
+                </>
+              )}
             </p>
           </div>
         )}
