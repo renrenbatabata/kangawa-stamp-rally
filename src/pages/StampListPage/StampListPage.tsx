@@ -6,6 +6,8 @@ import Header from "../../components/common/Header/Header";
 import StampCard from "../../components/StampCard/StampCard";
 import FooterNav from "../../components/common/FooterNav/FooterNav";
 import StampBadge from "../../components/common/StampBadge/StampBadge";
+import QRtitle from "../../assets/images/QRtitle.png";
+import Stamptyoutitle from "../../assets/images/titlestamp.png";
 
 const StampListPage: React.FC = () => {
   const uid = useUserContext(); // UserContextからUIDを取得
@@ -29,11 +31,7 @@ const StampListPage: React.FC = () => {
       <Header />
 
       {/* スタンプ集めの進捗を表示するコンポーネント */}
-      <h1 className={styles.title}>
-        QRコードを探して
-        <br />
-        スタンプを集めよう！
-      </h1>
+      <img src={QRtitle} />
 
       <div className={styles.progressContainer}>
         <StampBadge progress={progress} />
@@ -41,7 +39,8 @@ const StampListPage: React.FC = () => {
 
       {/* スタンプの一覧を表示するコンポーネント */}
       <div className={styles.stampListContainer}>
-        <h1 className={styles.listTitle}>スタンプ帳</h1>
+        <img src={Stamptyoutitle} className={styles.listTitle} />
+
         <div className={styles.stampList}>
           {stamps.map((stamp) => (
             <StampCard
