@@ -29,7 +29,11 @@ const StampListPage: React.FC = () => {
       <Header />
 
       {/* スタンプ集めの進捗を表示するコンポーネント */}
-      <h1 className={styles.title}>スタンプ集めの進捗</h1>
+      <h1 className={styles.title}>
+        QRコードを探して
+        <br />
+        スタンプを集めよう！
+      </h1>
 
       <div className={styles.progressContainer}>
         <StampBadge progress={progress} />
@@ -37,7 +41,7 @@ const StampListPage: React.FC = () => {
 
       {/* スタンプの一覧を表示するコンポーネント */}
       <div className={styles.stampListContainer}>
-        <h1 className={styles.listTitle}>スタンプ一覧</h1>
+        <h1 className={styles.listTitle}>スタンプ帳</h1>
         <div className={styles.stampList}>
           {stamps.map((stamp) => (
             <StampCard
