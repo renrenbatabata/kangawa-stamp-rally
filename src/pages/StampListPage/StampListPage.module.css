@@ -6,17 +6,6 @@
 }
 
 
-.stampCompleteLists {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.stampCompleteLists img {
-    width: 10vw;
-}
-
 .stampListContainer {
     display: flex;
     flex-direction: column;
@@ -24,8 +13,9 @@
     justify-content: center;
     margin: 30px 10px 150px;
     border-radius: 10px;
-    height: 100%;
-    padding: 20px;
+    box-shadow: 1px 1px 15px rgb(173, 193, 158);
+    height: 80%;
+    padding: 0px 22px 22px 22px;
     background-color: #ffffff;
     box-sizing: border-box;
 }
@@ -33,7 +23,7 @@
 .listTitle {
     width: 90vw;
     position: relative;
-    top: -30px;
+    top: -15px;
 }
 
 .stampList {
