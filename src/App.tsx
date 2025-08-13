@@ -1,7 +1,7 @@
 // src/App.tsx
 import "./styles/global.css"; // グローバルCSSをインポート
 import React, { useState, useEffect } from "react"; // useStateとuseEffectフックをインポート
-import { v4 as uuidv4 } from "uuid"; // UUID生成ライブラリをインポート
+import { v4 as uuidv4 } from "uuid"; 
 import { BrowserRouter, Route, Routes } from "react-router-dom"; // React Router関連コンポーネントをインポート
 
 // 各ページコンポーネントをインポート
