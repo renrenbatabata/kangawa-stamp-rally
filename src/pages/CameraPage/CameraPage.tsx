@@ -2,83 +2,78 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { BrowserQRCodeReader } from "@zxing/browser";
-import type { IScannerControls } from "@zxing/browser"; // IScannerControlsの型定義をインポート
+import type { IScannerControls } from "@zxing/browser";
 import styles from "./CameraPage.module.css";
 
 const CameraPage: React.FC = () => {
-  const navigate = useNavigate(); // 画面遷移のためのフック
-  const videoRef = useRef<HTMLVideoElement>(null); // カメラ映像を表示する<video>要素への参照
-  const [isScanning, setIsScanning] = useState(false); // スキャン中かどうかを管理する状態
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // エラーメッセージを管理する状態
+  const navigate = useNavigate();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isScanning, setIsScanning] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const codeReader = useRef<BrowserQRCodeReader | null>(null); // BrowserQRCodeReaderのインスタンスを保持するref
+  const codeReader = useRef<BrowserQRCodeReader | null>(null);
   const [scannerControls, setScannerControls] =
-    useState<IScannerControls | null>(null); // カメラ制御オブジェクトを保持する状態
+    useState<IScannerControls | null>(null);
 
   /**
    * QRコードスキャンを開始する非同期関数
-   * この関数はuseCallbackでラップされており、依存関係が変更されない限り再生成されない
    */
   const startScan = useCallback(async () => {
-    // videoRef.currentがnull（video要素がDOMにまだない）の場合は処理を中断
     if (!videoRef.current) return;
 
-    // スキャン開始前にエラーメッセージをクリアし、スキャン中フラグを立てる
     setErrorMessage(null);
     setIsScanning(true);
 
     try {
-      // BrowserQRCodeReaderのインスタンスがなければ新しく作成し、refに保存
+      // --- 修正箇所：インスタンス化時に制約を渡す ---
+      const hints = new Map();
+      const constraints = {
+        video: {
+          facingMode: { ideal: "environment" },
+        },
+      };
+      hints.set(2, constraints); // 2 は DecodeHintType.PURE_BARCODE に相当
+      
       if (!codeReader.current) {
-        codeReader.current = new BrowserQRCodeReader();
+        // コンストラクタに制約を渡すことで、トーチを無効化し、背面カメラを優先する
+        codeReader.current = new BrowserQRCodeReader(hints);
       }
+      // ----------------------------------------
 
-      // 利用可能なビデオ入力デバイス（カメラ）のリストを取得
       const videoInputDevices =
         await BrowserQRCodeReader.listVideoInputDevices();
       if (videoInputDevices.length === 0) {
         throw new Error("カメラが見つかりませんでした。");
       }
 
-      // 最初のカメラデバイスIDを選択（`facingMode`を使用する場合は厳密には不要だが、互換性のため残す）
-      const selectedDeviceId = videoInputDevices[0].deviceId;
+      const backCamera = videoInputDevices.find(
+        (device) => device.label.includes("back") || device.label.includes("environment")
+      );
+      const selectedDeviceId = backCamera
+        ? backCamera.deviceId
+        : videoInputDevices[0].deviceId;
 
-      // カメラ映像をvideo要素に表示し、QRコードのデコードを開始
-      // decodeFromVideoDeviceはIScannerControlsオブジェクトを返す
+      // --- 修正箇所：decodeFromVideoDevice にはデバイスIDのみを渡す ---
       const controls = await codeReader.current.decodeFromVideoDevice(
-        // deviceIdはundefinedにして、facingModeヒントが優先されるようにする
-        // もしくは、selectedDeviceId を指定して最初のカメラを明示的に使用
-        selectedDeviceId, // ここで特定のdeviceIdを指定
-        // undefined, // facingMode優先の場合はこちら
-
-        videoRef.current, // 映像を表示する<video>要素
+        selectedDeviceId, // ここに文字列のデバイスIDを渡す
+        videoRef.current,
         (result, err) => {
-          // デコード結果またはエラーのコールバック
-          // QRコードが正常に検出された場合
           if (result) {
             console.log("QR Code detected:", result.getText());
-            // QRコード検出後、すぐにカメラを停止してリソースを解放
             controls.stop();
-            setIsScanning(false); // スキャン中状態を解除
-            setScannerControls(null); // controlsをリセット
+            setIsScanning(false);
+            setScannerControls(null);
 
-            // --- QRコードデータに基づく処理（ここが重要！） ---
             const qrData = result.getText();
-            // 例: QRコードの内容が"stamp_point_"で始まる場合を成功とみなす
             if (qrData.startsWith("stamp_point_")) {
-              // スタンプポイントのIDを抽出
               const stampId = qrData.split("_").pop();
               console.log("Stamp ID detected:", stampId);
-              navigate("/quiz"); //クイズ画面答えたら→ 成功画面へ遷移
-
-              // ここでQRコードの内容に基づく処理を追加することも可能
-              //  スタンプポイントのIDを抽出してAPIに送信する
+              navigate("/quiz");
             } else {
-              navigate("/scan/fail"); // 失敗画面へ遷移
+              navigate("/scan/fail");
             }
           }
 
-          // エラーが発生したが、それが「QRコードが見つからない」というNotFoundExceptionでない場合
           if (err) {
             const isNotFoundError =
               err instanceof Error && err.name === "NotFoundException";
@@ -88,16 +83,13 @@ const CameraPage: React.FC = () => {
           }
         }
       );
-      // IScannerControlsオブジェクトをstateに保存し、後でカメラを停止できるようにする
       setScannerControls(controls);
       console.log("Scanning started...");
     } catch (error: unknown) {
-      // カメラ起動やアクセスに関するエラー処理
-      setIsScanning(false); // スキャン中状態を解除
-      setScannerControls(null); // エラー時もcontrolsをリセット
+      setIsScanning(false);
+      setScannerControls(null);
       console.error("Camera access error:", error);
 
-      // エラーの種類に応じてユーザーフレンドリーなメッセージを設定
       if (
         typeof error === "object" &&
         error !== null &&
@@ -119,7 +111,7 @@ const CameraPage: React.FC = () => {
               "message" in error &&
               typeof (error as { message?: unknown }).message === "string"
                 ? (error as { message: string }).message
-                : "不明なエラー" // messageプロパティがない場合も考慮
+                : "不明なエラー"
             }`
           );
         }
@@ -127,61 +119,46 @@ const CameraPage: React.FC = () => {
         setErrorMessage("カメラの起動に失敗しました: 不明なエラー");
       }
     }
-  }, [navigate]); // useCallbackの依存配列: navigateが変更された場合にのみstartScan関数が再生成される
+  }, [navigate]);
 
-  /**
-   * カメラの自動起動とエラーからの再試行を制御するuseEffect
-   * コンポーネントがマウントされたとき、およびエラー解除時にカメラを起動する
-   */
   useEffect(() => {
-    // スキャン中でなく、かつエラーメッセージがない場合にのみスキャンを開始
     if (!isScanning && !errorMessage) {
       startScan();
     }
-    return () => {}; // 空のクリーンアップ関数
-  }, [startScan, isScanning, errorMessage]); // 依存配列: startScan, isScanning, errorMessageの変更を監視
+    return () => {};
+  }, [startScan, isScanning, errorMessage]);
 
-  /**
-   * コンポーネントのアンマウント時にカメラリソースを確実に解放するuseEffect
-   * scannerControlsが変更された時にも、前のストリームを停止するために監視
-   */
   useEffect(() => {
     return () => {
-      // ページを離れる際にカメラを停止
       if (scannerControls) {
         scannerControls.stop();
         console.log("QR Code Reader stopped via controls (component unmount)");
       }
-      // BrowserQRCodeReaderインスタンスを破棄（メモリリーク防止、オプション）
       if (codeReader.current) {
         codeReader.current = null;
       }
     };
-  }, [scannerControls]); // 依存配列: scannerControlsの変更を監視
+  }, [scannerControls]);
 
   return (
     <div className={styles.cameraPage}>
-      {/* カメラ映像を全画面背景として表示するvideo要素 */}
       {!errorMessage && (
         <video
-          ref={videoRef} // video要素への参照を設定
-          className={styles.cameraBackground} // 全画面背景用のCSSクラス
-          playsInline // iOS Safariなどで動画がインラインで再生されるようにする
-          autoPlay // 自動再生
-          muted // 音声なし（自動再生の要件を満たすため）
+          ref={videoRef}
+          className={styles.cameraBackground}
+          playsInline
+          autoPlay
+          muted
         />
       )}
 
-      {/* UI要素を重ねるためのオーバーレイコンテナ */}
       <div className={styles.uiOverlay}>
-        {/* 吹き出しメッセージ */}
         <div className={styles.speechBubble}>
           <p className={styles.bubbleText}>QRコードを よみこんでね！</p>
         </div>
 
-        {/* カメラプレビューエリア（QRコードのガイド枠として機能） */}
         <div className={styles.cameraScanGuide}>
-          {errorMessage && ( // エラーがある場合のみエラーオーバーレイを表示
+          {errorMessage && (
             <div className={styles.cameraErrorOverlay}>
               <p className={styles.errorText}>{errorMessage}</p>
               <button className={styles.retryButton} onClick={startScan}>
@@ -191,9 +168,7 @@ const CameraPage: React.FC = () => {
           )}
         </div>
 
-        {/* カメラボタンコンテナ */}
         <div className={styles.buttonContainer}>
-          {/* スキャン中のメッセージ表示 */}
           {isScanning && !errorMessage && (
             <p className={styles.scanningMessage}>スキャン中...</p>
           )}
