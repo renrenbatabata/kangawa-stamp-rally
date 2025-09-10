@@ -1,24 +1,97 @@
+/* ベースのコンテナ */
 .Container {
-    background-color: white;
-    margin: 20px 10px 0px;
-    padding: 15px;
-    border-radius: 10px;
-    display: flex;
-    justify-self: center;
-    align-items: center;
-    width: 90vw;
+  background-color: #ffffff;
+  border: 4px solid #ffd700;
+  margin: 20px 5px;
+  padding: 15px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 「スタンプ進捗」のテキスト */
 .progressKazu {
-    font-size: 1.3em;
+  font-size: 1.2em;
+  color: #555;
+  font-weight: bold;
 }
 
+/* 進捗率の数字部分のコンテナ */
 .progressConteinae {
-    margin: 0 0 0 auto;
-    padding: 20px;
-    font-size: 2em;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  font-size: 2em;
+  color: #333333;
 }
 
+/* 進捗の数字 */
 .progress {
-    font-size: 1.5em;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* プログレスバーのコンテナ */
+.progressBarContainer {
+  width: 80%;
+  height: 15px;
+  background-color: #fffacd;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+/* プログレスバーの塗りつぶし部分 */
+.progressBarFill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(to right, #ffd700, #ffa500);
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) inset;
+}
+
+/* 区切り文字「/」 */
+.progressSeparator {
+  font-size: 1.2em;
+  margin: 0 5px;
+  color: #666666;
+}
+
+/* 合計数「4」 */
+.progressTotal {
+  font-size: 1.2em;
+  color: #666666;
+}
+
+/* --- 新しいアイコンのスタイル --- */
+
+/* アイコンを囲むコンテナ */
+.iconsContainer {
+  display: flex;
+  justify-content: space-between; /* アイコンを等間隔に配置 */
+  width: 85%; /* プログレスバーと同じ幅に設定 */
+  margin-top: 5px; /* プログレスバーとの間隔 */
+}
+
+/* 個々のアイコンを囲むラッパー */
+.iconWrapper {
+  width: 25%; /* アイコンのスペースを均等に分割 */
+  display: flex;
+  justify-content: center;
+}
+
+/* 完了したアイコン（色付き） */
+.checkedIcon {
+  color: #ffa500; /* 塗りつぶしの色 */
+  font-size: 40px; /* アイコンのサイズ */
+}
+
+/* 未完了のアイコン */
+.unCheckedIcon {
+  color: #ccc; /* 未完了の色 */
+  font-size: 40px; /* アイコンのサイズ */
 }
