@@ -1,0 +1,36 @@
+[
+  {
+    "stampNo": 1,
+    "stampName": "スタンプ1",
+    "stampText": "1つ目のスタンプをゲット！",
+    "imgPath": "/src/assets/stamp_points/stamp_point_1.png",
+    "quizDto": {
+      "quizNo": 1,
+      "quizText": "クイズ1：これは何のクイズ？",
+      "option1": "選択肢1",
+      "option2": "選択肢2",
+      "option3": "選択肢3",
+      "option4": "選択肢4",
+      "answerNo": 1,
+      "explanation": "解説1"
+    },
+    "date": "2025/07/23 11:17:57"
+  },
+  {
+    "stampNo": 2,
+    "stampName": "スタンプ2",
+    "stampText": "2つ目のスタンプ！",
+    "imgPath": "/src/assets/stamp_points/stamp_point_2.png",
+    "quizDto": {
+      "quizNo": 2,
+      "quizText": "クイズ2：これは何のクイズ？",
+      "option1": "選択肢A",
+      "option2": "選択肢B",
+      "option3": "選択肢C",
+      "option4": "選択肢D",
+      "answerNo": 2,
+      "explanation": "解説2"
+    },
+    "date": "2025/07/23 11:17:57"
+  }
+]

@@ -11,7 +11,7 @@ const StampBadge = ({ progress }: StampBadgeProps) => {
       <div className={styles.progressConteinae}>
         <span className={styles.progress}>{progress}</span>
         <span className={styles.progressSeparator}>/</span>
-        <span className={styles.progressTotal}>6</span>
+        <span className={styles.progressTotal}>4</span>
       </div>
     </div>
   );
