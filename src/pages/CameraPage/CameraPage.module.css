@@ -22,7 +22,7 @@
     height: 100%;
     object-fit: cover;
     /* 映像が全画面を覆うように拡大縮小 */
-    transform: scaleX(-1);
+    /* transform: scaleX(-1); */
     /* フロントカメラの映像を左右反転させる（必要に応じて） */
     z-index: 1;
     /* UI要素よりも下に配置 */
