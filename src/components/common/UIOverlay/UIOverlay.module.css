@@ -1,55 +1,18 @@
-/* src/pages/CameraPage/CameraPage.module.css */
+/* UIOverlay.module.css */
 
-.cameraPage {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    /* 子要素（videoとoverlay）の配置基準 */
-    overflow: hidden;
-    /* はみ出しを隠す */
-    display: flex;
-    /* flexboxは引き続き利用 */
-    justify-content: center;
-    align-items: center;
-}
-
-/* カメラ映像を全画面背景として表示 */
-.cameraBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* 映像が全画面を覆うように拡大縮小 */
-    /* transform: scaleX(-1); */
-    /* フロントカメラの映像を左右反転させる（必要に応じて） */
-    z-index: 1;
-    /* UI要素よりも下に配置 */
-}
-
-/* UI要素を重ねるためのオーバーレイコンテナ */
 .uiOverlay {
     position: relative;
-    /* UI要素の配置基準 */
     z-index: 2;
-    /* カメラ背景よりも手前に配置 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    /* 吹き出し、スキャンガイド、ボタンを上下に配置 */
     width: 100%;
-    /* 全幅に広げる */
     height: 100%;
-    /* 全高に広げる */
     padding: 20px;
     box-sizing: border-box;
-    /* 必要であれば、ここに薄い半透明のオーバーレイをかけることも可能 (例: background-color: rgba(0,0,0,0.1); ) */
 }
 
-
-/* 吹き出しメッセージ */
 .speechBubble {
     background-color: #ffffff;
     border-radius: 20px;
@@ -81,24 +44,18 @@
     color: #5d4037;
 }
 
-/* カメラプレビューエリア (視覚的なガイド枠として機能) */
 .cameraScanGuide {
     width: 90%;
     max-width: 400px;
     height: 0;
     padding-bottom: 90%;
-    /* 1:1のアスペクト比維持 */
     position: relative;
     border: 4px solid #ffffff;
-    /* 白い枠線 */
     border-radius: 10px;
     overflow: hidden;
-    /* エラーオーバーレイがはみ出さないように */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     flex-grow: 1;
-    /* 残りのスペースを埋めて、他の要素を上下に押しのける */
     display: flex;
-    /* エラーオーバーレイを中央に配置するため */
     justify-content: center;
     align-items: center;
 }
@@ -141,7 +98,6 @@
     background-color: #ff4500;
 }
 
-/* カメラボタンコンテナ */
 .buttonContainer {
     margin-bottom: 0;
     display: flex;
@@ -153,13 +109,10 @@
 .scanningMessage {
     font-size: 2em;
     color: #fff;
-    /* 背景が映像になるので文字色を白に */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    /* 映像の複雑さに対応 */
     margin: 2em 0 2.2em;
 }
 
-/* スマートフォンでの見た目を考慮したメディアクエリ */
 @media (max-width: 768px) {
     .speechBubble {
         margin-bottom: 20px;

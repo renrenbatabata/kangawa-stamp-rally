@@ -1,47 +1,80 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 
 import styles from "./QuizPage.module.css";
 import background from "../../assets/images/background.png";
 
+// APIレスポンスの型を定義
+interface QuizApiResponse {
+  quizNo: number;
+  quizText: string;
+  option1: string;
+  option2: string;
+  option3: string;
+  option4: string;
+  answerNo: number;
+  explanation: string;
+}
+
+// クイズデータの型を定義
+interface QuizData {
+  id: number;
+  question: string;
+  options: string[];
+  answer: string;
+}
+
 const QuizPage: React.FC = () => {
   const navigate = useNavigate();
 
-  // クイズのデータ仮（実際はAPIやデータベースから取得する）
-  const postQuizData = {
-    id: 1,
-    question: "かながわ区の『区の木』はどんな木でしょうか？",
-    options: ["さくら", "いちょう", "もみじ", "くすのき"],
-    answer: "さくら", // 正解の選択肢
-  };
-
-  // クイズデータの型を定義
-  type QuizData = {
-    id: number;
-    question: string;
-    options: string[];
-    answer: string;
-  };
-
-  // クイズデータの状態を管理（初期値を設定）
-  const [quizData] = useState<QuizData>(postQuizData);
-
-  // クイズデータを設定
-  // ここでは仮のデータを使用、実際にはAPIから取得する。
-
-  // ユーザーの選択肢を管理する
+  const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  // クイズが完了したかどうかを管理する
   const [quizCompleted, setQuizCompleted] = useState(false);
-
-  // 正解かどうかを管理する
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const response = await fetch('/quiz?stampId=stamp001'); 
+        if (!response.ok) {
+          throw new Error('APIの取得に失敗しました');
+        }
+        const data: QuizApiResponse = await response.json();
+
+        const options = [data.option1, data.option2, data.option3, data.option4];
+        const answer = options[data.answerNo - 1]; 
+
+        const formattedQuizData: QuizData = {
+          id: data.quizNo,
+          question: data.quizText,
+          options: options,
+          answer: answer,
+        };
+
+        setQuizData(formattedQuizData);
+      } catch (error) {
+        console.error("APIの取得に失敗しました:", error);
+        const postQuizData: QuizData = {
+          id: 1,
+          question: "かながわ区の『区の木』はどんな木でしょうか？",
+          options: ["さくら", "いちょう", "もみじ", "くすのき"],
+          answer: "さくら",
+        };
+        setQuizData(postQuizData);
+      }
+    };
+
+    fetchQuiz();
+  }, []); 
+
+  if (!quizData) {
+    return <div>よみこみ中...</div>;
+  }
 
   // クイズの選択肢をクリックしたときのハンドラー
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
-    // 正解かどうかをチェック
     if (option === quizData.answer) {
       setIsCorrect(true);
     } else {
@@ -84,7 +117,6 @@ const QuizPage: React.FC = () => {
         {quizCompleted && (
           <div className={styles.answerDisplayArea}>
             {" "}
-            {/* 新しいdivで囲む */}
             <p
               className={`${styles.answerMessage} ${
                 isCorrect ? styles.correct : styles.incorrect
