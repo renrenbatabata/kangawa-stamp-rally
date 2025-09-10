@@ -1,179 +1,56 @@
-// src/pages/CameraPage/CameraPage.tsx
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { BrowserQRCodeReader } from "@zxing/browser";
-import type { IScannerControls } from "@zxing/browser";
 import styles from "./CameraPage.module.css";
+import Scanner from "../../components/common/Scanner/Scanner";
+import UIOverlay from "../../components/common/UIOverlay/UIOverlay";
 
 const CameraPage: React.FC = () => {
   const navigate = useNavigate();
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const codeReader = useRef<BrowserQRCodeReader | null>(null);
-  const [scannerControls, setScannerControls] =
-    useState<IScannerControls | null>(null);
+  const handleScanSuccess = useCallback(
+    (data: string) => {
+      console.log("QR Code detected:", data);
+      setErrorMessage(null); // スキャン成功時はエラーをクリア
+      setIsScanning(false);
 
-  /**
-   * QRコードスキャンを開始する非同期関数
-   */
-  const startScan = useCallback(async () => {
-    if (!videoRef.current) return;
+      if (data.startsWith("stamp_point_")) {
+        const stampId = data.split("_").pop();
+        console.log("Stamp ID detected:", stampId);
+        navigate("/quiz");
+      } else {
+        navigate("/scan/fail");
+      }
+    },
+    [navigate]
+  );
 
+  const handleScanError = useCallback((message: string) => {
+    setErrorMessage(message);
+    setIsScanning(false);
+  }, []);
+
+  const handleRetry = useCallback(() => {
     setErrorMessage(null);
     setIsScanning(true);
-
-    try {
-      // --- 修正箇所：インスタンス化時に制約を渡す ---
-      const hints = new Map();
-      const constraints = {
-        video: {
-          facingMode: { ideal: "environment" },
-        },
-      };
-      hints.set(2, constraints); // 2 は DecodeHintType.PURE_BARCODE に相当
-      
-      if (!codeReader.current) {
-        // コンストラクタに制約を渡すことで、トーチを無効化し、背面カメラを優先する
-        codeReader.current = new BrowserQRCodeReader(hints);
-      }
-      // ----------------------------------------
-
-      const videoInputDevices =
-        await BrowserQRCodeReader.listVideoInputDevices();
-      if (videoInputDevices.length === 0) {
-        throw new Error("カメラが見つかりませんでした。");
-      }
-
-      const backCamera = videoInputDevices.find(
-        (device) => device.label.includes("back") || device.label.includes("environment")
-      );
-      const selectedDeviceId = backCamera
-        ? backCamera.deviceId
-        : videoInputDevices[0].deviceId;
-
-      // --- 修正箇所：decodeFromVideoDevice にはデバイスIDのみを渡す ---
-      const controls = await codeReader.current.decodeFromVideoDevice(
-        selectedDeviceId, // ここに文字列のデバイスIDを渡す
-        videoRef.current,
-        (result, err) => {
-          if (result) {
-            console.log("QR Code detected:", result.getText());
-            controls.stop();
-            setIsScanning(false);
-            setScannerControls(null);
-
-            const qrData = result.getText();
-            if (qrData.startsWith("stamp_point_")) {
-              const stampId = qrData.split("_").pop();
-              console.log("Stamp ID detected:", stampId);
-              navigate("/quiz");
-            } else {
-              navigate("/scan/fail");
-            }
-          }
-
-          if (err) {
-            const isNotFoundError =
-              err instanceof Error && err.name === "NotFoundException";
-            if (!isNotFoundError) {
-              console.error("QR Code Scan Error:", err);
-            }
-          }
-        }
-      );
-      setScannerControls(controls);
-      console.log("Scanning started...");
-    } catch (error: unknown) {
-      setIsScanning(false);
-      setScannerControls(null);
-      console.error("Camera access error:", error);
-
-      if (
-        typeof error === "object" &&
-        error !== null &&
-        "name" in error &&
-        typeof (error as { name?: unknown }).name === "string"
-      ) {
-        const errName = (error as { name: string }).name;
-        if (errName === "NotAllowedError" || errName === "NotFoundError") {
-          setErrorMessage(
-            "カメラへのアクセスが許可されていません。ブラウザの設定を確認してください。"
-          );
-        } else if (errName === "NotReadableError") {
-          setErrorMessage(
-            "カメラが使用中です。他のアプリを閉じてもう一度お試しください。"
-          );
-        } else {
-          setErrorMessage(
-            `カメラの起動に失敗しました: ${
-              "message" in error &&
-              typeof (error as { message?: unknown }).message === "string"
-                ? (error as { message: string }).message
-                : "不明なエラー"
-            }`
-          );
-        }
-      } else {
-        setErrorMessage("カメラの起動に失敗しました: 不明なエラー");
-      }
-    }
-  }, [navigate]);
-
-  useEffect(() => {
-    if (!isScanning && !errorMessage) {
-      startScan();
-    }
-    return () => {};
-  }, [startScan, isScanning, errorMessage]);
-
-  useEffect(() => {
-    return () => {
-      if (scannerControls) {
-        scannerControls.stop();
-        console.log("QR Code Reader stopped via controls (component unmount)");
-      }
-      if (codeReader.current) {
-        codeReader.current = null;
-      }
-    };
-  }, [scannerControls]);
+  }, []);
 
   return (
     <div className={styles.cameraPage}>
       {!errorMessage && (
-        <video
-          ref={videoRef}
-          className={styles.cameraBackground}
-          playsInline
-          autoPlay
-          muted
+        <Scanner
+          onScanSuccess={handleScanSuccess}
+          onScanError={handleScanError}
+          isScanning={isScanning}
+          setIsScanning={setIsScanning}
         />
       )}
-
-      <div className={styles.uiOverlay}>
-        <div className={styles.speechBubble}>
-          <p className={styles.bubbleText}>QRコードを よみこんでね！</p>
-        </div>
-
-        <div className={styles.cameraScanGuide}>
-          {errorMessage && (
-            <div className={styles.cameraErrorOverlay}>
-              <p className={styles.errorText}>{errorMessage}</p>
-              <button className={styles.retryButton} onClick={startScan}>
-                再試行
-              </button>
-            </div>
-          )}
-        </div>
-
-        <div className={styles.buttonContainer}>
-          {isScanning && !errorMessage && (
-            <p className={styles.scanningMessage}>スキャン中...</p>
-          )}
-        </div>
-      </div>
+      <UIOverlay
+        isScanning={isScanning}
+        errorMessage={errorMessage}
+        onRetry={handleRetry}
+      />
     </div>
   );
 };
