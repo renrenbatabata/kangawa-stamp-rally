@@ -1,0 +1,17 @@
+{
+    "stampNo": 2,
+    "stampName": "こぶし",
+    "stampText": "片倉うさぎ山公園：春の兆しを感じるころ、走り回る子どもたちを満開のこぶしが見守ります。",
+    "imgPath": "/src/assets/stamp_points/stamp_point_2.png",
+    "quizDto": {
+        "quizNo": 2,
+        "quizText": "GREEN×EXPO ２０２７は何年に実施されるでしょうか？",
+        "option1": "2027年",
+        "option2": "2030年",
+        "option3": "2026年",
+        "option4": "2025年",
+        "answerNo": 1,
+        "explanation": "正解は①2027年だよ！\n\n★ちなみに2030はカーボンハーフ達成目標の年。\nゴールの隣のブースに行ってみてね！"
+    },
+    "date": "2025/07/23 11:17:57"
+}

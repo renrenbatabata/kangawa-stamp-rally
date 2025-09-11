@@ -1,0 +1,7 @@
+{
+    "timestamp": "2025-07-24 10:05:03",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "すでに獲得済みのスタンプです",
+    "path": "/add"
+}

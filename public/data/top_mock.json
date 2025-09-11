@@ -1,8 +1,8 @@
 [
   {
     "stampNo": 1,
-    "stampName": "スタンプ1",
-    "stampText": "1つ目のスタンプをゲット！",
+    "stampName": "チューリップ",
+    "stampText": "反町公園：色とりどりのチューリップが咲き誇り、うららかな春の訪れを教えてくれる。",
     "imgPath": "/src/assets/stamp_points/stamp_point_1.png",
     "quizDto": {
       "quizNo": 1,
@@ -18,8 +18,8 @@
   },
   {
     "stampNo": 2,
-    "stampName": "スタンプ2",
-    "stampText": "2つ目のスタンプ！",
+    "stampName": "こぶし",
+    "stampText": "片倉うさぎ山公園：春の兆しを感じるころ、走り回る子どもたちを満開のこぶしが見守ります。",
     "imgPath": "/src/assets/stamp_points/stamp_point_2.png",
     "quizDto": {
       "quizNo": 2,
@@ -35,8 +35,8 @@
   },
   {
     "stampNo": 3,
-    "stampName": "スタンプ3",
-    "stampText": "3つ目のスタンプ！",
+    "stampName": "アジサイ",
+    "stampText": "三ツ沢せせらぎ緑道：静けさに響くせせらぎとアジサイが奏でるハーモニー。",
     "imgPath": "/src/assets/stamp_points/stamp_point_3.png",
     "quizDto": {
       "quizNo": 3,
@@ -52,8 +52,8 @@
   },
   {
     "stampNo": 4,
-    "stampName": "スタンプ4",
-    "stampText": "4つ目のスタンプ！",
+    "stampName": "バラ",
+    "stampText": "三ツ沢公園：バラ園には季節ごとに様々な種類のバラが咲き、華やかな香り、色を楽しめます。",
     "imgPath": "/src/assets/stamp_points/stamp_point_4.png",
     "quizDto": {
       "quizNo": 4,

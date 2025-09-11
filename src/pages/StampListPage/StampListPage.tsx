@@ -34,7 +34,7 @@ const StampListPage: React.FC = () => {
 
       try {
         // ローカルのJSONファイルを読み込む
-        const response = await fetch("/data/stamps.json");
+        const response = await fetch("/data/top_mock.json");
         if (!response.ok) {
           throw new Error("Failed to fetch mock data.");
         }
