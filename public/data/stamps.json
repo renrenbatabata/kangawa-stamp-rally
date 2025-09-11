@@ -6,13 +6,13 @@
     "imgPath": "/src/assets/stamp_points/stamp_point_1.png",
     "quizDto": {
       "quizNo": 1,
-      "quizText": "クイズ1：これは何のクイズ？",
-      "option1": "選択肢1",
-      "option2": "選択肢2",
-      "option3": "選択肢3",
-      "option4": "選択肢4",
-      "answerNo": 1,
-      "explanation": "解説1"
+      "quizText": "GREEN×EXPO 2027が開催される場所はどこ？",
+      "option1": "大阪",
+      "option2": "横浜",
+      "option3": "東京",
+      "option4": "名古屋",
+      "answerNo": 2,
+      "explanation": "正解は②横浜だよ！\n\n★（旭区・瀬谷区）に位置する旧上瀬谷通信施設で実施するよ。"
     },
     "date": "2025/07/23 11:17:57"
   },
@@ -23,13 +23,47 @@
     "imgPath": "/src/assets/stamp_points/stamp_point_2.png",
     "quizDto": {
       "quizNo": 2,
-      "quizText": "クイズ2：これは何のクイズ？",
-      "option1": "選択肢A",
-      "option2": "選択肢B",
-      "option3": "選択肢C",
-      "option4": "選択肢D",
-      "answerNo": 2,
-      "explanation": "解説2"
+      "quizText": "GREEN×EXPO ２０２７は何年に実施されるでしょうか？",
+      "option1": "2027年",
+      "option2": "2030年",
+      "option3": "2026年",
+      "option4": "2025年",
+      "answerNo": 1,
+      "explanation": "正解は①2027年だよ！\n\n★ちなみに2030はカーボンハーフ達成目標の年。\nゴールの隣のブースに行ってみてね！"
+    },
+    "date": "2025/07/23 11:17:57"
+  },
+  {
+    "stampNo": 3,
+    "stampName": "スタンプ3",
+    "stampText": "3つ目のスタンプ！",
+    "imgPath": "/src/assets/stamp_points/stamp_point_3.png",
+    "quizDto": {
+      "quizNo": 3,
+      "quizText": "GREEN×EXPO ２０２７のマスコットキャラクターの名前は？",
+      "option1": "トゥンクトゥンク",
+      "option2": "トゥクトゥク",
+      "option3": "かめ太郎",
+      "option4": "バクバク",
+      "answerNo": 1,
+      "explanation": "正解は①トゥンクトゥンクだよ！\n\n★ゴールのブースにいるから探してみてね！"
+    },
+    "date": "2025/07/23 11:17:57"
+  },
+  {
+    "stampNo": 4,
+    "stampName": "スタンプ4",
+    "stampText": "4つ目のスタンプ！",
+    "imgPath": "/src/assets/stamp_points/stamp_point_4.png",
+    "quizDto": {
+      "quizNo": 4,
+      "quizText": "GREEN×EXPO 2027のテーマはどれ？",
+      "option1": "幸せを創る明日の風景",
+      "option2": "笑顔でつながる神奈川区",
+      "option3": "地球1個分で暮らそう STYLE100",
+      "option4": "YOKOHAMA　GOGREEN",
+      "answerNo": 1,
+      "explanation": "正解は「幸せを創る明日の風景」だよ！\n\n★地球にも人にも優しい未来をみんなで考える万博だよ！楽しみだね！"
     },
     "date": "2025/07/23 11:17:57"
   }
