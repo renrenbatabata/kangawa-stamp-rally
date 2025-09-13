@@ -138,6 +138,7 @@ const QuizPage: React.FC = () => {
 
         {!quizCompleted && (
           <button
+          ty
             className={styles.quizButton}
             onClick={() => {
               handleQuizComplete();

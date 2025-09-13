@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // useStateとuseEffectをインポート
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ScanResultSuccessPage.module.css";
 import background from "../../assets/images/background.png";
@@ -72,7 +72,7 @@ const ScanResultSuccessPage: React.FC = () => {
           alt="スタンプゲット成功！"
           className={styles.stampImage}
         />
-        <button className={styles.closeButton} onClick={handleCloseClick}>
+        <button type="button" className={styles.closeButton} onClick={handleCloseClick}>
           <span className={styles.closeIcon}>✕</span>
         </button>
       </div>

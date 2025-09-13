@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
     >
       <div className={stylse.overlay}>
         <img src={logo} alt="Logo" className={stylse.logo} />
-        <button className={stylse.startButton} onClick={handleStartClick}>
+        <button type="button" className={stylse.startButton} onClick={handleStartClick}>
           はじめる
         </button>
       </div>

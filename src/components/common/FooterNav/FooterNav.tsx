@@ -23,6 +23,7 @@ const FooterNav: React.FC = () => {
   return (
     <div className={styles.footerNav}>
       <button
+        type="button"
         className={`${styles.footerNavItem} ${styles.home}`}
         onClick={handleHomeClick}
       >
@@ -35,6 +36,7 @@ const FooterNav: React.FC = () => {
       </div>
 
       <button
+        type="button"
         className={`${styles.footerNavItem} ${styles.map}`}
         onClick={handleMapClick}
       >

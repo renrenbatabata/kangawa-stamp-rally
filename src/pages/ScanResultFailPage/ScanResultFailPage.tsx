@@ -32,7 +32,7 @@ const ScanResultFailPage: React.FC = () => {
         </p>
 
         {/* 閉じる（再試行）ボタン */}
-        <button className={styles.closeButton} onClick={handleCloseClick}>
+        <button type="button" className={styles.closeButton} onClick={handleCloseClick}>
           <span className={styles.closeIcon}>✕</span>
         </button>
       </div>

@@ -7,7 +7,7 @@ function CameraButton({ onClick }: { onClick: () => void }) {
 
   return (
     <div className={styles.cameraButton}>
-      <button className={styles.footerNavItem} onClick={onClick}>
+      <button type="button" className={styles.footerNavItem} onClick={onClick}>
         <div className={styles.camera}>
           <img src={cameraIcon} alt="Camera" />
         </div>
