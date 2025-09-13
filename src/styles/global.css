@@ -1,4 +1,15 @@
 /* src/styles/global.css */
+:root {
+    --cute-bg-light: #fdf5e6;
+    --cute-main-green: #8bc34a;
+    --cute-accent-orange: #ff9800;
+    --cute-secondary-orange: #ffb74d;
+    --cute-text-dark: #4a3c30;
+    --cute-white: #ffffff;
+    --cute-shadow-light: rgba(74, 60, 48, 0.1);
+    --cute-shadow-dark: rgba(74, 60, 48, 0.2);
+}
+
 
 /* ブラウザのデフォルトマージン・パディングをリセット */
 html,
