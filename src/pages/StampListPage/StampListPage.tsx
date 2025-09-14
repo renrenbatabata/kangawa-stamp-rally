@@ -8,7 +8,7 @@ import Header from "../../components/common/Header/Header";
 import FooterNav from "../../components/common/FooterNav/FooterNav";
 import StampBadge from "../../components/common/StampBadge/StampBadge";
 import QRtitle from "../../assets/images/QRtitle.png";
-import StampList from "../../components/StampList/StampList"; 
+import StampList from "../../components/StampList/StampList";
 
 const StampListPage: React.FC = () => {
   const uid = useUserContext();
@@ -50,7 +50,7 @@ const StampListPage: React.FC = () => {
         <div className={styles.messageContainer}>
           <p>読み込み中...</p>
         </div>
-        <FooterNav />
+        <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
       </div>
     );
   }
@@ -62,7 +62,8 @@ const StampListPage: React.FC = () => {
         <div className={styles.messageContainer}>
           <p>{error}</p>
         </div>
-        <FooterNav />
+        <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
+
       </div>
     );
   }
@@ -71,15 +72,14 @@ const StampListPage: React.FC = () => {
     <div className={styles.container}>
       <Header />
 
-      <img src={QRtitle} className={styles.qrTitleImage} alt="QRコードを読み取ってスタンプゲット！" />
+        <img src={QRtitle} className={styles.qrTitleImage} alt="QRコードを読み取ってスタンプゲット！" />
 
-      <div className={styles.progressContainer}>
-        <StampBadge progress={progress} />
-      </div>
+        <div className={styles.progressContainer}>
+          <StampBadge progress={progress} />
+        </div>
 
-      <StampList stamps={stamps} /> 
-
-      <FooterNav />
+        <StampList stamps={stamps} />
+      <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import styles from "./CameraButton.module.css";
 
-import cameraIcon from "./icon/camera.png";
+import cameraIcon from "../../../assets/icon/camera.png";
 
 function CameraButton({ onClick }: { onClick: () => void }) {
   // カメラボタンがクリックされたときのハンドラー

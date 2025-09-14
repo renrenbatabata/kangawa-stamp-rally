@@ -1,49 +1,46 @@
-import styles from "./FooterNav.module.css";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./FooterNav.module.css";
 
-//アイコン
-import homeIcon from "./icon/home.png";
-import mapIcon from "./icon/map.png";
+// アイコン
+import homeIcon from "../../../assets/icon/home.png";
+import mapIcon from "../../../assets/icon/map.png";
 import CameraButton from "../CamaraButton/CameraButton";
 
-const FooterNav: React.FC = () => {
+// FooterNavのpropsの型を定義
+type FooterNavProps = {
+  homePath: string;
+  cameraPath: string;
+  mapPath: string;
+};
+
+const FooterNav: React.FC<FooterNavProps> = ({ homePath, cameraPath, mapPath }) => {
   const navigate = useNavigate();
 
-  const handleHomeClick = () => {
-    navigate("/stamps");
-  };
-  const handleMapClick = () => {
-    navigate("/map");
-  };
-
-  const handleCameraClick = () => {
-    navigate("/scan");
-  };
-
   return (
-    <div className={styles.footerNav}>
+    <footer className={styles.footerNav}>
       <button
         type="button"
         className={`${styles.footerNavItem} ${styles.home}`}
-        onClick={handleHomeClick}
+        onClick={() => navigate(homePath)}
       >
-        <img src={homeIcon} alt="Home" />
+        <img src={homeIcon} alt="ホーム" />
         <p>ホーム</p>
       </button>
-      {/* カメラボタン */}
+
       <div className={styles.cameraButtonContainer}>
-        <CameraButton onClick={handleCameraClick} />
+        <CameraButton onClick={() => navigate(cameraPath)} /> 
       </div>
 
       <button
         type="button"
         className={`${styles.footerNavItem} ${styles.map}`}
-        onClick={handleMapClick}
+        onClick={() => navigate(mapPath)} 
       >
-        <img src={mapIcon} alt="Map" />
+        <img src={mapIcon} alt="マップ" />
         <p>マップ</p>
       </button>
-    </div>
+    </footer>
   );
 };
 

@@ -1,5 +1,5 @@
 import styles from "./Header.module.css";
-import header from "./Header.png";
+import header from "../../../assets/images/Header.png";
 const Header: React.FC = () => {
   return (
     <header>

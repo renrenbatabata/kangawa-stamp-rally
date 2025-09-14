@@ -7,8 +7,8 @@
     background-color: #64dd8c;
     display: flex;
     justify-content: space-around;
-    align-items: flex-start;
-    padding-top: 15px;
+    align-items: center; /* 要素を垂直方向の中央に揃える */
+    padding-top: 15px; /* 上部の余白を保持 */
     z-index: 1000;
 }
 
@@ -21,13 +21,13 @@
     font-size: 1.2em;
     font-weight: bold;
     text-decoration: none;
-    flex: 1;
+    flex: 1; /* アイテムが均等な幅を占めるように */
+    padding-bottom: 5px; /* 下部に少し余白を追加してバランスを調整 */
 }
 
 .footerNavItem img {
     width: 40px;
     height: 40px;
-
 }
 
 .footerNavItem p {
@@ -39,30 +39,30 @@
 
 .cameraButtonContainer {
     position: relative;
-    top: 40px;
+    top: -20px; /* 少し上にあげて、他のアイテムと位置を調整 */
 }
 
-
-/* スマートフォンでの見た目を考慮したメディアクエリ（必要であれば調整） */
+/* スマートフォンでの見た目を考慮したメディアクエリ */
 @media (max-width: 768px) {
     .footerNav {
         height: 70px;
-        padding-top: 10px;
+        padding: 15px 0;
     }
-
-    .map img {
+    .map img{
         width: 40px;
-        height: 41px;
     }
-
     .home img {
-        width: 40px;
-        height: 42px;
-        bottom: 2px;
+        width: 35px; /* 小さい画面ではアイコンを少し小さくする */
+        height: 35px;
     }
-
 
     .footerNavItem p {
         font-size: 0.8em;
     }
+
+    .cameraButtonContainer {
+        top: 10px; /* 小さい画面での位置を調整 */
+    }
+
+    
 }
