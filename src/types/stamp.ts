@@ -2,7 +2,7 @@
 
 // APIから返される各スタンプオブジェクトの型を定義
 export interface Stamp {
-  stampNo: number;
+  stampNo: string;
   stampName: string;
   stampText: string;
   imgPath: string;

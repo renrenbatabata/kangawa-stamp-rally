@@ -1,6 +1,6 @@
 [
   {
-    "stampNo": 1,
+    "stampNo": "stamp_point_1",
     "stampName": "チューリップ",
     "stampText": "反町公園：色とりどりのチューリップが咲き誇り、うららかな春の訪れを教えてくれる。",
     "imgPath": "/src/assets/stamp_points/stamp_point_1.png",
@@ -17,7 +17,7 @@
     "date": "2025/07/23 11:17:57"
   },
   {
-    "stampNo": 2,
+    "stampNo": "stamp_point_2",
     "stampName": "こぶし",
     "stampText": "片倉うさぎ山公園：春の兆しを感じるころ、走り回る子どもたちを満開のこぶしが見守ります。",
     "imgPath": "/src/assets/stamp_points/stamp_point_2.png",
@@ -34,7 +34,7 @@
     "date": "2025/07/23 11:17:57"
   },
   {
-    "stampNo": 3,
+    "stampNo": "stamp_point_3",
     "stampName": "アジサイ",
     "stampText": "三ツ沢せせらぎ緑道：静けさに響くせせらぎとアジサイが奏でるハーモニー。",
     "imgPath": "/src/assets/stamp_points/stamp_point_3.png",
@@ -51,7 +51,7 @@
     "date": "2025/07/23 11:17:57"
   },
   {
-    "stampNo": 4,
+    "stampNo": "stamp_point_4",
     "stampName": "バラ",
     "stampText": "三ツ沢公園：バラ園には季節ごとに様々な種類のバラが咲き、華やかな香り、色を楽しめます。",
     "imgPath": "/src/assets/stamp_points/stamp_point_4.png",

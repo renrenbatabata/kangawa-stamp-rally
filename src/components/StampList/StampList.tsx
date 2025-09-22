@@ -9,12 +9,11 @@ type StampListProps = {
 };
 
 const StampList: React.FC<StampListProps> = ({ stamps }) => {
-  // 未完了のスタンプカード表示に必要な情報
   const fixedStamps = [
-    { stampNo: 1, stampName: "スタンプ1" },
-    { stampNo: 2, stampName: "スタンプ2" },
-    { stampNo: 3, stampName: "スタンプ3" },
-    { stampNo: 4, stampName: "スタンプ4" },
+    { stampNo: "stamp_point_1", stampName: "スタンプ1" },
+    { stampNo: "stamp_point_2", stampName: "スタンプ2" },
+    { stampNo: "stamp_point_3", stampName: "スタンプ3" },
+    {stampNo: "stamp_point_4", stampName: "スタンプ4" },
   ];
 
   return (
@@ -33,7 +32,7 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
               />
             );
           } else {
-            const displayImgPath = StampUnComplete; 
+            const displayImgPath = StampUnComplete;
             return (
               <StampCard
                 key={fixedStamp.stampNo}

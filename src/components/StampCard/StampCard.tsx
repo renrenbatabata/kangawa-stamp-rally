@@ -1,9 +1,9 @@
 import styles from "./StampCard.module.css";
 
 interface StampCardProps {
-  id: number;
+  id: string;
   title: string;
-  imgPath: string; 
+  imgPath: string;
 }
 
 // Stamp card component
@@ -13,7 +13,7 @@ const StampCard: React.FC<StampCardProps> = ({ title, imgPath }) => {
       <div className={styles.stampInfo}>
         <p className={styles.stampStatus}>
             <img
-              src={imgPath} 
+              src={imgPath}
               alt={title}
               className={styles.stampImage}
             />
