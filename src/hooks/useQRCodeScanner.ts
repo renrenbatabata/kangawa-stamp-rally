@@ -54,22 +54,23 @@ export const useQRCodeScanner = (
             controls.stop();
             const qrData = result.getText();
             if (qrData.startsWith(QR_PREFIX)) {
-                const stampId = qrData;
+              const stampId = qrData;
               const addStamp = async () => {
                 try {
                   if (USE_MOCK_DATA) {
-                      const response = await fetch("/data/add_mock.json");
+                    const response = await fetch("/data/add_mock.json");
                     const mockData = await response.json();
 
                     type Stamp = { stampNo: string; [key: string]: unknown };
                     const foundStamp = (mockData as Stamp[]).find(
                       (stamp: Stamp) => stamp.stampNo === stampId
-                      );
-
+                    );
 
                     if (foundStamp) {
                       console.log("スタンプ登録モック成功:", foundStamp);
-                      navigate(SUCCESS_PATH);
+                      navigate(SUCCESS_PATH, {
+                        state: { stampData: foundStamp },
+                      });
                     } else {
                       console.error(
                         "モックデータに一致するスタンプIDが見つかりませんでした。"
@@ -85,7 +86,9 @@ export const useQRCodeScanner = (
 
                     if (response.ok) {
                       console.log("スタンプ登録成功:", await response.json());
-                      navigate(SUCCESS_PATH);
+                      navigate(SUCCESS_PATH, {
+                        state: { stampData: result },
+                      });
                     } else {
                       console.error(
                         "スタンプ登録失敗:",
