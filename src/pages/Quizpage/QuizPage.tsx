@@ -21,6 +21,7 @@ interface QuizData {
   question: string;
   options: string[];
   answer: string;
+  explanation: string;
 }
 
 const QuizPage: React.FC = () => {
@@ -55,6 +56,7 @@ const QuizPage: React.FC = () => {
             question: data.quizText,
             options: options, // 作成した options 配列を使用
             answer: options[data.answerNo - 1], // 作成した options 配列を使用
+            explanation: data.explanation,
           };
 
           setQuizData(formattedQuizData);
@@ -67,7 +69,7 @@ const QuizPage: React.FC = () => {
 
       // 本番環境: 実際のAPIを呼び出す
       try {
-        const stampId = "stamp001"; //TODO 
+        const stampId = "stamp001"; //TODO
 
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/quiz?stampId=${stampId}`);
 
@@ -82,11 +84,12 @@ const QuizPage: React.FC = () => {
         const options = [data.option1, data.option2, data.option3, data.option4];
         const answer = options[data.answerNo - 1];
 
-        const formattedQuizData = {
+        const formattedQuizData: QuizData = {
           id: data.quizNo,
           question: data.quizText,
           options: options,
           answer: answer,
+          explanation: data.explanation,
         };
 
         setQuizData(formattedQuizData);
@@ -127,7 +130,7 @@ const QuizPage: React.FC = () => {
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className={styles.quizContent}>
-        <h1 className={styles.quizTitle}>💡かながわくクイズ</h1>
+        <h1 className={styles.quizTitle}>かながわくクイズ</h1>
         <h2 className={styles.quizQuestion}>{quizData.question}</h2>
         <div className={styles.quizOptions}>
           {quizData.options.map((option) => (
@@ -155,11 +158,11 @@ const QuizPage: React.FC = () => {
               {isCorrect ? (
                 "せいかい！🎉"
               ) : (
-                <>
-                  ざんねん！
-                  <br />
-                  正解は「{quizData.answer}」です。
-                </>
+                <div>
+                  <p>ざんねん！</p>
+                    <p>正解は「{quizData.answer}」だよ！</p>
+                    <span className={styles.explanation}>{quizData.explanation}</span>
+                </div>
               )}
             </p>
           </div>

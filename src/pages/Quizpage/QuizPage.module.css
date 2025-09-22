@@ -1,5 +1,3 @@
-/* src/pages/QuizPage/QuizPage.module.css */
-
 .quizPage {
     width: 100vw;
     height: 100vh;
@@ -10,183 +8,126 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    /* Ensure there's padding around the content */
     box-sizing: border-box;
     overflow: hidden;
-    /* Hide overflow from background image */
 }
 
 .quizContent {
     background-color: rgba(255, 255, 255, 0.95);
-    /* Slightly less transparent white background for better readability */
     border-radius: 15px;
-    /* Slightly larger border-radius for a softer look */
     padding: 30px 25px;
-    /* More generous padding */
     width: 95%;
-    /* Adjust width for smaller screens */
     max-width: 550px;
-    /* Slightly adjusted max-width */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    /* Stronger, more appealing shadow */
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Center items horizontally within the card */
     min-height: 400px;
-    /* Ensure a good minimum height for consistent card size */
     box-sizing: border-box;
 }
 
 .quizTitle {
     font-size: 2.2rem;
-    /* Larger, more impactful title */
     font-weight: bold;
     margin-bottom: 30px;
-    /* Increased margin for better separation */
     color: #2c3e50;
-    /* A slightly darker, more modern text color */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
-    /* Subtler text shadow */
 }
 
 .quizQuestion {
     font-size: 1.6rem;
-    /* Adjusted question font size */
     margin-bottom: 35px;
-    /* More space before options */
     color: #34495e;
-    /* Darker grey for question text */
     line-height: 1.6;
-    /* Improved line spacing for readability */
 }
 
 .quizOptions {
-    /* This is the <ul> container for options */
     list-style: none;
     padding: 0;
     margin: 0;
-    /* Adjusted bottom margin */
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* Ensure options take full width of quizContent */
 }
 
 .quizOption {
     background-color: #f0f0f0;
     border: 1px solid #ddd;
-    /* Softer border color */
     border-radius: 10px;
-    /* More rounded corners */
     padding: 18px;
-    /* More padding for easier tapping */
     margin: 10px 0;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
-    /* Added transform and box-shadow to transition */
     font-size: 1.15rem;
-    /* Slightly larger option text */
     color: #444;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    /* Subtle shadow for options */
 }
 
 .quizOption:hover {
     background-color: #3498db;
-    /* A vibrant blue for hover */
     color: white;
     border-color: #3498db;
     transform: translateY(-3px);
-    /* Lifts slightly on hover */
     box-shadow: 0 5px 12px rgba(52, 152, 219, 0.4);
-    /* Blue shadow on hover */
 }
 
 .quizOption.selected {
     background-color: #2980b9;
-    /* A slightly darker blue when selected */
     color: white;
     border-color: #2980b9;
     box-shadow: 0 3px 8px rgba(41, 128, 185, 0.3);
-    /* Selected shadow */
 }
 
 .answerMessage {
-    /* General message container for correct/incorrect feedback */
     font-size: 1.6rem;
-    /* Larger font for emphasis */
     padding: 15px 25px;
-    /* More padding */
     margin-top: 10px;
-    /* Adjusted top margin */
     border-radius: 10px;
-    /* Rounded corners for the message box */
     font-weight: bold;
     animation: fadeInScale 0.5s ease-out forwards;
-    /* Fade-in and scale animation */
 }
 
-/* ✅ ENHANCED CORRECT ANSWER DESIGN */
 .correct {
     background-color: #2ecc71;
-    /* A brighter, more vibrant green for correctness */
     border: 2px solid #27ae60;
-    /* Solid border for clarity */
     color: white;
     box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
-    /* Stronger, green-tinted shadow */
     animation: correctPop 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
-    /* Pop animation */
     padding: 20px 30px;
-    /* More padding for the correct message */
 }
 
 .incorrect {
     background-color: #e74c3c;
-    /* Clear red for incorrect */
     border: 2px solid #c0392b;
-    /* Solid border for clarity */
     color: white;
     box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
-    /* Red-tinted shadow */
     animation: fadeInScale 0.5s ease-out forwards;
-    /* Still fades in */
 }
 
-/* Optional: Style for the actual answer text itself, if displayed below (like "正解は〇〇") */
 .quizAnswer {
     font-size: 1.4rem;
-    /* Adjusted size for the answer revelation */
     color: #333;
     font-weight: bold;
 }
 
 .quizButton {
     background-color: #f39c12;
-    /* A warmer orange for the button */
     color: white;
     border: none;
     border-radius: 50px;
     padding: 14px 30px;
-    /* Larger padding for a more prominent button */
     font-size: 1.3rem;
-    /* Larger font for the button text */
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
-    /* Stronger button shadow */
 }
 
 .quizButton:hover {
     background-color: #e08e0b;
-    /* Slightly darker on hover */
     transform: translateY(-3px);
-    /* Lifts more on hover */
     box-shadow: 0 7px 15px rgba(0, 0, 0, 0.35);
-    /* More shadow on hover */
 }
 
 .quizButton:active {
@@ -194,7 +135,6 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Animations --- */
 @keyframes fadeInScale {
     from {
         opacity: 0;
@@ -224,8 +164,6 @@
     }
 }
 
-
-/* --- レスポンシブ対応 --- */
 @media (max-width: 768px) {
     .quizContent {
         width: 95%;
@@ -254,6 +192,14 @@
         font-size: 1.2rem;
         padding: 12px 25px;
     }
+
+    .explanation {
+        font-size: 1rem;
+        margin: 20px 0;
+        display: block;
+        line-height: 1.4;
+        color: #f0f0f0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -276,11 +222,19 @@
     }
 
     .answerMessage {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .quizButton {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
         padding: 10px 20px;
+    }
+
+    .explanation {
+        font-size: 1rem;
+        margin: 20px 0;
+        display: block;
+        line-height: 1.4;
+        color: #f0f0f0;
     }
 }
