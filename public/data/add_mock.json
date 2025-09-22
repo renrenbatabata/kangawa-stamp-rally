@@ -1,17 +1,70 @@
-{
-    "stampNo": "stamp_point_2",
-    "stampName": "こぶし",
-    "stampText": "片倉うさぎ山公園：春の兆しを感じるころ、走り回る子どもたちを満開のこぶしが見守ります。",
-    "imgPath": "/src/assets/stamp_points/stamp_point_2.png",
-    "quizDto": {
-        "quizNo": 2,
-        "quizText": "GREEN×EXPO ２０２７は何年に実施されるでしょうか？",
-        "option1": "2027年",
-        "option2": "2030年",
-        "option3": "2026年",
-        "option4": "2025年",
-        "answerNo": 1,
-        "explanation": "正解は①2027年だよ！\n\n★ちなみに2030はカーボンハーフ達成目標の年。\nゴールの隣のブースに行ってみてね！"
+[
+    {
+        "stampNo": "stamp_point_1",
+        "stampName": "チューリップ",
+        "stampText": "反町公園：色とりどりのチューリップが咲き誇り、うららかな春の訪れを教えてくれる。",
+        "imgPath": "/src/assets/stamp_points/stamp_point_1.png",
+        "quizDto": {
+            "quizNo": 1,
+            "quizText": "GREEN×EXPO 2027が開催される場所はどこ？",
+            "option1": "大阪",
+            "option2": "横浜",
+            "option3": "東京",
+            "option4": "名古屋",
+            "answerNo": 2,
+            "explanation": "（旭区・瀬谷区）に位置する旧上瀬谷通信施設で実施するよ。"
+        },
+        "date": "2025/07/23 11:17:57"
     },
-    "date": "2025/07/23 11:17:57"
-}
+    {
+        "stampNo": "stamp_point_2",
+        "stampName": "こぶし",
+        "stampText": "片倉うさぎ山公園：春の兆しを感じるころ、走り回る子どもたちを満開のこぶしが見守ります。",
+        "imgPath": "/src/assets/stamp_points/stamp_point_2.png",
+        "quizDto": {
+            "quizNo": 2,
+            "quizText": "GREEN×EXPO ２０２７は何年に実施されるでしょうか？",
+            "option1": "2027年",
+            "option2": "2030年",
+            "option3": "2026年",
+            "option4": "2025年",
+            "answerNo": 1,
+            "explanation": "ちなみに2030はカーボンハーフ達成目標の年。\nゴールの隣のブースに行ってみてね！"
+        },
+        "date": "2025/07/23 11:17:57"
+    },
+    {
+        "stampNo": "stamp_point_3",
+        "stampName": "アジサイ",
+        "stampText": "三ツ沢せせらぎ緑道：静けさに響くせせらぎとアジサイが奏でるハーモニー。",
+        "imgPath": "/src/assets/stamp_points/stamp_point_3.png",
+        "quizDto": {
+            "quizNo": 3,
+            "quizText": "GREEN×EXPO ２０２７のマスコットキャラクターの名前は？",
+            "option1": "トゥンクトゥンク",
+            "option2": "トゥクトゥク",
+            "option3": "かめ太郎",
+            "option4": "バクバク",
+            "answerNo": 1,
+            "explanation": "ゴールのブースにいるから探してみてね！"
+        },
+        "date": "2025/07/23 11:17:57"
+    },
+    {
+        "stampNo": "stamp_point_4",
+        "stampName": "バラ",
+        "stampText": "三ツ沢公園：バラ園には季節ごとに様々な種類のバラが咲き、華やかな香り、色を楽しめます。",
+        "imgPath": "/src/assets/stamp_points/stamp_point_4.png",
+        "quizDto": {
+            "quizNo": 4,
+            "quizText": "GREEN×EXPO 2027のテーマはどれ？",
+            "option1": "幸せを創る明日の風景",
+            "option2": "笑顔でつながる神奈川区",
+            "option3": "地球1個分で暮らそう STYLE100",
+            "option4": "YOKOHAMA　GOGREEN",
+            "answerNo": 1,
+            "explanation": "正解は「幸せを創る明日の風景」だよ！\n\n★地球にも人にも優しい未来をみんなで考える万博だよ！楽しみだね！"
+        },
+        "date": "2025/07/23 11:17:57"
+    }
+]
