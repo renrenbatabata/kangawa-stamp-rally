@@ -1,12 +1,14 @@
 import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { BrowserQRCodeReader, type IScannerControls } from "@zxing/browser";
-import { useUserContext } from "../UserContext";
+import { useUserContext } from "./UserContext";
 
 const QR_PREFIX = import.meta.env.VITE_QR_PREFIX;
 const SUCCESS_PATH = import.meta.env.VITE_SUCCESS_PATH;
 const FAIL_PATH = import.meta.env.VITE_FAIL_PATH;
 const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === "true";
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
 
 if (!QR_PREFIX || !SUCCESS_PATH || !FAIL_PATH) {
   throw new Error(
@@ -68,7 +70,8 @@ export const useQRCodeScanner = (
             controls.stop();
             const qrData = result.getText();
             if (qrData.startsWith(QR_PREFIX)) {
-              const stampId = qrData;
+              // QRコードのプレフィックスからスタンプIDを抽出
+              const stampId = qrData.replace(QR_PREFIX, "");
               const addStamp = async () => {
                 try {
                   if (USE_MOCK_DATA) {
@@ -92,7 +95,11 @@ export const useQRCodeScanner = (
                       navigate(FAIL_PATH);
                     }
                   } else {
-                    const response = await fetch("/add", {
+                    if (!apiBaseUrl) {
+                      throw new Error("API base URL is not configured.");
+                    }
+                    const apiUrl = `${apiBaseUrl}/add`; 
+                    const response = await fetch(apiUrl, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({ uuid, stampId }),
