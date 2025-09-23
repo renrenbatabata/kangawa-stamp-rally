@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useUserContext } from "../../UserContext";
+import { useUserContext } from "../../hooks/UserContext";
 import styles from "./StampListPage.module.css";
 import type { Stamp } from "../../types/stamp";
 
@@ -12,18 +12,40 @@ import StampList from "../../components/StampList/StampList";
 
 const StampListPage: React.FC = () => {
   const uid = useUserContext();
-  console.log("User UID:", uid);
 
   const [stamps, setStamps] = useState<Stamp[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const isMockData = import.meta.env.VITE_USE_MOCK_DATA === "true";
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
     const fetchStamps = async () => {
+      setError(null);
+      setIsLoading(true);
+
       try {
-        const response = await fetch("/data/top_mock.json");
+        if (!isMockData && !apiBaseUrl) {
+          throw new Error("API base URL is not configured in environment variables.");
+        }
+
+        const url = isMockData ? "/data/top_mock.json" : `${apiBaseUrl}/top?uuid=${uid}`;
+        
+
+        if (!url) {
+            throw new Error("Data source URL is not available.");
+        }
+
+        const headers: HeadersInit = { 'Content-Type': 'application/json' };
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: headers,
+        });
+
         if (!response.ok) {
-          throw new Error("Failed to fetch mock data.");
+          throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
         setStamps(data);
@@ -39,7 +61,7 @@ const StampListPage: React.FC = () => {
     };
 
     fetchStamps();
-  }, []);
+  }, [uid]);
 
   const progress = stamps.length;
 
@@ -71,13 +93,10 @@ const StampListPage: React.FC = () => {
   return (
     <div className={styles.container}>
       <Header />
-
         <img src={QRtitle} className={styles.qrTitleImage} alt="QRコードを読み取ってスタンプゲット！" />
-
         <div className={styles.progressContainer}>
           <StampBadge progress={progress} />
         </div>
-
         <StampList stamps={stamps} />
       <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
     </div>
