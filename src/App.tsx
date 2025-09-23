@@ -1,8 +1,6 @@
 // src/App.tsx
-import "./styles/global.css"; // グローバルCSSをインポート
-import React, { useState, useEffect } from "react"; // useStateとuseEffectフックをインポート
-import { v4 as uuidv4 } from "uuid"; 
-import { BrowserRouter, Route, Routes } from "react-router-dom"; // React Router関連コンポーネントをインポート
+import "./styles/global.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // 各ページコンポーネントをインポート
 import HomePage from "./pages/HomePage/HomePage";
@@ -13,29 +11,18 @@ import CameraPage from "./pages/CameraPage/CameraPage";
 import ScanResultSuccessPage from "./pages/ScanResultSuccessPage/ScanResultSuccessPage";
 import ScanResultFailPage from "./pages/ScanResultFailPage/ScanResultFailPage";
 
-import { UserContext, UID_LOCAL_STORAGE_KEY } from "./UserContext";
+// カスタムフックをインポート
+import { useUserRegistration } from "./hooks/useUserRegistration";
+import { UserContext } from "./hooks/useContext";
 
 // --- メインの App コンポーネント ---
 const App: React.FC = () => {
-  // UIDの状態管理: 初回レンダリング時にlocalStorageからUIDを取得し、なければ新しいUUIDを生成
-  const [uid] = useState<string>(() => {
-    // ブラウザ環境でのみlocalStorageにアクセス
-    if (typeof window !== "undefined") {
-      const storedUid = localStorage.getItem(UID_LOCAL_STORAGE_KEY);
-      if (storedUid) {
-        return storedUid; // 既存のUIDを使用
-      }
-    }
-    return uuidv4(); // 新しいUIDを生成
-  });
+  const { uid } = useUserRegistration();
 
-  // uidが変更されるたびにlocalStorageに保存する副作用
-  useEffect(() => {
-    // ブラウザ環境でのみ実行
-    if (typeof window !== "undefined") {
-      localStorage.setItem(UID_LOCAL_STORAGE_KEY, uid);
-    }
-  }, [uid]);
+  if (!uid) {
+    return <div>ロード中...</div>;
+  }
+
   return (
     <UserContext.Provider value={uid}>
       <BrowserRouter>
@@ -54,4 +41,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App; // Appコンポーネントのみをデフォルトエクスポート
+export default App;

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ScanResultSuccessPage.module.css";
 import background from "../../assets/images/background.png";
-import { UID_LOCAL_STORAGE_KEY } from "../../hooks/UserContext";
+import { UID_LOCAL_STORAGE_KEY } from "../../hooks/useContext";
 
 // スタンプ画像のパスを定義
 import Stamp01 from "../../assets/stamp_points/stamp_point_1.png";

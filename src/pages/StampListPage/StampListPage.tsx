@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useUserContext } from "../../hooks/UserContext";
+import { useUserContext } from "../../hooks/useContext";
 import styles from "./StampListPage.module.css";
 import type { Stamp } from "../../types/stamp";
 

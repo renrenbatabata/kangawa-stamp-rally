@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { BrowserQRCodeReader, type IScannerControls } from "@zxing/browser";
-import { useUserContext } from "./UserContext";
+import { useUserContext } from "./useContext";
 
 const QR_PREFIX = import.meta.env.VITE_QR_PREFIX;
 const SUCCESS_PATH = import.meta.env.VITE_SUCCESS_PATH;
