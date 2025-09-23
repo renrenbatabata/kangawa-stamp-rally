@@ -10,10 +10,10 @@ type StampListProps = {
 
 const StampList: React.FC<StampListProps> = ({ stamps }) => {
   const fixedStamps = [
-    { stampNo: "stamp_point_1", stampName: "スタンプ1" },
-    { stampNo: "stamp_point_2", stampName: "スタンプ2" },
-    { stampNo: "stamp_point_3", stampName: "スタンプ3" },
-    {stampNo: "stamp_point_4", stampName: "スタンプ4" },
+    { stampNo: "stamp_point_1", stampName: "スタンプ1", stampText: "反町公園：色とりどりのチューリップが咲き誇り、うららかな春の訪れを教えてくれる。" },
+    { stampNo: "stamp_point_2", stampName: "スタンプ2", stampText: "片倉うさぎ山公園：春の兆しを感じるころ、走り回る子どもたちを満開のこぶしが見守ります。" },
+    { stampNo: "stamp_point_3", stampName: "スタンプ3", stampText: "三ツ沢せせらぎ緑道：静けさに響くせせらぎとアジサイが奏でるハーモニー。" },
+    { stampNo: "stamp_point_4", stampName: "スタンプ4", stampText: "三ツ沢公園：バラ園には季節ごとに様々な種類のバラが咲き、華やかな香り、色を楽しめます。" },
   ];
 
   return (
@@ -29,6 +29,7 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
                 id={foundStamp.stampNo}
                 title={foundStamp.stampName}
                 imgPath={foundStamp.imgPath}
+                stampText={foundStamp.stampText}
               />
             );
           } else {
@@ -39,6 +40,7 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
                 id={fixedStamp.stampNo}
                 title={fixedStamp.stampName}
                 imgPath={displayImgPath}
+                stampText={fixedStamp.stampText}
               />
             );
           }
