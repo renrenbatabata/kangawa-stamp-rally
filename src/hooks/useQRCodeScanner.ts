@@ -28,14 +28,25 @@ export const useQRCodeScanner = (
   const startScan = useCallback(async () => {
     if (isScanning || !videoRef.current) return;
     setErrorMessage(null);
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setErrorMessage(
+        "お使いのブラウザはカメラ機能をサポートしていません。または、HTTP環境ではカメラ機能は利用できません。"
+      );
+      setIsScanning(false);
+      return;
+    }
+
     setIsScanning(true);
     try {
       if (!codeReader.current) {
         codeReader.current = new BrowserQRCodeReader();
       }
-      const selectedDeviceId = await (async () => {
-        const videoInputDevices =
-          await BrowserQRCodeReader.listVideoInputDevices();
+
+      let selectedDeviceId: string | undefined;
+
+      try {
+        const videoInputDevices = await BrowserQRCodeReader.listVideoInputDevices();
         if (videoInputDevices.length === 0) {
           throw new Error("カメラが見つかりませんでした。");
         }
@@ -44,8 +55,11 @@ export const useQRCodeScanner = (
             device.label.includes("back") ||
             device.label.includes("environment")
         );
-        return backCamera ? backCamera.deviceId : videoInputDevices[0].deviceId;
-      })();
+        selectedDeviceId = backCamera ? backCamera.deviceId : videoInputDevices[0].deviceId;
+      } catch (e) {
+        console.warn("デバイスの列挙に失敗しました。デフォルトのカメラを使用します。", e);
+      }
+
       const controls = await codeReader.current.decodeFromVideoDevice(
         selectedDeviceId,
         videoRef.current,
