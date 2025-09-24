@@ -1,4 +1,3 @@
-/* ベースのコンテナ */
 .Container {
   background-color: #ffffff;
   border: 4px solid #ffd700;
@@ -9,43 +8,77 @@
   flex-direction: column;
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* 「スタンプ進捗」のテキスト */
-.progressKazu {
-  font-size: 1.2em;
+.Container::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -50px;
+  width: 120px;
+  height: 120px;
+  background-color: #FFFAD7;
+  border-radius: 50%;
+  opacity: 0.8;
+  z-index: 0;
+}
+
+.Container::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  right: -40px;
+  width: 100px;
+  height: 100px;
+  background-color: #FFFAD7;
+  border-radius: 50%;
+  opacity: 0.8;
+  z-index: 0;
+}
+
+.innerBox {
+  background-color: #FEEFD2;
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  position: relative;
+  z-index: 1;
+}
+
+.progressText {
+  font-size: 1.3em;
+  margin: 20px 0;
   color: #555;
   font-weight: bold;
 }
 
-/* 進捗率の数字部分のコンテナ */
-.progressConteinae {
+.progressContainer {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-top: 10px;
-  margin-bottom: 25px;
-  font-size: 2em;
-  color: #333333;
+  font-size: 2.5em;
 }
 
-/* 進捗の数字 */
 .progress {
-  font-size: 1.5em;
   font-weight: bold;
+  color: #fb9701;
+  font-size: 1.5em;
+  margin-bottom: 20px;
 }
 
-/* プログレスバーのコンテナ */
 .progressBarContainer {
   width: 80%;
   height: 15px;
-  background-color: #fffacd;
+  background-color: #82827e;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  margin-bottom: 10px;
+  margin: 10px auto;
 }
 
-/* プログレスバーの塗りつぶし部分 */
 .progressBarFill {
   height: 100%;
   border-radius: 10px;
@@ -54,44 +87,44 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) inset;
 }
 
-/* 区切り文字「/」 */
 .progressSeparator {
-  font-size: 1.2em;
+  font-size: 0.8em;
   margin: 0 5px;
   color: #666666;
 }
 
-/* 合計数「4」 */
 .progressTotal {
-  font-size: 1.2em;
+  font-size: 0.8em;
   color: #666666;
 }
 
-/* --- 新しいアイコンのスタイル --- */
-
-/* アイコンを囲むコンテナ */
-.iconsContainer {
-  display: flex;
-  justify-content: space-between; /* アイコンを等間隔に配置 */
-  width: 85%; /* プログレスバーと同じ幅に設定 */
-  margin-top: 5px; /* プログレスバーとの間隔 */
+.remainingMessage {
+  font-size: 1em;
+  color: #555;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.5;
 }
 
-/* 個々のアイコンを囲むラッパー */
+.iconsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 5px;
+}
+
 .iconWrapper {
-  width: 25%; /* アイコンのスペースを均等に分割 */
   display: flex;
   justify-content: center;
 }
 
-/* 完了したアイコン（色付き） */
 .checkedIcon {
-  color: #ffa500; /* 塗りつぶしの色 */
-  font-size: 40px; /* アイコンのサイズ */
+  color: #ff8f00;
+  font-size: 40px;
 }
 
-/* 未完了のアイコン */
 .unCheckedIcon {
-  color: #ccc; /* 未完了の色 */
-  font-size: 40px; /* アイコンのサイズ */
+  color: #ccc;
+  font-size: 40px;
 }
