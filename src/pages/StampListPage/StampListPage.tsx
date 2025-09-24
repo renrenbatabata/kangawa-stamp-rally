@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../hooks/useContext";
 import styles from "./StampListPage.module.css";
 import type { Stamp } from "../../types/stamp";
@@ -9,9 +10,11 @@ import FooterNav from "../../components/common/FooterNav/FooterNav";
 import StampBadge from "../../components/common/StampBadge/StampBadge";
 import QRtitle from "../../assets/images/QRtitle.png";
 import StampList from "../../components/StampList/StampList";
+import ScanButton from "../../components/common/ScanButton/ScanButton";
 
 const StampListPage: React.FC = () => {
   const uid = useUserContext();
+  const navigate = useNavigate();
 
   const [stamps, setStamps] = useState<Stamp[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -90,6 +93,10 @@ const StampListPage: React.FC = () => {
     );
   }
 
+    const handleScanButtonClick = () => {
+    navigate("/scan");
+  };
+
   return (
     <div className={styles.container}>
       <Header />
@@ -97,6 +104,8 @@ const StampListPage: React.FC = () => {
         <div className={styles.progressContainer}>
           <StampBadge progress={progress} />
         </div>
+              <ScanButton onClick={handleScanButtonClick} />
+
         <StampList stamps={stamps} />
       <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
     </div>
