@@ -6,9 +6,8 @@ type StampBadgeProps = {
 };
 
 const StampBadge = ({ progress }: StampBadgeProps) => {
-  // progress の数だけ、カメのアイコンを生成します。
 const progressIcons = Array.from({ length: 4 }, (_, index) => {
-  const id = index + 1; // 1から始まるユニークなIDを生成
+  const id = index + 1;
   return (
     <div key={id} className={styles.iconWrapper}>
       <GiTurtle className={index < progress ? styles.checkedIcon : styles.unCheckedIcon} />
@@ -28,7 +27,6 @@ const progressIcons = Array.from({ length: 4 }, (_, index) => {
         <span className={styles.progressTotal}>4</span>
       </div>
       
-      {/* プログレスバーを配置 */}
       <div className={styles.progressBarContainer}>
         <div 
           className={styles.progressBarFill} 
@@ -36,7 +34,6 @@ const progressIcons = Array.from({ length: 4 }, (_, index) => {
         ></div>
       </div>
 
-      {/* アイコンを進捗バーの下に配置します */}
       <div className={styles.iconsContainer}>
         {progressIcons}
       </div>
