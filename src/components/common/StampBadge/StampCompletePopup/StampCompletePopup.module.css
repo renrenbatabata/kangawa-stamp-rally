@@ -1,0 +1,214 @@
+/* オーバーレイ */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* 半透明の背景 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 最前面に表示 */
+  padding: 20px;
+  overflow-y: auto; /* コンテンツがはみ出た場合にスクロール可能にする */
+}
+
+/* ポップアップコンテナ */
+.popupContainer {
+  background-color: #fff;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px; /* 最大幅を設定 */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden; /* 角丸に合わせて内容を隠す */
+}
+
+/* 上部のトロフィーヘッダー */
+.trophyHeader {
+  background: linear-gradient(135deg, #FFD700, #FFA500); /* グラデーション背景 */
+  padding: 40px 20px 20px; /* 下にスペースを持たせる */
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  position: relative;
+}
+
+.mainTrophyIcon {
+  color: #fff; /* 白いトロフィー */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* お祝いのアニメーションとテキスト */
+.celebrationAnimation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -30px; /* トロフィーヘッダーに少し重ねる */
+  margin-bottom: 10px;
+}
+
+.celebrationIcon, .fireworksIcon, .giftIcon {
+  font-size: 30px;
+  color: #FFD700; /* 金色 */
+  margin: 0 25px;
+  animation: bounce 0.8s infinite alternate; /* 例: 少し跳ねるアニメーション */
+}
+
+.fireworksIcon { animation-delay: 0.1s; }
+.giftIcon { animation-delay: 0.2s; }
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-7px); }
+}
+
+.congratulationsText {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FF8C00; /* オレンジ系の色 */
+  margin-bottom: 20px;
+}
+
+/* 共通のボックススタイル */
+.completionBox, .thanksBox {
+  border-radius: 10px;
+  margin: 15px 20px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.completionBox {
+  background-color: #dbfcdbfe; /* 明るい緑 */
+  border: 2px solid #66CDAA; /* 少し濃い緑のボーダー */
+}
+
+.thanksBox {
+  background-color: #FFFACD; /* 明るい黄色 */
+  border: 2px solid #FFD700; /* 金色のボーダー */
+}
+
+.boxContent {
+  color: #333;
+}
+
+.boxTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* アイコンとテキストの間隔 */
+}
+
+.inlineTrophyIcon, .inlineGiftIcon {
+  font-size: 22px;
+  color: #FFD700; /* 金色 */
+}
+
+.boxMessage {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.highlightText {
+  color: #FF8C00; /* オレンジ色で強調 */
+  font-weight: bold;
+}
+
+.starsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.starIcon {
+  font-size: 25px;
+  color: #FFD700; /* 金色の星 */
+  margin: 0 3px;
+}
+
+.targetIcon { /* 画像中央のターゲットを模倣 */
+  font-size: 30px;
+  color: #FF6347; /* 赤系の色 */
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  border: 2px solid #FF6347;
+  margin: 0 5px;
+}
+
+
+/* 結果を確認するボタン */
+.checkResultButton {
+  background: linear-gradient(90deg, #28a745, #20c997); /* 緑系のグラデーション */
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 20px auto 30px; /* 上下左右中央に配置 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+.checkResultButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(40, 167, 69, 0.6);
+}
+
+.buttonIcon {
+  font-size: 20px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+  .popupContainer {
+    margin: 10px;
+    border-radius: 10px;
+  }
+  .trophyHeader {
+    padding: 40px 15px 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .mainTrophyIcon {
+    font-size: 40px;
+  }
+  .celebrationIcon, .fireworksIcon, .giftIcon {
+    font-size: 25px;
+  }
+  .congratulationsText {
+    font-size: 20px;
+  }
+  .boxTitle {
+    font-size: 16px;
+  }
+  .boxMessage {
+    font-size: 14px;
+  }
+  .starIcon {
+    font-size: 20px;
+  }
+  .targetIcon {
+    font-size: 25px;
+  }
+  .checkResultButton {
+    padding: 12px 25px;
+    font-size: 16px;
+  }
+}
