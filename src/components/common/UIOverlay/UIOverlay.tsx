@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./UIOverlay.module.css";
 
 interface UIOverlayProps {
@@ -22,7 +21,7 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
         {errorMessage && (
           <div className={styles.cameraErrorOverlay}>
             <p className={styles.errorText}>{errorMessage}</p>
-            <button className={styles.retryButton} onClick={onRetry}>
+            <button type="button" className={styles.retryButton} onClick={onRetry}>
               再試行
             </button>
           </div>
