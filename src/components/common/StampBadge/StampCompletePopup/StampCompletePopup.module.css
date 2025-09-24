@@ -1,81 +1,89 @@
-/* オーバーレイ */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* 半透明の背景 */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* 最前面に表示 */
+  z-index: 1000;
   padding: 20px;
-  overflow-y: auto; /* コンテンツがはみ出た場合にスクロール可能にする */
+  overflow-y: auto;
 }
 
-/* ポップアップコンテナ */
 .popupContainer {
   background-color: #fff;
   border-radius: 15px;
   width: 100%;
-  max-width: 400px; /* 最大幅を設定 */
+  max-width: 400px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
-  overflow: hidden; /* 角丸に合わせて内容を隠す */
+  overflow: hidden;
 }
 
-/* 上部のトロフィーヘッダー */
 .trophyHeader {
-  background: linear-gradient(135deg, #FFD700, #FFA500); /* グラデーション背景 */
-  padding: 40px 20px 20px; /* 下にスペースを持たせる */
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  padding: 40px 20px 20px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   position: relative;
 }
 
 .mainTrophyIcon {
-  color: #fff; /* 白いトロフィー */
+  color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* お祝いのアニメーションとテキスト */
 .celebrationAnimation {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -30px; /* トロフィーヘッダーに少し重ねる */
+  margin-top: -30px;
   margin-bottom: 10px;
 }
 
-.celebrationIcon, .fireworksIcon, .giftIcon {
+.celebrationIcon,
+.fireworksIcon,
+.giftIcon {
   font-size: 30px;
-  color: #FFD700; /* 金色 */
+  color: #FFD700;
   margin: 0 25px;
-  animation: bounce 0.8s infinite alternate; /* 例: 少し跳ねるアニメーション */
+  animation: bounce 0.8s infinite alternate;
 }
 
-.fireworksIcon { animation-delay: 0.1s; }
-.giftIcon { animation-delay: 0.2s; }
+.fireworksIcon {
+  animation-delay: 0.1s;
+}
+
+.giftIcon {
+  animation-delay: 0.2s;
+}
 
 @keyframes bounce {
-  from { transform: translateY(0); }
-  to { transform: translateY(-7px); }
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-7px);
+  }
 }
 
 .congratulationsText {
   font-size: 24px;
   font-weight: bold;
-  color: #FF8C00; /* オレンジ系の色 */
+  color: #FF8C00;
   margin-bottom: 20px;
 }
 
-/* 共通のボックススタイル */
-.completionBox, .thanksBox {
+.completionBox,
+.thanksBox {
   border-radius: 10px;
   margin: 15px 20px;
   padding: 15px;
@@ -84,13 +92,13 @@
 }
 
 .completionBox {
-  background-color: #dbfcdbfe; /* 明るい緑 */
-  border: 2px solid #66CDAA; /* 少し濃い緑のボーダー */
+  background-color: #dbfcdbfe;
+  border: 2px solid #66CDAA;
 }
 
 .thanksBox {
-  background-color: #FFFACD; /* 明るい黄色 */
-  border: 2px solid #FFD700; /* 金色のボーダー */
+  background-color: #FFFACD;
+  border: 2px solid #FFD700;
 }
 
 .boxContent {
@@ -104,12 +112,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* アイコンとテキストの間隔 */
+  gap: 8px;
 }
 
-.inlineTrophyIcon, .inlineGiftIcon {
+.inlineTrophyIcon,
+.inlineGiftIcon {
   font-size: 22px;
-  color: #FFD700; /* 金色 */
+  color: #FFD700;
 }
 
 .boxMessage {
@@ -119,7 +128,7 @@
 }
 
 .highlightText {
-  color: #FF8C00; /* オレンジ色で強調 */
+  color: #FF8C00;
   font-weight: bold;
 }
 
@@ -132,13 +141,13 @@
 
 .starIcon {
   font-size: 25px;
-  color: #FFD700; /* 金色の星 */
+  color: #FFD700;
   margin: 0 3px;
 }
 
-.targetIcon { /* 画像中央のターゲットを模倣 */
+.targetIcon {
   font-size: 30px;
-  color: #FF6347; /* 赤系の色 */
+  color: #FF6347;
   background-color: #fff;
   border-radius: 50%;
   padding: 5px;
@@ -146,10 +155,8 @@
   margin: 0 5px;
 }
 
-
-/* 結果を確認するボタン */
 .checkResultButton {
-  background: linear-gradient(90deg, #28a745, #20c997); /* 緑系のグラデーション */
+  background: linear-gradient(90deg, #28a745, #20c997);
   color: white;
   padding: 15px 30px;
   border: none;
@@ -157,7 +164,7 @@
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  margin: 20px auto 30px; /* 上下左右中央に配置 */
+  margin: 20px auto 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,38 +182,48 @@
   font-size: 20px;
 }
 
-/* レスポンシブ対応 */
 @media (max-width: 480px) {
   .popupContainer {
     margin: 10px;
     border-radius: 10px;
   }
+
   .trophyHeader {
     padding: 40px 15px 15px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
+
   .mainTrophyIcon {
     font-size: 40px;
   }
-  .celebrationIcon, .fireworksIcon, .giftIcon {
+
+  .celebrationIcon,
+  .fireworksIcon,
+  .giftIcon {
     font-size: 25px;
   }
+
   .congratulationsText {
     font-size: 20px;
   }
+
   .boxTitle {
     font-size: 16px;
   }
+
   .boxMessage {
     font-size: 14px;
   }
+
   .starIcon {
     font-size: 20px;
   }
+
   .targetIcon {
     font-size: 25px;
   }
+
   .checkResultButton {
     padding: 12px 25px;
     font-size: 16px;
