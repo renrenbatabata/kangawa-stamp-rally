@@ -70,8 +70,7 @@ export const useQRCodeScanner = (
             controls.stop();
             const qrData = result.getText();
             if (qrData.startsWith(QR_PREFIX)) {
-              // QRコードのプレフィックスからスタンプIDを抽出
-              const stampId = qrData.replace(QR_PREFIX, "");
+              const stampId = qrData;
               const addStamp = async () => {
                 try {
                   if (USE_MOCK_DATA) {
