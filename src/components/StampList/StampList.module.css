@@ -5,7 +5,7 @@
     justify-content: center;
     margin: 30px 10px 150px;
     border-radius: 10px;
-    box-shadow: 1px 1px 15px rgb(173, 193, 158);
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.3);
     height: 80%;
     padding: 0px 22px 22px 22px;
     background-color: #ffffff;

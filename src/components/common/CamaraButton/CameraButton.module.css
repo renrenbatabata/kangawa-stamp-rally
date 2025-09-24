@@ -6,25 +6,17 @@
     display: flex;
     justify-content: center;
     background-color: #ffffff;
-    border-color: #64dd8c;
+    border-color: #70E15E;
     border-width: 10px;
     border-style: solid;
     border-radius: 50%;
     bottom: 20px;
-
 }
 
-
-
-
-/* スマートフォンでの見た目を考慮したメディアクエリ（必要であれば調整） */
 @media (max-width: 768px) {
-
     .camera img {
         width: 40px;
         height: 40px;
         padding: 11px;
     }
-
-
 }

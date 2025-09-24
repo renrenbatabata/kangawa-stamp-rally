@@ -5,3 +5,18 @@
     min-height: 100vh; 
     background-color:  var(--cute-bg-light) ;
 }
+
+.qrTitleContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.qrTitleImage {
+    max-width: 90%;
+    height: auto;
+}

@@ -100,7 +100,9 @@ const StampListPage: React.FC = () => {
   return (
     <div className={styles.container}>
       <Header />
+      <div className={styles.qrTitleContainer}>
         <img src={QRtitle} className={styles.qrTitleImage} alt="QRコードを読み取ってスタンプゲット！" />
+        </div>
         <div className={styles.progressContainer}>
           <StampBadge progress={progress} />
         </div>
