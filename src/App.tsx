@@ -19,7 +19,7 @@ import { UserContext } from "./hooks/useContext";
 const App: React.FC = () => {
   const { uid } = useUserRegistration();
 
-  if (!uid) {
+  if (uid === null) {
     return <div>ロード中...</div>;
   }
 
