@@ -39,7 +39,7 @@ const StampCompletePopup = ({ onClose, totalStamps }: StampCompletePopupProps) =
         </div>
         <div className={styles.thanksBox}>
           <div className={styles.boxContent}>
-            <p className={styles.boxTitle}><FaGift className={styles.inlineGiftIcon} /> 神奈川区区民まつりを</p>
+            <p className={styles.boxTitle}><FaGift className={styles.inlineGiftIcon} /> 神奈川区区民まつり</p>
             <p className={styles.boxMessage}>
               お楽しみいただき<br />
               ありがとうございました！<br />

@@ -2,63 +2,75 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import styles from "./QuizPage.module.css";
 import background from "../../assets/images/background.png";
-import type { Stamp } from "../../types/stamp";
-import { useState } from "react";
-interface QuizData {
-  id: number;
-  question: string;
-  options: string[];
-  answer: number;
-  explanation: string;
-}
+import type { Stamp, QuizData } from "../../types/stamp";
+import { useState, useEffect } from "react";
+
 const QuizPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const stampDataFromState = location.state?.stampData as Stamp;
-  const initialQuizData: QuizData = stampDataFromState
+
+  useEffect(() => {
+    const stampData = location.state?.stampData;
+    if (stampData) {
+      console.log("スタンプデータが正常に渡されました:", stampData);
+    } else {
+      console.error("スタンプデータ (stampData) が渡されていません！");
+    }
+  }, [location]);
+
+  const stampDataFromState = location.state?.stampData as Stamp | undefined;
+
+  const quizDto = stampDataFromState?.quizDto;
+  const initialQuizData: QuizData = quizDto
     ? {
-        id: stampDataFromState.quizDto.quizNo,
-        question: stampDataFromState.quizDto.quizText,
+        id: quizDto.quizNo,
+        question: quizDto.quizText,
         options: [
-          stampDataFromState.quizDto.option1,
-          stampDataFromState.quizDto.option2,
-          stampDataFromState.quizDto.option3,
-          stampDataFromState.quizDto.option4,
+          quizDto.option1,
+          quizDto.option2,
+          quizDto.option3,
+          quizDto.option4,
         ],
-        answer: stampDataFromState.quizDto.answerNo,
-        explanation: stampDataFromState.quizDto.explanation,
+        answer: quizDto.answerNo,
+        explanation: quizDto.explanation,
       }
     : {
         id: 0,
         question: "",
-        options: [],
+        options: ["", "", "", ""],
         answer: 1,
         explanation: "",
       };
+
   const [quizData] = useState<QuizData>(initialQuizData);
-  if (!stampDataFromState) {
-    navigate("/error");
+
+  if (!stampDataFromState || !stampDataFromState.quizDto) {
+    navigate("/error", { replace: true });
     return null;
   }
+
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
-    const selectedIndex = quizData.options.indexOf(option) + 1;
-    if (selectedIndex === quizData.answer) {
-      setIsCorrect(true);
-    } else {
-      setIsCorrect(false);
-    }
   };
+
   const handleQuizComplete = () => {
     if (selectedOption) {
+      const selectedIndex = quizData.options.indexOf(selectedOption) + 1;
+
+      if (selectedIndex === quizData.answer) {
+        setIsCorrect(true);
+      } else {
+        setIsCorrect(false);
+      }
       setQuizCompleted(true);
     } else {
       alert("選択肢を選んでください！");
     }
   };
+
   return (
     <div
       className={styles.quizPage}
@@ -72,8 +84,18 @@ const QuizPage: React.FC = () => {
             <button
               key={option}
               type="button"
-              className={`${styles.quizOption}
-                ${selectedOption === option ? styles.selected : ""}`}
+              className={`${styles.quizOption} ${
+                selectedOption === option ? styles.selected : ""
+              } ${
+                quizCompleted &&
+                quizData.options.indexOf(option) + 1 === quizData.answer
+                  ? styles.correctAnswer
+                  : ""
+              } ${styles.quizOptionWrapper} ${
+                quizCompleted && !isCorrect && selectedOption === option
+                  ? styles.wrongAnswer
+                  : ""
+              }`}
               onClick={() => handleOptionClick(option)}
             >
               {option}
@@ -82,13 +104,19 @@ const QuizPage: React.FC = () => {
         </div>
         {quizCompleted && (
           <div className={styles.answerDisplayArea}>
-            <p
+            <div
               className={`${styles.answerMessage} ${
                 isCorrect ? styles.correct : styles.incorrect
               }`}
             >
               {isCorrect ? (
-                "せいかい！🎉"
+                <div>
+                  せいかい！🎉
+                <span className={styles.explanation}>
+                    {quizData.explanation}
+                  </span>
+                </div>
+
               ) : (
                 <div>
                   <p>ざんねん！</p>
@@ -98,7 +126,7 @@ const QuizPage: React.FC = () => {
                   </span>
                 </div>
               )}
-            </p>
+            </div>
           </div>
         )}
         {!quizCompleted && (
@@ -106,6 +134,7 @@ const QuizPage: React.FC = () => {
             type="button"
             className={styles.quizButton}
             onClick={handleQuizComplete}
+            disabled={!selectedOption}
           >
             こたえをみる！
           </button>
@@ -114,7 +143,11 @@ const QuizPage: React.FC = () => {
           <button
             type="button"
             className={styles.quizButton}
-            onClick={() => navigate("/scan/success")}
+            onClick={() =>
+              navigate("/scan/success", {
+                state: { stampData: stampDataFromState },
+              })
+            }
           >
             スタンプをもらう！
           </button>
