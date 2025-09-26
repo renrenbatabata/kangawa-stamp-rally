@@ -9,7 +9,6 @@ const FAIL_PATH = import.meta.env.VITE_FAIL_PATH;
 const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === "true";
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
-
 if (!QR_PREFIX || !SUCCESS_PATH || !FAIL_PATH) {
   throw new Error(
     "必要な環境変数(.env)が設定されていません: VITE_QR_PREFIX, VITE_SUCCESS_PATH, VITE_FAIL_PATH"
@@ -48,7 +47,8 @@ export const useQRCodeScanner = (
       let selectedDeviceId: string | undefined;
 
       try {
-        const videoInputDevices = await BrowserQRCodeReader.listVideoInputDevices();
+        const videoInputDevices =
+          await BrowserQRCodeReader.listVideoInputDevices();
         if (videoInputDevices.length === 0) {
           throw new Error("カメラが見つかりませんでした。");
         }
@@ -57,9 +57,14 @@ export const useQRCodeScanner = (
             device.label.includes("back") ||
             device.label.includes("environment")
         );
-        selectedDeviceId = backCamera ? backCamera.deviceId : videoInputDevices[0].deviceId;
+        selectedDeviceId = backCamera
+          ? backCamera.deviceId
+          : videoInputDevices[0].deviceId;
       } catch (e) {
-        console.warn("デバイスの列挙に失敗しました。デフォルトのカメラを使用します。", e);
+        console.warn(
+          "デバイスの列挙に失敗しました。デフォルトのカメラを使用します。",
+          e
+        );
       }
 
       const controls = await codeReader.current.decodeFromVideoDevice(
@@ -97,7 +102,7 @@ export const useQRCodeScanner = (
                     if (!apiBaseUrl) {
                       throw new Error("API base URL is not configured.");
                     }
-                    const apiUrl = `${apiBaseUrl}/add`; 
+                    const apiUrl = `${apiBaseUrl}/add`;
                     const response = await fetch(apiUrl, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
@@ -105,9 +110,10 @@ export const useQRCodeScanner = (
                     });
 
                     if (response.ok) {
-                      console.log("スタンプ登録成功:", await response.json());
+                      const stampDataFromApi = await response.json();
+                      console.log("スタンプ登録成功:", stampDataFromApi);
                       navigate(SUCCESS_PATH, {
-                        state: { stampData: result },
+                        state: { stampData: stampDataFromApi },
                       });
                     } else {
                       console.error(
