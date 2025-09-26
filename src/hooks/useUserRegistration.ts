@@ -3,54 +3,61 @@ import { v4 as uuidv4 } from "uuid";
 import { UID_LOCAL_STORAGE_KEY } from "./useContext";
 
 export const useUserRegistration = () => {
-  const [uid, setUid] = useState<string>('');
+  const [uid, setUid] = useState<string>("");
   const [isFirstLogin, setIsFirstLogin] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedUid = localStorage.getItem(UID_LOCAL_STORAGE_KEY);
-
-      // 初回アクセスかどうかを判定
       const isInitialAccess = !storedUid;
-
-      // ユーザーIDを設定
       const currentUid = storedUid || uuidv4();
       setUid(currentUid);
       setIsFirstLogin(isInitialAccess);
       localStorage.setItem(UID_LOCAL_STORAGE_KEY, currentUid);
 
-      // 初回アクセスの場合にのみAPIを呼び出す
-      if (isInitialAccess) {
-        const registerUser = async () => {
-          const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-          const API_ENDPOINT = `${API_BASE_URL}/user`;
+      const registerUser = async () => {
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+        const API_ENDPOINT = `${API_BASE_URL}/user`;
 
-          console.log("Registering user with UID:", currentUid);
-          console.log(API_BASE_URL, API_ENDPOINT);
+        console.log("Registering/Confirming user with UID:", currentUid);
+        setError(null);
 
-          try {
-            const response = await fetch(API_ENDPOINT, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                uuid: currentUid,
-              }),
-            });
+        try {
+          const response = await fetch(API_ENDPOINT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              uuid: currentUid,
+            }),
+          });
 
-            if (!response.ok) {
-              throw new Error(`ユーザー登録に失敗しました。ステータスコード: ${response.status}`);
-            }
-            console.log("ユーザーが正常に登録されました。");
-          } catch (error) {
-            console.error("ユーザー登録エラー:", error);
+          if (!response.ok) {
+            const errorBody = await response
+              .json()
+              .catch(() => ({ message: "No body available" }));
+
+            const fullErrorMessage = `ユーザー登録/確認に失敗しました。ステータスコード: ${
+              response.status
+            }。詳細: ${JSON.stringify(errorBody)}`;
+            throw new Error(fullErrorMessage);
           }
-        };
-        registerUser();
-      }
-    }
-  }, []); 
+          console.log("ユーザーが正常に登録または確認されました。");
+        } catch (error) {
+          const errorMessage =
+            error instanceof Error
+              ? error.message
+              : "ユーザー登録中に予期せぬエラーが発生しました。";
+          console.error("ユーザー登録/確認エラー:", errorMessage, error);
 
-  return { uid, isFirstLogin };
+          setError(errorMessage);
+        }
+      };
+      registerUser();
+    }
+  }, []);
+
+  return { uid, isFirstLogin, error };
 };

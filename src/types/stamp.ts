@@ -1,6 +1,3 @@
-// src/types/stamp.ts
-
-// APIから返される各スタンプオブジェクトの型を定義
 export interface Stamp {
   stampNo: string;
   stampName: string;
@@ -16,5 +13,5 @@ export interface Stamp {
     answerNo: number;
     explanation: string;
   };
-  date: string | null; // スタンプが押されていない場合はnullになる可能性がある
+  date: string | null;
 }
