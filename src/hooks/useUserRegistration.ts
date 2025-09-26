@@ -17,8 +17,9 @@ export const useUserRegistration = () => {
       localStorage.setItem(UID_LOCAL_STORAGE_KEY, currentUid);
 
       const registerUser = async () => {
-        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-        const API_ENDPOINT = `${API_BASE_URL}/user`;
+        // const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+        // const API_ENDPOINT = `${API_BASE_URL}/user`;
+        const API_ENDPOINT = "/api/user";
 
         console.log("Registering/Confirming user with UID:", currentUid);
         setError(null);
