@@ -1,0 +1,70 @@
+/* src/components/StampRibbon/StampRibbon.module.css */
+
+/* ==========================================================
+ * 🎀 CSS変数 (デフォルト値) 🎀
+ * ========================================================== */
+:root {
+    /* デフォルトのオレンジ色を設定。ローカルの--ribbon-colorが優先されます */
+    --ribbon-color: #ff9933;
+    --ribbon-shadow-color: #e07b00;
+    --ribbon-border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================
+ * 🎀 Stamp Ribbon Component Styles 🎀
+ * .ribbon クラス名がローカルにスコープされます
+ * ========================================================== */
+
+/* メインリボン (.ribbon) */
+.ribbon {
+    /* サイズと基本的な表示設定 */
+    width: 300px;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    position: relative;
+    margin: 30px auto;
+
+    /* 背景とフチのデザイン (CSS変数を参照) */
+    /* JSから渡された`--ribbon-color`が最優先されます */
+    background-color: var(--ribbon-color);
+    border: 3px solid var(--ribbon-border-color);
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 1. リボンの左端のV字の切れ込みを作成 (::before) */
+.ribbon::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -20px;
+
+    width: 0;
+    height: 0;
+    border-style: solid;
+    /* borderの計算値はメインリボンの高さに合わせて調整してください */
+    border-width: calc(70px / 2 + 3px) 20px calc(70px / 2 + 3px) 0;
+    border-color: transparent;
+    border-right-color: var(--ribbon-shadow-color);
+    /* 影の色を参照 */
+}
+
+/* 2. リボンの右端のV字の切れ込みを作成 (::after) */
+.ribbon::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: -20px;
+
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: calc(70px / 2 + 3px) 0 calc(70px / 2 + 3px) 20px;
+    border-color: transparent;
+    border-left-color: var(--ribbon-shadow-color);
+    /* 影の色を参照 */
+}
