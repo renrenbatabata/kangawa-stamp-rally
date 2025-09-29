@@ -12,10 +12,10 @@
     box-sizing: border-box;
 }
 
-.listTitle {
-    width: 90vw;
-    position: relative;
-    top: -15px;
+.stampIcon {
+    font-size: 21px;
+        color: #ff8c00;
+    margin-left: 10px;
 }
 
 .stampList {
@@ -25,4 +25,40 @@
     width: 100%;
     padding: 0;
     box-sizing: border-box;
+}
+
+.listTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0 30px;
+    color: #FB9701;
+    padding: 15px 35px;
+    background-color: #fddea4;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.listTitle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.148);
+    transform: skewX(-30deg);
+    animation: shine 2s infinite linear;
+}
+
+/* 光が流れるアニメーション */
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 150%;
+    }
 }

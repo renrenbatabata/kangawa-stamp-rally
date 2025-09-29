@@ -34,7 +34,6 @@ const StampListPage: React.FC = () => {
         }
 
         const url = isMockData ? "/data/top_mock.json" : `${apiBaseUrl}/top?uuid=${uid}`;
-        
 
         if (!url) {
             throw new Error("Data source URL is not available.");
