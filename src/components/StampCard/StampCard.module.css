@@ -44,7 +44,6 @@
 }
 
 .stampTitle {
-    font-family: 'Comic Sans MS', 'Marker Felt', sans-serif;
     font-size: 1.2rem;
     font-weight: bold;
     color: #d16b5a;
@@ -52,6 +51,12 @@
     margin: 0;
 }
 
+.stampSubTitle{
+    font-size: 1rem;
+    color: #de7c6a;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    margin: 5px 0 0 0;
+}
 .popupOverlay {
     position: fixed;
     top: 0;

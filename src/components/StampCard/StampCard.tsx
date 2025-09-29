@@ -4,11 +4,12 @@ import styles from "./StampCard.module.css";
 interface StampCardProps {
   id: string;
   title: string;
+  subTitle: string;
   imgPath: string;
   stampText: string;
 }
 
-const StampCard: React.FC<StampCardProps> = ({ title, imgPath, stampText }) => {
+const StampCard: React.FC<StampCardProps> = ({ title, subTitle, imgPath, stampText }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleCardClick = () => {
@@ -31,6 +32,7 @@ return (
             />
         </p>
         <h2 className={styles.stampTitle}>{title}</h2>
+        <h3 className={styles.stampSubTitle}>{subTitle}</h3>
       </div>
     </button>
 

@@ -1,4 +1,4 @@
-// src/types/stamp.ts 
+// src/types/stamp.ts
 
 // -------------------------------------------------------------
 // クイズデータ (QuizDto) の型定義
@@ -21,6 +21,7 @@ export interface Stamp {
   stampNo: string;
   stampName: string;
   stampText: string;
+  stampSubName: string;
   imgPath: string;
   quizDto: QuizDto;
   date: string;

@@ -7,34 +7,38 @@ import { FaStamp } from "react-icons/fa";
 type StampListProps = {
   stamps: Stamp[];
 };
-
 const StampList: React.FC<StampListProps> = ({ stamps }) => {
   const fixedStamps = [
     {
       stampNo: "stamp_point_1",
       stampName: "チューリップ",
+      stampSubName: "神奈川区の花",
       stampText:
         "反町公園：色とりどりのチューリップが咲き誇り、うららかな春の訪れを教えてくれる。",
     },
     {
       stampNo: "stamp_point_2",
       stampName: "こぶし",
+      stampSubName: "神奈川区の木",
       stampText:
         "片倉うさぎ山公園：春の兆しを感じるころ、走り回る子どもたちを満開のこぶしが見守ります。",
     },
     {
       stampNo: "stamp_point_3",
       stampName: "アジサイ",
+      stampSubName: "　　　",
       stampText:
         "三ツ沢せせらぎ緑道：静けさに響くせせらぎとアジサイが奏でるハーモニー。",
     },
     {
       stampNo: "stamp_point_4",
       stampName: "バラ",
+      stampSubName: "横浜市の花",
       stampText:
         "三ツ沢公園：バラ園には季節ごとに様々な種類のバラが咲き、華やかな香り、色を楽しめます。",
     },
   ];
+  console.log("Received stamps:", stamps.map(stamp => stamp.stampName));
 
   return (
     <div className={styles.stampListContainer}>
@@ -57,6 +61,7 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
                 key={foundStamp.stampNo}
                 id={foundStamp.stampNo}
                 title={foundStamp.stampName}
+                subTitle={foundStamp.stampSubName}
                 imgPath={foundStamp.imgPath}
                 stampText={foundStamp.stampText}
               />
@@ -68,6 +73,7 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
                 key={fixedStamp.stampNo}
                 id={fixedStamp.stampNo}
                 title={fixedStamp.stampName}
+                subTitle={fixedStamp.stampSubName}
                 imgPath={displayImgPath}
                 stampText={fixedStamp.stampText}
               />

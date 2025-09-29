@@ -2,6 +2,7 @@
     {
         "stampNo": "stamp_point_1",
         "stampName": "チューリップ",
+        
         "stampText": "反町公園：色とりどりのチューリップが咲き誇り、うららかな春の訪れを教えてくれる。",
         "imgPath": "/src/assets/stamp_points/stamp_point_1.png",
         "quizDto": {
