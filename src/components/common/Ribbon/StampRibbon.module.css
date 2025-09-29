@@ -1,70 +1,75 @@
 /* src/components/StampRibbon/StampRibbon.module.css */
 
-/* ==========================================================
- * 🎀 CSS変数 (デフォルト値) 🎀
- * ========================================================== */
-:root {
-    /* デフォルトのオレンジ色を設定。ローカルの--ribbon-colorが優先されます */
-    --ribbon-color: #ff9933;
-    --ribbon-shadow-color: #e07b00;
-    --ribbon-border-color: rgba(0, 0, 0, 0.2);
-}
-
-/* ==========================================================
- * 🎀 Stamp Ribbon Component Styles 🎀
- * .ribbon クラス名がローカルにスコープされます
- * ========================================================== */
-
-/* メインリボン (.ribbon) */
 .ribbon {
-    /* サイズと基本的な表示設定 */
-    width: 300px;
-    height: 70px;
-    line-height: 70px;
-    text-align: center;
-    color: white;
-    font-size: 36px;
-    font-weight: bold;
+    /* 変数定義 */
+    --ribbon-color: #f7a2a2;
+    /* デフォルトのリボン色 */
+    --ribbon-text-color: #fff;
+    /* 文字色 */
+    --ribbon-shadow-color: rgba(0, 0, 0, 0.15);
+    /* 影の色 */
+
+    /* 基本スタイル */
     position: relative;
-    margin: 30px auto;
-
-    /* 背景とフチのデザイン (CSS変数を参照) */
-    /* JSから渡された`--ribbon-color`が最優先されます */
-    background-color: var(--ribbon-color);
-    border: 3px solid var(--ribbon-border-color);
-    border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    /* 擬似要素の位置の基準に */
+    display: inline-block;
+    padding: 0.5em 1.5em;
+    /* 上下の余白を確保し、リボンの幅を広げる */
+    background: var(--ribbon-color);
+    color: var(--ribbon-text-color);
+    font-family: "Mochiy Pop One", sans-serif;
+    /* 可愛らしいフォント */
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    /* 角を丸くする */
+    box-shadow: 0 4px 6px var(--ribbon-shadow-color);
+    /* 影を付けて浮き上がらせる */
+    transform-origin: center;
+    /* アニメーションの起点を中央に */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    /* アニメーションの設定 */
 }
 
-/* 1. リボンの左端のV字の切れ込みを作成 (::before) */
-.ribbon::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -20px;
-
-    width: 0;
-    height: 0;
-    border-style: solid;
-    /* borderの計算値はメインリボンの高さに合わせて調整してください */
-    border-width: calc(70px / 2 + 3px) 20px calc(70px / 2 + 3px) 0;
-    border-color: transparent;
-    border-right-color: var(--ribbon-shadow-color);
-    /* 影の色を参照 */
-}
-
-/* 2. リボンの右端のV字の切れ込みを作成 (::after) */
+/* リボン右端の折り返し部分 */
 .ribbon::after {
-    content: '';
+    content: "";
     position: absolute;
-    top: -3px;
-    right: -20px;
-
+    top: 100%;
+    /* 親要素の下端に配置 */
+    right: 0;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: calc(70px / 2 + 3px) 0 calc(70px / 2 + 3px) 20px;
+    border-width: 15px 15px 0 0;
+    /* 三角形のサイズを調整 */
     border-color: transparent;
-    border-left-color: var(--ribbon-shadow-color);
-    /* 影の色を参照 */
+    border-top-color: #d17575;
+    /* リボンより少し濃い色で影を表現 */
+    filter: brightness(0.9);
+    /* 色を暗くする */
+}
+
+/* リボン左端の折り返し部分 */
+.ribbon::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 0 0 15px;
+    border-color: transparent;
+    border-top-color: #d17575;
+    filter: brightness(0.9);
+}
+
+/* ホバー時のアニメーション */
+.ribbon:hover {
+    transform: translateY(-5px) scale(1.05) rotate(2deg);
+    /* 少し浮き上がり、拡大し、回転 */
+    box-shadow: 0 8px 12px var(--ribbon-shadow-color);
+    /* 影を大きくして強調 */
 }
