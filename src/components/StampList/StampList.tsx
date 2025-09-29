@@ -1,7 +1,7 @@
 import styles from "./StampList.module.css";
 import type { Stamp } from "../../types/stamp";
 import StampCard from "../StampCard/StampCard";
-import StampUnComplete from "../../assets/images/stamp_icon_unachieved.png";
+import StampUnComplete from "../../assets/stamp_points/stanm_null.png";
 import Stamptyoutitle from "../../assets/images/titlestamp.png";
 
 type StampListProps = {
