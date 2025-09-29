@@ -16,6 +16,7 @@ const ScanResultFailPage = lazy(
 
 import { useUserRegistration } from "./hooks/useUserRegistration";
 import { UserContext } from "./hooks/useContext";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const App: React.FC = () => {
   const { uid, error } = useUserRegistration();
@@ -53,6 +54,7 @@ const App: React.FC = () => {
   return (
     <UserContext.Provider value={uid}>
       <BrowserRouter>
+        <SpeedInsights />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
