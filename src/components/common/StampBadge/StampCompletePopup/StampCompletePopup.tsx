@@ -43,7 +43,7 @@ const StampCompletePopup = ({ onClose, totalStamps }: StampCompletePopupProps) =
             <p className={styles.boxMessage}>
               お楽しみいただき<br />
               ありがとうございました！<br />
-              案内所でプレゼントを受け取ってね！
+              <span className={styles.boothHighlight}>22番ブース</span>でプレゼントを受け取ってね！
             </p>
           </div>
         </div>

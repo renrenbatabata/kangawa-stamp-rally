@@ -132,6 +132,12 @@
   font-weight: bold;
 }
 
+.boothHighlight {
+  color: #ff6b00;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
 .starsContainer {
   display: flex;
   justify-content: center;
@@ -214,6 +220,10 @@
 
   .boxMessage {
     font-size: 14px;
+  }
+
+  .boothHighlight {
+    font-size: 1.2em;
   }
 
   .starIcon {

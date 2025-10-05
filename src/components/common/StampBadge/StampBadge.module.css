@@ -107,6 +107,12 @@
   line-height: 1.5;
 }
 
+.boothHighlight {
+  color: #ff6b00;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
 .iconsContainer {
   display: flex;
   justify-content: center;
@@ -165,6 +171,10 @@
     margin-bottom: 18px;
   }
 
+  .boothHighlight {
+    font-size: 1.25em;
+  }
+
   .iconsContainer {
     gap: 18px;
   }
@@ -212,6 +222,10 @@
     margin-bottom: 15px;
   }
 
+  .boothHighlight {
+    font-size: 1.2em;
+  }
+
   .iconsContainer {
     gap: 15px;
     margin-top: 3px;
@@ -256,6 +270,10 @@
     font-size: 0.85em;
     margin-top: 8px;
     margin-bottom: 12px;
+  }
+
+  .boothHighlight {
+    font-size: 1.15em;
   }
 
   .iconsContainer {

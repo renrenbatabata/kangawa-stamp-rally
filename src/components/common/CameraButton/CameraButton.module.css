@@ -1,16 +1,26 @@
-.camera {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1001;
+.cameraButton {
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.footerNavItem {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.camera {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #ffffff;
     border-color: #70E15E;
     border-width: 10px;
     border-style: solid;
     border-radius: 50%;
-    bottom: 20px;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -23,7 +33,6 @@
 @media (max-width: 768px) {
     .camera {
         border-width: 9px;
-        bottom: 18px;
     }
 
     .camera img {
@@ -36,7 +45,6 @@
 @media (max-width: 480px) {
     .camera {
         border-width: 8px;
-        bottom: 15px;
     }
 
     .camera img {
@@ -49,7 +57,6 @@
 @media (max-width: 375px) {
     .camera {
         border-width: 7px;
-        bottom: 12px;
     }
 
     .camera img {

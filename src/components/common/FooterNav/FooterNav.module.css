@@ -18,13 +18,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     color: #fff;
     font-size: 1.2em;
     font-weight: bold;
     text-decoration: none;
     flex: 1;
-    padding-bottom: 5px;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -43,6 +47,10 @@
 .cameraButtonContainer {
     position: relative;
     top: -20px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 768px) {
@@ -52,13 +60,16 @@
         padding-bottom: calc(10px + env(safe-area-inset-bottom));
     }
 
+    .footerNavItem {
+        font-size: 1em;
+    }
+
     .footerNavItem img {
         width: 35px;
         height: 35px;
     }
 
     .footerNavItem p {
-        font-size: 0.9em;
         padding-top: 5px;
     }
 
@@ -74,13 +85,16 @@
         padding-bottom: calc(8px + env(safe-area-inset-bottom));
     }
 
+    .footerNavItem {
+        font-size: 0.9em;
+    }
+
     .footerNavItem img {
         width: 32px;
         height: 32px;
     }
 
     .footerNavItem p {
-        font-size: 0.85em;
         padding-top: 4px;
     }
 
@@ -92,6 +106,12 @@
 @media (max-width: 375px) {
     .footerNav {
         height: 60px;
+        padding: 6px 0;
+        padding-bottom: calc(6px + env(safe-area-inset-bottom));
+    }
+
+    .footerNavItem {
+        font-size: 0.8em;
     }
 
     .footerNavItem img {
@@ -100,7 +120,7 @@
     }
 
     .footerNavItem p {
-        font-size: 0.75em;
+        padding-top: 3px;
     }
 
     .cameraButtonContainer {
