@@ -1,13 +1,15 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import { BrowserQRCodeReader, type IScannerControls } from "@zxing/browser";
 
+// 環境変数
 const QR_PREFIX = import.meta.env.VITE_QR_PREFIX;
 const SUCCESS_PATH = import.meta.env.VITE_SUCCESS_PATH;
 const FAIL_PATH = import.meta.env.VITE_FAIL_PATH;
 const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === "true";
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
+// 環境変数のチェック
 if (!QR_PREFIX || !SUCCESS_PATH || !FAIL_PATH) {
   throw new Error(
     "必要な環境変数(.env)が設定されていません: VITE_QR_PREFIX, VITE_SUCCESS_PATH, VITE_FAIL_PATH"
@@ -28,6 +30,15 @@ export const useQRCodeScanner = (
   const codeReader = useRef<BrowserQRCodeReader | null>(null);
   const [scannerControls, setScannerControls] =
     useState<IScannerControls | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (scannerControls) {
+        scannerControls.stop();
+        console.log("useEffect cleanup: QR Code Reader stopped.");
+      }
+    };
+  }, [scannerControls]); 
 
   const startScan = useCallback(async () => {
     if (isScanning || !videoRef.current) return;
@@ -78,7 +89,7 @@ export const useQRCodeScanner = (
         (result, err) => {
           if (result) {
             controls.stop();
-            setScannerControls(null);
+            setScannerControls(null); 
             setIsScanning(false);
             
             const qrData = result.getText();
