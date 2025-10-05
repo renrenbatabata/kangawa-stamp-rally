@@ -1,6 +1,5 @@
 // src/stories/StampRibbon.stories.js
 
-import React from "react";
 import StampRibbon from "./StampRibbon";
 
 // Storybookでのコンポーネネントのメタデータ設定

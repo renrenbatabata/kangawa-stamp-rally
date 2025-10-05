@@ -38,7 +38,6 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
         "三ツ沢公園：バラ園には季節ごとに様々な種類のバラが咲き、華やかな香り、色を楽しめます。",
     },
   ];
-  console.log("Received stamps:", stamps.map(stamp => stamp.stampName));
 
   return (
     <div className={styles.stampListContainer}>
