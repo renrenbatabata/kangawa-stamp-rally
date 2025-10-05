@@ -122,8 +122,14 @@ export const useQRCodeScanner = (
                     if (response.ok) {
                       const quizDataFromApi = await response.json();
                       console.log("クイズデータ取得成功:", quizDataFromApi);
+                      
+                      const stampData = {
+                        stampNo: stampId,
+                        quizDto: quizDataFromApi,
+                      };
+                      
                       navigate("/quiz", {
-                        state: { stampData: quizDataFromApi },
+                        state: { stampData: stampData },
                       });
                     } else {
                       console.error(

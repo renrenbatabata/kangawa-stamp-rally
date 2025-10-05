@@ -4,12 +4,6 @@ import styles from "./ScanResultSuccessPage.module.css";
 import background from "../../assets/images/background.png";
 import type { Stamp } from "../../types/stamp";
 
-// スタンプ画像のパスを定義 (フォールバック用として維持)
-import Stamp01 from "../../assets/stamp_points/stamp_point_1.png";
-import Stamp02 from "../../assets/stamp_points/stamp_point_2.png";
-import Stamp03 from "../../assets/stamp_points/stamp_point_3.png";
-import Stamp04 from "../../assets/stamp_points/stamp_point_4.png";
-
 const ScanResultSuccessPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,7 +17,7 @@ const ScanResultSuccessPage: React.FC = () => {
       console.log("Stateから画像パスを取得:", stampDataFromState.imgPath);
     } else {
       console.warn(
-        "ナビゲーションStateから有効なスタンプデータ（imgPath）が見つかりませんでした。"
+        "ナビゲーションStateから有効なスタンプデータ（imgPath）が見つかりませんでした。デフォルト画像を使用します。"
       );
     }
   }, [location]);
@@ -32,9 +26,7 @@ const ScanResultSuccessPage: React.FC = () => {
     navigate("/stamps");
   };
 
-  const stamps = [Stamp01, Stamp02, Stamp03, Stamp04];
-  const displayedStampPath =
-    stampImagePath || stamps[Math.floor(Math.random() * stamps.length)];
+  const displayedStampPath = stampImagePath ?? undefined;
 
   return (
     <div

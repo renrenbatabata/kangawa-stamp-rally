@@ -268,14 +268,14 @@
     }
 
     .quizContent {
-        padding: 18px 15px;
+        padding: 8px 15px;
         min-height: 300px;
         width: 97%;
     }
 
     .quizTitle {
-        font-size: 1.5rem;
-        margin-bottom: 22px;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
     }
 
     .quizQuestion {
@@ -295,7 +295,7 @@
 
     .answerMessage {
         font-size: 1rem;
-        padding: 9px 15px;
+        padding: 2px 5px;
     }
 
     .correct {
@@ -306,6 +306,6 @@
         font-size: 1.1rem;
         padding: 10px 22px;
         margin: 0;
-        margin-top: 18px;
+        margin-top: 10px;
     }
 }

@@ -53,10 +53,11 @@ const QuizPage: React.FC = () => {
 
   const [quizData] = useState<QuizData>(initialQuizData);
 
-  // データがない場合は何も表示しない（useEffectでリダイレクト中）
-  if (!stampDataFromState || !stampDataFromState.quizDto) {
-    return null;
-  }
+  // // データがない場合は何も表示しない（useEffectでリダイレクト中）
+  // if (!stampDataFromState || !stampDataFromState.quizDto) {
+
+  //   return null;
+  // }
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
