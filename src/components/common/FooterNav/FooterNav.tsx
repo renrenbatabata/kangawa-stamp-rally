@@ -4,7 +4,7 @@ import styles from "./FooterNav.module.css";
 // アイコン
 import homeIcon from "../../../assets/icon/home.png";
 import mapIcon from "../../../assets/icon/map.png";
-import CameraButton from "../CamaraButton/CameraButton";
+import CameraButton from "../CameraButton/CameraButton";
 
 // FooterNavのpropsの型を定義
 type FooterNavProps = {
