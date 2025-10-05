@@ -30,8 +30,7 @@
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 8px rgba(28, 21, 21, 0.378);
     transition: transform 0.3s ease;
 }
 
@@ -45,6 +44,10 @@
     width: 100%;
 }
 
+.stampStatus {
+    margin-bottom: 8px;
+    
+}
 .stampTitle {
     font-size: 1.2rem;
     font-weight: bold;
@@ -58,7 +61,7 @@
     font-size: 1rem;
     color: #de7c6a;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-    margin: 5px 0 0 0;
+    margin: 5px 0 15px 0;
     word-wrap: break-word;
 }
 .popupOverlay {
@@ -86,7 +89,7 @@
     max-width: 90%;
     width: 380px;
     position: relative;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.192);
     animation: fadeIn 0.4s ease-out;
 }
 
@@ -96,8 +99,7 @@
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
-    border: 5px solid #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.531);
 }
 
 .popupTitle {
@@ -151,12 +153,6 @@
         padding: 12px;
     }
 
-    .stampImage {
-        width: 100px;
-        height: 100px;
-        border: 4px solid #fff;
-    }
-
     .stampInfo {
         margin-top: 12px;
     }
@@ -176,8 +172,8 @@
     }
 
     .popupLogo {
-        width: 130px;
-        height: 130px;
+        width: 200px;
+        height: 200px;
     }
 
     .popupTitle {
@@ -195,44 +191,37 @@
         border-radius: 15px;
         border: 2px solid #f9d5a7;
     }
-
-    .stampImage {
-        width: 85px;
-        height: 85px;
-        border: 3px solid #fff;
-    }
-
     .stampInfo {
         margin-top: 10px;
     }
 
     .stampTitle {
-        font-size: 0.95rem;
+        font-size: 1.5rem;
     }
 
     .stampSubTitle {
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 
     .popup {
-        width: 300px;
+        width: 320px;
         padding: 15px;
         margin: 6px;
     }
 
     .popupLogo {
-        width: 110px;
-        height: 110px;
+        width: 180px;
+        height: 180px;
         margin-bottom: 15px;
     }
 
     .popupTitle {
-        font-size: 1.3rem;
+        font-size: 1.7rem;
         margin-bottom: 8px;
     }
 
     .popupText {
-        font-size: 0.95rem;
+        font-size: 1.3rem;
     }
 
     .closeButton {
@@ -247,17 +236,12 @@
         padding: 8px;
     }
 
-    .stampImage {
-        width: 75px;
-        height: 75px;
-    }
-
     .stampTitle {
-        font-size: 0.85rem;
+        font-size: 1.2rem;
     }
 
     .stampSubTitle {
-        font-size: 0.75rem;
+        font-size: 0.9rem;
     }
 
     .popup {
@@ -265,15 +249,15 @@
     }
 
     .popupLogo {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
     }
 
     .popupTitle {
-        font-size: 1.2rem;
+        font-size: 1.6rem;
     }
 
     .popupText {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 }

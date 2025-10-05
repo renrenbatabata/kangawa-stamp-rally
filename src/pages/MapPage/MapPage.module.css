@@ -206,16 +206,16 @@
   }
 
   .contentArea h1 {
-    font-size: 18px;
+    font-size: 25px;
     margin: 12px 5px 20px;
     padding-bottom: 5px;
     border-bottom: 2px dashed #ff9215;
   }
 
   .contentArea h2 {
-    font-size: 14px;
-    padding: 2px 8px;
-    margin: 0 5px 8px;
+    font-size: 20px;
+    padding: 5px 8px;
+    margin: 0 9px 13px;
   }
 
   .mapContainer {
@@ -230,11 +230,11 @@
   }
 
   .closeButton {
-    width: 32px;
-    height: 32px;
-    font-size: 24px;
+    width: 46px;
+    height: 46px;
+    font-size: 32px;
     line-height: 32px;
-    top: 8px;
+    top: 20px;
     right: 8px;
   }
 
@@ -251,16 +251,16 @@
   }
 
   .contentArea h1 {
-    font-size: 16px;
+    font-size: 22px;
     margin: 10px 4px 18px;
   }
 
   .contentArea h2 {
-    font-size: 13px;
+    font-size: 18px;
   }
 
   .mapContainer {
-    width: calc(100% - 6px);
+    width: calc(100% - 10px);
     margin: 0 auto 18px;
   }
 

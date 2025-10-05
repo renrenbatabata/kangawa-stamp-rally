@@ -24,13 +24,13 @@ return (
   <>
     <button type = "button" className={styles.stampCard} onClick={handleCardClick}>
       <div className={styles.stampInfo}>
-        <p className={styles.stampStatus}>
+        <div className={styles.stampStatus}>
             <img
               src={imgPath}
               alt={title}
               className={styles.stampImage}
             />
-        </p>
+        </div>
         <h2 className={styles.stampTitle}>{title}</h2>
         <h3 className={styles.stampSubTitle}>{subTitle}</h3>
       </div>
