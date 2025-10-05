@@ -4,13 +4,16 @@ import styles from "./QuizPage.module.css";
 import background from "../../assets/images/background.png";
 import type { Stamp, QuizData } from "../../types/stamp";
 import { useState, useEffect } from "react";
+import { useUserContext } from "../../hooks/useContext";
 
 const QuizPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const uuid = useUserContext();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const stampData = location.state?.stampData;
@@ -68,6 +71,55 @@ const QuizPage: React.FC = () => {
       setQuizCompleted(true);
     } else {
       alert("選択肢を選んでください！");
+    }
+  };
+
+  const handleGetStamp = async () => {
+    if (!stampDataFromState) return;
+    
+    setIsSubmitting(true);
+    const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === "true";
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+    const stampId = stampDataFromState.stampNo;
+
+    try {
+      if (USE_MOCK_DATA) {
+        // モックモードの場合、既に取得しているデータをそのまま使用
+        console.log("スタンプ登録モック成功:", stampDataFromState);
+        navigate("/scan/success", {
+          state: { stampData: stampDataFromState },
+        });
+      } else {
+        if (!apiBaseUrl) {
+          throw new Error("API base URL is not configured.");
+        }
+        const apiUrl = `${apiBaseUrl}/add`;
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ uuid, stampId }),
+        });
+
+        if (response.ok) {
+          const stampDataFromApi = await response.json();
+          console.log("スタンプ登録成功:", stampDataFromApi);
+          navigate("/scan/success", {
+            state: { stampData: stampDataFromApi },
+          });
+        } else {
+          console.error(
+            "スタンプ登録失敗:",
+            response.status,
+            await response.text()
+          );
+          navigate("/scan/fail");
+        }
+      }
+    } catch (apiError) {
+      console.error("API呼び出し中にエラーが発生しました:", apiError);
+      navigate("/scan/fail");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -143,13 +195,10 @@ const QuizPage: React.FC = () => {
           <button
             type="button"
             className={styles.quizButton}
-            onClick={() =>
-              navigate("/scan/success", {
-                state: { stampData: stampDataFromState },
-              })
-            }
+            onClick={handleGetStamp}
+            disabled={isSubmitting}
           >
-            スタンプをもらう！
+            {isSubmitting ? "登録中..." : "スタンプをもらう！"}
           </button>
         )}
       </div>

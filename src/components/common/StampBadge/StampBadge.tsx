@@ -51,7 +51,7 @@ const StampBadge = ({ progress }: StampBadgeProps) => {
         {progress === totalStamps ? (
           <p className={styles.remainingMessage}>
             おめでとうございます！<br />
-            〇〇でプレゼントを受け取ってね！
+            22番でプレゼントを受け取ってね！
           </p>
         ) : (
           <p className={styles.remainingMessage}>

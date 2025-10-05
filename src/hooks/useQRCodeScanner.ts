@@ -76,7 +76,7 @@ export const useQRCodeScanner = (
             const qrData = result.getText();
             if (qrData.startsWith(QR_PREFIX)) {
               const stampId = qrData;
-              const addStamp = async () => {
+              const getQuiz = async () => {
                 try {
                   if (USE_MOCK_DATA) {
                     const response = await fetch("/data/add_mock.json");
@@ -88,8 +88,8 @@ export const useQRCodeScanner = (
                     );
 
                     if (foundStamp) {
-                      console.log("スタンプ登録モック成功:", foundStamp);
-                      navigate(SUCCESS_PATH, {
+                      console.log("クイズデータ取得モック成功:", foundStamp);
+                      navigate("/quiz", {
                         state: { stampData: foundStamp },
                       });
                     } else {
@@ -102,7 +102,7 @@ export const useQRCodeScanner = (
                     if (!apiBaseUrl) {
                       throw new Error("API base URL is not configured.");
                     }
-                    const apiUrl = `${apiBaseUrl}/add`;
+                    const apiUrl = `${apiBaseUrl}/quiz`;
                     const response = await fetch(apiUrl, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
@@ -110,14 +110,14 @@ export const useQRCodeScanner = (
                     });
 
                     if (response.ok) {
-                      const stampDataFromApi = await response.json();
-                      console.log("スタンプ登録成功:", stampDataFromApi);
-                      navigate(SUCCESS_PATH, {
-                        state: { stampData: stampDataFromApi },
+                      const quizDataFromApi = await response.json();
+                      console.log("クイズデータ取得成功:", quizDataFromApi);
+                      navigate("/quiz", {
+                        state: { stampData: quizDataFromApi },
                       });
                     } else {
                       console.error(
-                        "スタンプ登録失敗:",
+                        "クイズデータ取得失敗:",
                         response.status,
                         await response.text()
                       );
@@ -132,7 +132,7 @@ export const useQRCodeScanner = (
                   navigate(FAIL_PATH);
                 }
               };
-              addStamp();
+              getQuiz();
             } else {
               navigate(FAIL_PATH);
             }

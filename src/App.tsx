@@ -1,6 +1,6 @@
 import "./styles/global.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React, { lazy, Suspense } from "react";
+import  { lazy, Suspense } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/react"
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const StampListPage = lazy(() => import("./pages/StampListPage/StampListPage"));
