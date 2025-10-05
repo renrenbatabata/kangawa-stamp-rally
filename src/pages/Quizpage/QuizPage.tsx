@@ -15,16 +15,19 @@ const QuizPage: React.FC = () => {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const stampDataFromState = location.state?.stampData as Stamp | undefined;
+
+  // データがない場合のリダイレクト処理をuseEffect内で実行
   useEffect(() => {
     const stampData = location.state?.stampData;
     if (stampData) {
       console.log("スタンプデータが正常に渡されました:", stampData);
     } else {
       console.error("スタンプデータ (stampData) が渡されていません！");
+      // データがない場合はカメラページにリダイレクト
+      navigate("/scan", { replace: true });
     }
-  }, [location]);
-
-  const stampDataFromState = location.state?.stampData as Stamp | undefined;
+  }, [location, navigate]);
 
   const quizDto = stampDataFromState?.quizDto;
   const initialQuizData: QuizData = quizDto
@@ -50,8 +53,8 @@ const QuizPage: React.FC = () => {
 
   const [quizData] = useState<QuizData>(initialQuizData);
 
+  // データがない場合は何も表示しない（useEffectでリダイレクト中）
   if (!stampDataFromState || !stampDataFromState.quizDto) {
-    navigate("/error", { replace: true });
     return null;
   }
 

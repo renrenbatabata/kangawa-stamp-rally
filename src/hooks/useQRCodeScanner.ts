@@ -155,8 +155,15 @@ export const useQRCodeScanner = (
                     if (response.ok) {
                       const quizDataFromApi = await response.json();
                       console.log("クイズデータ取得成功:", quizDataFromApi);
+                      
+                      // APIレスポンスをStamp形式に変換
+                      const stampData: StampData = {
+                        stampNo: stampId,
+                        quizDto: quizDataFromApi,
+                      };
+                      
                       // navigate()の代わりに状態をセット
-                      setQuizData(quizDataFromApi as StampData);
+                      setQuizData(stampData);
                     } else {
                       console.error(
                         "クイズデータ取得失敗:",
