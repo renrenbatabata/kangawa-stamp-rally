@@ -3,6 +3,7 @@
 .failPage {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -97,25 +98,63 @@
 }
 
 /* スマートフォンでの見た目を考慮したメディアクエリ */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .cardContainer {
-        padding: 30px 15px;
+        padding: 35px 18px;
+        max-width: 320px;
     }
 
     .title {
-        font-size: 1.8em;
-        margin-bottom: 15px;
+        font-size: 1.85em;
+        margin-bottom: 18px;
     }
 
     .failImage {
-        width: 60%;
-        max-width: 200px;
-        margin-bottom: 15px;
+        width: 52%;
+        max-width: 115px;
+        margin-bottom: 18px;
     }
 
     .message {
-        font-size: 1.2em;
-        margin-bottom: 30px;
+        font-size: 1.05em;
+        margin-bottom: 35px;
+    }
+
+    .closeButton {
+        width: 48px;
+        height: 48px;
+    }
+
+    .closeIcon {
+        font-size: 1.7em;
+    }
+}
+
+@media (max-width: 480px) {
+    .failPage {
+        padding: 15px;
+    }
+
+    .cardContainer {
+        padding: 30px 15px;
+        max-width: 300px;
+        width: 92%;
+    }
+
+    .title {
+        font-size: 1.7em;
+        margin-bottom: 16px;
+    }
+
+    .failImage {
+        width: 55%;
+        max-width: 110px;
+        margin-bottom: 16px;
+    }
+
+    .message {
+        font-size: 1.05em;
+        margin-bottom: 32px;
     }
 
     .closeButton {
@@ -125,5 +164,42 @@
 
     .closeIcon {
         font-size: 1.6em;
+    }
+}
+
+@media (max-width: 375px) {
+    .failPage {
+        padding: 12px;
+    }
+
+    .cardContainer {
+        padding: 25px 12px;
+        max-width: 280px;
+        width: 94%;
+    }
+
+    .title {
+        font-size: 1.6em;
+        margin-bottom: 14px;
+    }
+
+    .failImage {
+        width: 58%;
+        max-width: 105px;
+        margin-bottom: 14px;
+    }
+
+    .message {
+        font-size: 1em;
+        margin-bottom: 28px;
+    }
+
+    .closeButton {
+        width: 42px;
+        height: 42px;
+    }
+
+    .closeIcon {
+        font-size: 1.5em;
     }
 }

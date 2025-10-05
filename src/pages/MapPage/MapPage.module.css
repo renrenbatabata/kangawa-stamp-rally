@@ -3,6 +3,8 @@
   flex-direction: column;
   background-color: #FDF5E6;
   min-height: 100vh;
+  min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .contentArea {
@@ -143,4 +145,103 @@
 
 .closeButton:hover {
   background: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .contentArea {
+    padding: 12px;
+    margin-bottom: 5em;
+  }
+
+  .contentArea h1 {
+    font-size: 20px;
+    margin: 15px 6px 25px;
+    padding-bottom: 6px;
+  }
+
+  .contentArea h2 {
+    font-size: 16px;
+    padding: 3px 10px;
+    margin: 0 6px 10px;
+  }
+
+  .mapContainer {
+    width: calc(100% - 12px);
+    margin: 0 auto 24px;
+    padding: 6px;
+  }
+
+  .closeButton {
+    width: 36px;
+    height: 36px;
+    font-size: 26px;
+    line-height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentArea {
+    padding: 10px;
+    margin-bottom: 4.5em;
+  }
+
+  .contentArea h1 {
+    font-size: 18px;
+    margin: 12px 5px 20px;
+    padding-bottom: 5px;
+    border-bottom: 2px dashed #ff9215;
+  }
+
+  .contentArea h2 {
+    font-size: 14px;
+    padding: 2px 8px;
+    margin: 0 5px 8px;
+  }
+
+  .mapContainer {
+    width: calc(100% - 8px);
+    margin: 0 auto 20px;
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  .mapImage {
+    border-radius: 6px;
+  }
+
+  .closeButton {
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+    line-height: 32px;
+    top: 8px;
+    right: 8px;
+  }
+}
+
+@media (max-width: 375px) {
+  .contentArea {
+    padding: 8px;
+  }
+
+  .contentArea h1 {
+    font-size: 16px;
+    margin: 10px 4px 18px;
+  }
+
+  .contentArea h2 {
+    font-size: 13px;
+  }
+
+  .mapContainer {
+    width: calc(100% - 6px);
+    margin: 0 auto 18px;
+  }
+
+  .closeButton {
+    width: 30px;
+    height: 30px;
+    font-size: 22px;
+    line-height: 30px;
+  }
 }

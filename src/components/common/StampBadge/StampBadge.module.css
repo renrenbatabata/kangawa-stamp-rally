@@ -128,3 +128,142 @@
   color: #ccc;
   font-size: 40px;
 }
+
+@media (max-width: 768px) {
+  .Container {
+    margin: 15px 4px;
+    padding: 12px;
+  }
+
+  .innerBox {
+    padding: 18px;
+    width: 92%;
+  }
+
+  .progressText {
+    font-size: 1.2em;
+    margin: 18px 0;
+  }
+
+  .progressContainer {
+    font-size: 2.3em;
+  }
+
+  .progress {
+    font-size: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .progressBarContainer {
+    width: 82%;
+    height: 14px;
+  }
+
+  .remainingMessage {
+    font-size: 0.95em;
+    margin-top: 12px;
+    margin-bottom: 18px;
+  }
+
+  .iconsContainer {
+    gap: 18px;
+  }
+
+  .checkedIcon,
+  .unCheckedIcon {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Container {
+    margin: 12px 3px;
+    padding: 10px;
+  }
+
+  .innerBox {
+    padding: 15px;
+    width: 93%;
+  }
+
+  .progressText {
+    font-size: 1.1em;
+    margin: 15px 0;
+  }
+
+  .progressContainer {
+    font-size: 2.1em;
+    margin-top: 8px;
+  }
+
+  .progress {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+  }
+
+  .progressBarContainer {
+    width: 85%;
+    height: 12px;
+  }
+
+  .remainingMessage {
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .iconsContainer {
+    gap: 15px;
+    margin-top: 3px;
+  }
+
+  .checkedIcon,
+  .unCheckedIcon {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 375px) {
+  .Container {
+    margin: 10px 2px;
+    padding: 8px;
+  }
+
+  .innerBox {
+    padding: 12px;
+  }
+
+  .progressText {
+    font-size: 1em;
+    margin: 12px 0;
+  }
+
+  .progressContainer {
+    font-size: 1.9em;
+  }
+
+  .progress {
+    font-size: 1.2em;
+    margin-bottom: 12px;
+  }
+
+  .progressBarContainer {
+    width: 88%;
+    height: 11px;
+  }
+
+  .remainingMessage {
+    font-size: 0.85em;
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }
+
+  .iconsContainer {
+    gap: 12px;
+  }
+
+  .checkedIcon,
+  .unCheckedIcon {
+    font-size: 28px;
+  }
+}

@@ -1,6 +1,7 @@
 .successPage {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -73,20 +74,53 @@
     line-height: 1;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .cardContainer {
-        padding: 30px 15px;
+        padding: 35px 18px;
+        max-width: 320px;
     }
 
     .title {
-        font-size: 1.8em;
+        font-size: 1.85em;
+        margin-bottom: 28px;
+    }
+
+    .stampImage {
+        width: 68%;
+        max-width: 190px;
+        margin-bottom: 38px;
+    }
+
+    .closeButton {
+        width: 48px;
+        height: 48px;
+    }
+
+    .closeIcon {
+        font-size: 1.7em;
+    }
+}
+
+@media (max-width: 480px) {
+    .successPage {
+        padding: 15px;
+    }
+
+    .cardContainer {
+        padding: 30px 15px;
+        max-width: 300px;
+        width: 92%;
+    }
+
+    .title {
+        font-size: 1.7em;
         margin-bottom: 25px;
     }
 
     .stampImage {
-        width: 80%;
-        max-width: 180px;
-        margin-bottom: 30px;
+        width: 75%;
+        max-width: 170px;
+        margin-bottom: 32px;
     }
 
     .closeButton {
@@ -96,5 +130,37 @@
 
     .closeIcon {
         font-size: 1.6em;
+    }
+}
+
+@media (max-width: 375px) {
+    .successPage {
+        padding: 12px;
+    }
+
+    .cardContainer {
+        padding: 25px 12px;
+        max-width: 280px;
+        width: 94%;
+    }
+
+    .title {
+        font-size: 1.6em;
+        margin-bottom: 22px;
+    }
+
+    .stampImage {
+        width: 78%;
+        max-width: 160px;
+        margin-bottom: 28px;
+    }
+
+    .closeButton {
+        width: 42px;
+        height: 42px;
+    }
+
+    .closeIcon {
+        font-size: 1.5em;
     }
 }

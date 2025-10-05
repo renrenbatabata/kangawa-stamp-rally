@@ -17,6 +17,7 @@
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(249, 213, 167, 0.4);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .stampCard:hover {
@@ -41,6 +42,7 @@
 .stampInfo {
     margin-top: 15px;
     text-align: center;
+    width: 100%;
 }
 
 .stampTitle {
@@ -49,6 +51,7 @@
     color: #d16b5a;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
     margin: 0;
+    word-wrap: break-word;
 }
 
 .stampSubTitle{
@@ -56,6 +59,7 @@
     color: #de7c6a;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
     margin: 5px 0 0 0;
+    word-wrap: break-word;
 }
 .popupOverlay {
     position: fixed;
@@ -139,5 +143,137 @@
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .stampCard {
+        padding: 12px;
+    }
+
+    .stampImage {
+        width: 100px;
+        height: 100px;
+        border: 4px solid #fff;
+    }
+
+    .stampInfo {
+        margin-top: 12px;
+    }
+
+    .stampTitle {
+        font-size: 1.05rem;
+    }
+
+    .stampSubTitle {
+        font-size: 0.9rem;
+    }
+
+    .popup {
+        width: 340px;
+        padding: 18px;
+        margin: 8px;
+    }
+
+    .popupLogo {
+        width: 130px;
+        height: 130px;
+    }
+
+    .popupTitle {
+        font-size: 1.4rem;
+    }
+
+    .popupText {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stampCard {
+        padding: 10px;
+        border-radius: 15px;
+        border: 2px solid #f9d5a7;
+    }
+
+    .stampImage {
+        width: 85px;
+        height: 85px;
+        border: 3px solid #fff;
+    }
+
+    .stampInfo {
+        margin-top: 10px;
+    }
+
+    .stampTitle {
+        font-size: 0.95rem;
+    }
+
+    .stampSubTitle {
+        font-size: 0.85rem;
+    }
+
+    .popup {
+        width: 300px;
+        padding: 15px;
+        margin: 6px;
+    }
+
+    .popupLogo {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 15px;
+    }
+
+    .popupTitle {
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+    }
+
+    .popupText {
+        font-size: 0.95rem;
+    }
+
+    .closeButton {
+        top: 8px;
+        right: 12px;
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .stampCard {
+        padding: 8px;
+    }
+
+    .stampImage {
+        width: 75px;
+        height: 75px;
+    }
+
+    .stampTitle {
+        font-size: 0.85rem;
+    }
+
+    .stampSubTitle {
+        font-size: 0.75rem;
+    }
+
+    .popup {
+        width: 280px;
+    }
+
+    .popupLogo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .popupTitle {
+        font-size: 1.2rem;
+    }
+
+    .popupText {
+        font-size: 0.9rem;
     }
 }

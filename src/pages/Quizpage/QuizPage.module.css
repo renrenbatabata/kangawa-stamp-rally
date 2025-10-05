@@ -1,6 +1,7 @@
 .quizPage {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -203,32 +204,45 @@
 }
 
 @media (max-width: 480px) {
+    .quizPage {
+        padding: 15px;
+    }
+
     .quizContent {
-        padding: 20px 30px;
-        min-height: 300px;
+        padding: 20px 18px;
+        min-height: 320px;
+        width: 96%;
     }
 
     .quizTitle {
         font-size: 1.6rem;
+        margin-bottom: 25px;
     }
 
     .quizQuestion {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
+        margin-bottom: 28px;
     }
 
     .quizOption {
-        font-size: 0.95rem;
-        padding: 12px;
+        font-size: 1rem;
+        padding: 14px;
+        margin: 8px 0;
     }
 
     .answerMessage {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
+        padding: 12px 20px;
+    }
+
+    .correct {
+        padding: 16px 24px;
     }
 
     .quizButton {
-        font-size: 1.3rem;
-        padding: 10px 20px;
-        margin: 20px ;
+        font-size: 1.15rem;
+        padding: 11px 24px;
+        margin: 20px;
     }
 
     .explanation {
@@ -237,5 +251,48 @@
         display: block;
         line-height: 1.4;
         color: #f0f0f0;
+    }
+}
+
+@media (max-width: 375px) {
+    .quizPage {
+        padding: 12px;
+    }
+
+    .quizContent {
+        padding: 18px 15px;
+        min-height: 300px;
+        width: 97%;
+    }
+
+    .quizTitle {
+        font-size: 1.5rem;
+        margin-bottom: 22px;
+    }
+
+    .quizQuestion {
+        font-size: 1.15rem;
+        margin-bottom: 25px;
+    }
+
+    .quizOption {
+        font-size: 0.95rem;
+        padding: 12px;
+        margin: 7px 0;
+    }
+
+    .answerMessage {
+        font-size: 1.2rem;
+        padding: 10px 18px;
+    }
+
+    .correct {
+        padding: 14px 22px;
+    }
+
+    .quizButton {
+        font-size: 1.1rem;
+        padding: 10px 22px;
+        margin: 18px;
     }
 }

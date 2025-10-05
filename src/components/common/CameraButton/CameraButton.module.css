@@ -11,12 +11,50 @@
     border-style: solid;
     border-radius: 50%;
     bottom: 20px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.camera img {
+    width: 45px;
+    height: 45px;
+    padding: 12px;
 }
 
 @media (max-width: 768px) {
+    .camera {
+        border-width: 9px;
+        bottom: 18px;
+    }
+
     .camera img {
         width: 40px;
         height: 40px;
         padding: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .camera {
+        border-width: 8px;
+        bottom: 15px;
+    }
+
+    .camera img {
+        width: 36px;
+        height: 36px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 375px) {
+    .camera {
+        border-width: 7px;
+        bottom: 12px;
+    }
+
+    .camera img {
+        width: 32px;
+        height: 32px;
+        padding: 9px;
     }
 }

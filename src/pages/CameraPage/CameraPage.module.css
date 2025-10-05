@@ -1,6 +1,7 @@
 .cameraPage {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -195,9 +196,21 @@
 }
 
 @media (max-width: 768px) {
+    .speechBubble {
+        padding: 25px 35px;
+        max-width: 85%;
+        margin-top: 1.5em;
+    }
+
+    .bubbleText {
+        font-size: 1.4em;
+    }
+
     .cameraScanGuide {
-        width: 95%;
-        padding-bottom: 95%;
+        width: 85%;
+        max-width: 350px;
+        padding-bottom: 85%;
+        border: 5px dashed var(--cute-accent-orange);
     }
 
     .errorText {
@@ -214,6 +227,101 @@
     }
 
     .scanningMessage {
-        font-size: 1.8em;
+        font-size: 1.9em;
+        margin: 0.8em 0 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .uiOverlay {
+        padding: 15px;
+    }
+
+    .speechBubble {
+        padding: 20px 30px;
+        max-width: 88%;
+        margin-top: 1em;
+        border-radius: 40px;
+    }
+
+    .bubbleText {
+        font-size: 1.2em;
+    }
+
+    .speechBubble::after {
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-top: 15px solid rgba(255, 255, 255, 0.95);
+    }
+
+    .cameraScanGuide {
+        width: 88%;
+        max-width: 320px;
+        padding-bottom: 88%;
+        border: 4px dashed var(--cute-accent-orange);
+        border-radius: 25px;
+    }
+
+    .errorText {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    .retryButton {
+        padding: 10px 25px;
+        font-size: 0.95em;
+    }
+
+    .buttonContainer {
+        margin-bottom: 10px;
+    }
+
+    .scanningMessage {
+        font-size: 1.7em;
+        margin: 0.6em 0 1.8em;
+    }
+}
+
+@media (max-width: 375px) {
+    .uiOverlay {
+        padding: 12px;
+    }
+
+    .speechBubble {
+        padding: 18px 25px;
+        max-width: 90%;
+        margin-top: 0.8em;
+        border-radius: 35px;
+    }
+
+    .bubbleText {
+        font-size: 1.1em;
+    }
+
+    .speechBubble::after {
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 12px solid rgba(255, 255, 255, 0.95);
+    }
+
+    .cameraScanGuide {
+        width: 90%;
+        max-width: 280px;
+        padding-bottom: 90%;
+        border-radius: 20px;
+    }
+
+    .errorText {
+        font-size: 0.95em;
+    }
+
+    .retryButton {
+        padding: 9px 22px;
+        font-size: 0.9em;
+    }
+
+    .scanningMessage {
+        font-size: 1.5em;
+        margin: 0.5em 0 1.6em;
     }
 }

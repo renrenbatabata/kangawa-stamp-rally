@@ -3,18 +3,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 30px 10px 150px;
+    margin: 20px 10px 120px;
     border-radius: 10px;
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.3);
-    height: 80%;
-    padding: 0px 22px 22px 22px;
+    padding: 0px 20px 20px 20px;
     background-color: #ffffff;
     box-sizing: border-box;
+    width: calc(100% - 20px);
+    max-width: 800px;
 }
 
 .stampIcon {
     font-size: 21px;
-        color: #ff8c00;
+    color: #ff8c00;
     margin-left: 10px;
 }
 
@@ -60,5 +61,62 @@
 
     100% {
         left: 150%;
+    }
+}
+
+@media (max-width: 768px) {
+    .stampListContainer {
+        margin: 15px 8px 100px;
+        padding: 0px 15px 15px 15px;
+        width: calc(100% - 16px);
+    }
+
+    .stampList {
+        gap: 12px;
+    }
+
+    .listTitle {
+        font-size: 20px;
+        padding: 12px 28px;
+        margin: 15px 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stampListContainer {
+        margin: 10px 5px 90px;
+        padding: 0px 12px 12px 12px;
+        width: calc(100% - 10px);
+    }
+
+    .stampList {
+        gap: 10px;
+    }
+
+    .listTitle {
+        font-size: 18px;
+        padding: 10px 24px;
+        margin: 12px 0 18px;
+    }
+
+    .stampIcon {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 375px) {
+    .stampListContainer {
+        margin: 8px 4px 85px;
+        padding: 0px 10px 10px 10px;
+    }
+
+    .stampList {
+        gap: 8px;
+    }
+
+    .listTitle {
+        font-size: 16px;
+        padding: 8px 20px;
+        margin: 10px 0 15px;
     }
 }
