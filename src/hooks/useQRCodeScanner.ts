@@ -73,6 +73,8 @@ export const useQRCodeScanner = (
         (result, err) => {
           if (result) {
             controls.stop();
+            setScannerControls(null);
+            setIsScanning(false);
             const qrData = result.getText();
             if (qrData.startsWith(QR_PREFIX)) {
               const stampId = qrData;
