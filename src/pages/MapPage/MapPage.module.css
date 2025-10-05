@@ -146,6 +146,21 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
+.zoomIndicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2001;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .contentArea {
     padding: 12px;
@@ -175,6 +190,12 @@
     height: 36px;
     font-size: 26px;
     line-height: 36px;
+  }
+
+  .zoomIndicator {
+    bottom: 15px;
+    font-size: 13px;
+    padding: 6px 14px;
   }
 }
 
@@ -216,6 +237,12 @@
     top: 8px;
     right: 8px;
   }
+
+  .zoomIndicator {
+    bottom: 12px;
+    font-size: 12px;
+    padding: 5px 12px;
+  }
 }
 
 @media (max-width: 375px) {
@@ -242,5 +269,11 @@
     height: 30px;
     font-size: 22px;
     line-height: 30px;
+  }
+
+  .zoomIndicator {
+    bottom: 10px;
+    font-size: 11px;
+    padding: 4px 10px;
   }
 }
