@@ -35,7 +35,6 @@ export const useQRCodeScanner = (
     return () => {
       if (scannerControls) {
         scannerControls.stop();
-        console.log("useEffect cleanup: QR Code Reader stopped.");
       }
     };
   }, [scannerControls]); 
@@ -88,11 +87,8 @@ export const useQRCodeScanner = (
         selectedDeviceId = backCamera
           ? backCamera.deviceId
           : videoInputDevices[0].deviceId;
-      } catch (e) {
-        console.warn(
-          "デバイスの列挙に失敗しました。デフォルトのカメラを使用します。",
-          e
-        );
+      } catch {
+        // デバイスの列挙に失敗した場合はデフォルトのカメラを使用
       }
 
       const videoElement = videoRef.current as HTMLVideoElement; 
@@ -110,7 +106,7 @@ export const useQRCodeScanner = (
             // ビデオストリームのトラックを停止
             if (videoElement.srcObject) {
               const stream = videoElement.srcObject as MediaStream;
-              stream.getTracks().forEach(track => track.stop());
+              stream.getTracks().forEach(track => { track.stop(); });
               videoElement.srcObject = null;
             }
             
@@ -130,14 +126,10 @@ export const useQRCodeScanner = (
                     );
 
                     if (foundStamp) {
-                      console.log("クイズデータ取得モック成功:", foundStamp);
                       navigate("/quiz", {
                         state: { stampData: foundStamp },
                       });
                     } else {
-                      console.error(
-                        "モックデータに一致するスタンプIDが見つかりませんでした。"
-                      );
                       navigate(FAIL_PATH);
                     }
                   } else {
@@ -154,7 +146,6 @@ export const useQRCodeScanner = (
 
                     if (response.ok) {
                       const quizDataFromApi = await response.json();
-                      console.log("クイズデータ取得成功:", quizDataFromApi);
                       
                       const stampData = {
                         stampNo: stampId,
@@ -165,19 +156,10 @@ export const useQRCodeScanner = (
                         state: { stampData: stampData },
                       });
                     } else {
-                      console.error(
-                        "クイズデータ取得失敗:",
-                        response.status,
-                        await response.text()
-                      );
                       navigate(FAIL_PATH);
                     }
                   }
-                } catch (apiError) {
-                  console.error(
-                    "API呼び出し中にエラーが発生しました:",
-                    apiError
-                  );
+                } catch {
                   navigate(FAIL_PATH);
                 }
               };
@@ -193,15 +175,11 @@ export const useQRCodeScanner = (
           ) {
             return;
           }
-          if (err) {
-            console.error("QR Code Scan Error:", err);
-          }
         }
       );
       setScannerControls(controls);
     } catch (error: unknown) {
       setIsScanning(false);
-      console.error("Camera access error:", error);
       if (error instanceof Error) {
         switch (error.name) {
           case "NotAllowedError":
@@ -222,20 +200,19 @@ export const useQRCodeScanner = (
         setErrorMessage("カメラの起動に失敗しました: 不明なエラー");
       }
     }
-  }, [videoRef, navigate, isScanning]);
+  }, [videoRef, navigate, isScanning, scannerControls]);
 
   const stopScan = useCallback(() => {
     if (scannerControls) {
       scannerControls.stop();
       setScannerControls(null);
       setIsScanning(false);
-      console.log("QR Code Reader stopped via controls");
     }
     
     // ビデオストリームのクリーンアップ
     if (videoRef.current?.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
-      stream.getTracks().forEach(track => track.stop());
+      stream.getTracks().forEach(track => { track.stop(); });
       videoRef.current.srcObject = null;
     }
   }, [scannerControls, videoRef]);

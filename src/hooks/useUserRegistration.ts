@@ -20,10 +20,6 @@ export const useUserRegistration = () => {
       localStorage.setItem(UID_LOCAL_STORAGE_KEY, currentUid);
 
       if (VITE_USE_MOCK_DATA) {
-        console.log(
-          "MOCK_DATAが有効です。API呼び出しをスキップします。UID:",
-          currentUid
-        );
         setError(null);
         return;
       }
@@ -32,7 +28,6 @@ export const useUserRegistration = () => {
         const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
         const API_ENDPOINT = `${API_BASE_URL}/user`;
 
-        console.log("Registering/Confirming user with UID:", currentUid);
         setError(null);
 
         try {
@@ -56,13 +51,11 @@ export const useUserRegistration = () => {
             }。詳細: ${JSON.stringify(errorBody)}`;
             throw new Error(fullErrorMessage);
           }
-          console.log("ユーザーが正常に登録または確認されました。");
         } catch (error) {
           const errorMessage =
             error instanceof Error
               ? error.message
               : "ユーザー登録中に予期せぬエラーが発生しました。";
-          console.error("ユーザー登録/確認エラー:", errorMessage, error);
 
           setError(errorMessage);
         }

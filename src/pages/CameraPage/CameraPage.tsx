@@ -1,5 +1,10 @@
-import {  useRef, useEffect } from "react";
-import { useQRCodeScanner } from "../../hooks/useQRCodeScanner"; 
+// React
+import { useRef, useEffect } from "react";
+
+// 内部モジュール
+import { useQRCodeScanner } from "../../hooks/useQRCodeScanner";
+
+// CSS
 import styles from "./CameraPage.module.css";
 
 const CameraPage: React.FC = () => {

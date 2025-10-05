@@ -1,10 +1,18 @@
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import styles from "./QuizPage.module.css";
-import background from "../../assets/images/background.png";
-import type { Stamp, QuizData } from "../../types/stamp";
+// React
 import { useState, useEffect } from "react";
+
+// サードパーティ
+import { useNavigate, useLocation } from "react-router-dom";
+
+// 内部モジュール
 import { useUserContext } from "../../hooks/useContext";
+import type { Stamp, QuizData } from "../../types/stamp";
+
+// アセット
+import background from "../../assets/images/background.png";
+
+// CSS
+import styles from "./QuizPage.module.css";
 
 const QuizPage: React.FC = () => {
   const navigate = useNavigate();
@@ -20,10 +28,7 @@ const QuizPage: React.FC = () => {
   // データがない場合のリダイレクト処理をuseEffect内で実行
   useEffect(() => {
     const stampData = location.state?.stampData;
-    if (stampData) {
-      console.log("スタンプデータが正常に渡されました:", stampData);
-    } else {
-      console.error("スタンプデータ (stampData) が渡されていません！");
+    if (!stampData) {
       // データがない場合はカメラページにリダイレクト
       navigate("/scan", { replace: true });
     }
@@ -52,12 +57,6 @@ const QuizPage: React.FC = () => {
       };
 
   const [quizData] = useState<QuizData>(initialQuizData);
-
-  // // データがない場合は何も表示しない（useEffectでリダイレクト中）
-  // if (!stampDataFromState || !stampDataFromState.quizDto) {
-
-  //   return null;
-  // }
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -202,7 +201,7 @@ const QuizPage: React.FC = () => {
             onClick={handleGetStamp}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "登録中..." : "スタンプをもらう！"}
+            スタンプをもらう！
           </button>
         )}
       </div>

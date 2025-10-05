@@ -1,8 +1,17 @@
+// React
 import { useState, useEffect } from "react";
+
+// サードパーティ
 import { useNavigate, useLocation } from "react-router-dom";
-import styles from "./ScanResultSuccessPage.module.css";
-import background from "../../assets/images/background.png";
+
+// 内部モジュール
 import type { Stamp } from "../../types/stamp";
+
+// アセット
+import background from "../../assets/images/background.png";
+
+// CSS
+import styles from "./ScanResultSuccessPage.module.css";
 
 const ScanResultSuccessPage: React.FC = () => {
   const navigate = useNavigate();
@@ -14,11 +23,6 @@ const ScanResultSuccessPage: React.FC = () => {
 
     if (stampDataFromState?.imgPath) {
       setStampImagePath(stampDataFromState.imgPath);
-      console.log("Stateから画像パスを取得:", stampDataFromState.imgPath);
-    } else {
-      console.warn(
-        "ナビゲーションStateから有効なスタンプデータ（imgPath）が見つかりませんでした。デフォルト画像を使用します。"
-      );
     }
   }, [location]);
 

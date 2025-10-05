@@ -1,9 +1,12 @@
+// サードパーティ
 import { useNavigate } from "react-router-dom";
-import styles from "./HomePage.module.css";
 
-//画像インポート
+// アセット
 import logo from "../../assets/images/logo.png";
 import background from "../../assets/images/background.png";
+
+// CSS
+import styles from "./HomePage.module.css";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();

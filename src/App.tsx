@@ -1,7 +1,18 @@
-import "./styles/global.css";
+// React
+import { lazy, Suspense } from "react";
+
+// サードパーティ
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import  { lazy, Suspense } from "react";
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
+// 内部モジュール
+import { useUserRegistration } from "./hooks/useUserRegistration";
+import { UserContext } from "./hooks/useContext";
+
+// CSS
+import "./styles/global.css";
+
+// レイジーローディング
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const StampListPage = lazy(() => import("./pages/StampListPage/StampListPage"));
 const MapPage = lazy(() => import("./pages/MapPage/MapPage"));
@@ -13,9 +24,6 @@ const ScanResultSuccessPage = lazy(
 const ScanResultFailPage = lazy(
   () => import("./pages/ScanResultFailPage/ScanResultFailPage")
 );
-
-import { useUserRegistration } from "./hooks/useUserRegistration";
-import { UserContext } from "./hooks/useContext";
 
 const App: React.FC = () => {
   const { uid, error } = useUserRegistration();
@@ -81,7 +89,24 @@ const App: React.FC = () => {
     <UserContext.Provider value={uid}>
       <BrowserRouter>
         <SpeedInsights />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense
+          fallback={
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "100vh",
+                backgroundColor: "#FDF5E6",
+                color: "#FB9701",
+                fontSize: "18px",
+                fontWeight: "bold",
+              }}
+            >
+              読み込み中...
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/stamps" element={<StampListPage />} />

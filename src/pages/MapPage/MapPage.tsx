@@ -1,9 +1,16 @@
+// React
 import { useRef, useEffect, useState } from 'react';
+
+// 内部モジュール
 import Header from "../../components/common/Header/Header";
 import FooterNav from "../../components/common/FooterNav/FooterNav";
-import styles from "./MapPage.module.css";
+
+// アセット
 import mapImage from "../../assets/images/map.png";
 import ProgramImage from "../../assets/images/program.png";
+
+// CSS
+import styles from "./MapPage.module.css";
 
 interface ZoomedMapOverlayProps {
   imageSrc: string; 
