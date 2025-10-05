@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 // 内部モジュール
 import Header from "../../components/common/Header/Header";
 import FooterNav from "../../components/common/FooterNav/FooterNav";
+import { showWalkthroughEvent } from "../../utils/walkthroughEvents";
 
 // アセット
 import mapImage from "../../assets/images/map.png";
@@ -191,6 +192,7 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
 const MapPage: React.FC = () => {
   const [isMapZoomed, setIsMapZoomed] = useState(false);
   const [isProgramZoomed, setIsProgramZoomed] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
@@ -205,6 +207,26 @@ const MapPage: React.FC = () => {
   const handleCloseZoom = () => {
     setIsMapZoomed(false);
     setIsProgramZoomed(false);
+  };
+
+  const handleShowWalkthrough = () => {
+    showWalkthroughEvent();
+  };
+
+  const handleResetData = () => {
+    setShowResetConfirm(true);
+  };
+
+  const handleConfirmReset = () => {
+    // LocalStorageのデータをクリア
+    localStorage.clear();
+    
+    // ページをリロードして初期状態に戻す
+    window.location.href = '/';
+  };
+
+  const handleCancelReset = () => {
+    setShowResetConfirm(false);
   };
   
   useEffect(() => {
@@ -260,6 +282,39 @@ const MapPage: React.FC = () => {
             />
           </button>
         </div>
+
+        <h2>その他</h2>
+        <div className={styles.settingsContainer}>
+          <button
+            type="button"
+            className={styles.settingsButton}
+            onClick={handleShowWalkthrough}
+          >
+            <span className={styles.settingsIcon}>💡</span>
+            <div className={styles.settingsContent}>
+              <h3 className={styles.settingsTitle}>使い方ガイド</h3>
+              <p className={styles.settingsDescription}>
+                アプリの使い方をもう一度確認する
+              </p>
+            </div>
+            <span className={styles.settingsArrow}>›</span>
+          </button>
+
+          <button
+            type="button"
+            className={`${styles.settingsButton} ${styles.dangerButton}`}
+            onClick={handleResetData}
+          >
+            <span className={styles.settingsIcon}>🗑️</span>
+            <div className={styles.settingsContent}>
+              <h3 className={styles.settingsTitle}>データリセット</h3>
+              <p className={styles.settingsDescription}>
+                全てのデータを削除して最初からやり直す
+              </p>
+            </div>
+            <span className={styles.settingsArrow}>›</span>
+          </button>
+        </div>
       </div>
       
       {isMapZoomed && (
@@ -276,6 +331,42 @@ const MapPage: React.FC = () => {
           imageAlt="拡大プログラム" 
           onClose={handleCloseZoom} 
         />
+      )}
+
+      {showResetConfirm && (
+        <div className={styles.confirmOverlay}>
+          <div className={styles.confirmDialog}>
+            <h2 className={styles.confirmTitle}>データをリセットしますか？</h2>
+            <p className={styles.confirmMessage}>
+              この操作を実行すると、以下のデータが全て削除されます：
+            </p>
+            <ul className={styles.confirmList}>
+              <li>獲得したスタンプ</li>
+              <li>ユーザーID</li>
+              <li>ウォークスルー表示状態</li>
+              <li>その他の保存データ</li>
+            </ul>
+            <p className={styles.confirmWarning}>
+              ⚠️ この操作は取り消せません
+            </p>
+            <div className={styles.confirmButtons}>
+              <button
+                type="button"
+                className={styles.cancelButton}
+                onClick={handleCancelReset}
+              >
+                キャンセル
+              </button>
+              <button
+                type="button"
+                className={styles.resetButton}
+                onClick={handleConfirmReset}
+              >
+                リセットする
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />

@@ -161,6 +161,194 @@
   pointer-events: none;
 }
 
+/* その他セクション */
+.settingsContainer {
+  width: calc(100% - 16px);
+  margin: 0 auto 32px;
+}
+
+.settingsButton {
+  width: 100%;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  -webkit-tap-highlight-color: transparent;
+  margin-bottom: 12px;
+}
+
+.settingsButton:last-child {
+  margin-bottom: 0;
+}
+
+.settingsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(251, 151, 1, 0.2);
+}
+
+.settingsButton:active {
+  transform: translateY(0);
+}
+
+.dangerButton:hover {
+  box-shadow: 0 6px 16px rgba(220, 53, 69, 0.2);
+}
+
+.dangerButton .settingsTitle {
+  color: #dc3545;
+}
+
+.dangerButton .settingsArrow {
+  color: #dc3545;
+}
+
+.settingsIcon {
+  font-size: 48px;
+  flex-shrink: 0;
+}
+
+.settingsContent {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.settingsButton .settingsTitle {
+  color: #FB9701;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+}
+
+.settingsDescription {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.settingsButton .settingsArrow {
+  font-size: 32px;
+  color: #FB9701;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* 確認ダイアログ */
+.confirmOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.confirmDialog {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.4s ease-out;
+}
+
+.confirmTitle {
+  color: #dc3545;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.confirmMessage {
+  color: #333;
+  font-size: 16px;
+  margin: 0 0 12px 0;
+  line-height: 1.6;
+}
+
+.confirmList {
+  color: #666;
+  font-size: 15px;
+  margin: 0 0 16px 20px;
+  line-height: 1.8;
+}
+
+.confirmList li {
+  margin-bottom: 4px;
+}
+
+.confirmWarning {
+  color: #dc3545;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 16px 0 24px 0;
+  padding: 12px;
+  background: #fff5f5;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.confirmButtons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.cancelButton,
+.resetButton {
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  flex: 1;
+}
+
+.cancelButton {
+  background: #f8f9fa;
+  color: #333;
+  border: 2px solid #dee2e6;
+}
+
+.cancelButton:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.resetButton {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.resetButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+.cancelButton:active,
+.resetButton:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 768px) {
   .contentArea {
     padding: 12px;
@@ -183,6 +371,59 @@
     width: calc(100% - 12px);
     margin: 0 auto 24px;
     padding: 6px;
+  }
+
+  .settingsContainer {
+    width: calc(100% - 12px);
+    margin: 0 auto 24px;
+  }
+
+  .settingsButton {
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+
+  .settingsIcon {
+    font-size: 30px;
+  }
+
+  .settingsTitle {
+    font-size: 16px;
+  }
+
+  .settingsDescription {
+    font-size: 13px;
+  }
+
+  .settingsArrow {
+    font-size: 28px;
+  }
+
+  .confirmDialog {
+    padding: 24px;
+  }
+
+  .confirmTitle {
+    font-size: 20px;
+  }
+
+  .confirmMessage {
+    font-size: 14px;
+  }
+
+  .confirmList {
+    font-size: 13px;
+  }
+
+  .confirmWarning {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .cancelButton,
+  .resetButton {
+    padding: 12px 24px;
+    font-size: 15px;
   }
 
   .closeButton {
@@ -225,6 +466,66 @@
     border-radius: 10px;
   }
 
+  .settingsContainer {
+    width: calc(100% - 8px);
+    margin: 0 auto 20px;
+  }
+
+  .settingsButton {
+    padding: 14px;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .settingsIcon {
+    font-size: 30px;
+  }
+
+  .settingsTitle {
+    font-size: 15px;
+  }
+
+  .settingsDescription {
+    font-size: 12px;
+  }
+
+  .settingsArrow {
+    font-size: 24px;
+  }
+
+  .confirmDialog {
+    padding: 20px;
+  }
+
+  .confirmTitle {
+    font-size: 18px;
+  }
+
+  .confirmMessage {
+    font-size: 13px;
+  }
+
+  .confirmList {
+    font-size: 12px;
+    margin: 0 0 12px 16px;
+  }
+
+  .confirmWarning {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .confirmButtons {
+    flex-direction: column;
+  }
+
+  .cancelButton,
+  .resetButton {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
   .mapImage {
     border-radius: 6px;
   }
@@ -262,6 +563,32 @@
   .mapContainer {
     width: calc(100% - 10px);
     margin: 0 auto 18px;
+  }
+
+  .settingsContainer {
+    width: calc(100% - 10px);
+    margin: 0 auto 18px;
+  }
+
+  .settingsButton {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .settingsIcon {
+    font-size: 28px;
+  }
+
+  .settingsTitle {
+    font-size: 14px;
+  }
+
+  .settingsDescription {
+    font-size: 11px;
+  }
+
+  .settingsArrow {
+    font-size: 22px;
   }
 
   .closeButton {

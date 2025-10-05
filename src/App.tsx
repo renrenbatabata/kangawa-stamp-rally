@@ -2,13 +2,14 @@
 import { lazy, Suspense, useState, useEffect } from "react";
 
 // サードパーティ
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // 内部モジュール
 import { useUserRegistration } from "./hooks/useUserRegistration";
 import { UserContext } from "./hooks/useContext";
 import Walkthrough from "./components/Walkthrough/Walkthrough";
+import { WALKTHROUGH_KEY } from "./utils/walkthroughEvents";
 
 // CSS
 import "./styles/global.css";
@@ -26,23 +27,44 @@ const ScanResultFailPage = lazy(
   () => import("./pages/ScanResultFailPage/ScanResultFailPage")
 );
 
-const WALKTHROUGH_KEY = "kanagawa_stamp_rally_walkthrough_completed";
-
-const App: React.FC = () => {
+// ルート内で使用するコンポーネント
+const AppRoutes: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { uid, error } = useUserRegistration();
   const [showWalkthrough, setShowWalkthrough] = useState(false);
+  const [isFirstTime, setIsFirstTime] = useState(false);
 
   useEffect(() => {
     // ウォークスルーが完了しているかチェック
     const walkthroughCompleted = localStorage.getItem(WALKTHROUGH_KEY);
     if (!walkthroughCompleted && uid !== "") {
       setShowWalkthrough(true);
+      setIsFirstTime(true);  // 初回アクセスフラグ
     }
   }, [uid]);
+
+  useEffect(() => {
+    // カスタムイベントでウォークスルーを表示
+    const handleShowWalkthrough = () => {
+      setShowWalkthrough(true);
+      setIsFirstTime(false);  // 手動表示の場合は初回ではない
+    };
+
+    window.addEventListener('showWalkthrough', handleShowWalkthrough);
+    return () => {
+      window.removeEventListener('showWalkthrough', handleShowWalkthrough);
+    };
+  }, []);
 
   const handleWalkthroughComplete = () => {
     localStorage.setItem(WALKTHROUGH_KEY, "true");
     setShowWalkthrough(false);
+    
+    // 初回アクセスの場合は、スタンプリストページに直接遷移
+    if (isFirstTime && location.pathname === '/') {
+      navigate('/stamps', { replace: true });
+    }
   };
 
   if (uid === "") {
@@ -104,41 +126,47 @@ const App: React.FC = () => {
 
   return (
     <UserContext.Provider value={uid}>
-      <BrowserRouter>
-        <SpeedInsights />
-        <Suspense
-          fallback={
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                minHeight: "100vh",
-                backgroundColor: "#FDF5E6",
-                color: "#FB9701",
-                fontSize: "18px",
-                fontWeight: "bold",
-              }}
-            >
-              読み込み中...
-            </div>
-          }
-        >
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/stamps" element={<StampListPage />} />
-            <Route path="/map" element={<MapPage />} />
-            <Route path="/quiz" element={<QuizPage />} />
-            <Route path="/scan" element={<CameraPage />} />
-            <Route path="/scan/success" element={<ScanResultSuccessPage />} />
-            <Route path="/scan/fail" element={<ScanResultFailPage />} />
-          </Routes>
-        </Suspense>
-        {showWalkthrough && (
-          <Walkthrough onComplete={handleWalkthroughComplete} />
-        )}
-      </BrowserRouter>
+      <SpeedInsights />
+      <Suspense
+        fallback={
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "100vh",
+              backgroundColor: "#FDF5E6",
+              color: "#FB9701",
+              fontSize: "18px",
+              fontWeight: "bold",
+            }}
+          >
+            読み込み中...
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/stamps" element={<StampListPage />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/scan" element={<CameraPage />} />
+          <Route path="/scan/success" element={<ScanResultSuccessPage />} />
+          <Route path="/scan/fail" element={<ScanResultFailPage />} />
+        </Routes>
+      </Suspense>
+      {showWalkthrough && (
+        <Walkthrough onComplete={handleWalkthroughComplete} />
+      )}
     </UserContext.Provider>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 };
 
