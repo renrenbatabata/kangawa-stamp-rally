@@ -1,5 +1,5 @@
 // React
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 
 // サードパーティ
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 // 内部モジュール
 import { useUserRegistration } from "./hooks/useUserRegistration";
 import { UserContext } from "./hooks/useContext";
+import Walkthrough from "./components/Walkthrough/Walkthrough";
 
 // CSS
 import "./styles/global.css";
@@ -25,8 +26,24 @@ const ScanResultFailPage = lazy(
   () => import("./pages/ScanResultFailPage/ScanResultFailPage")
 );
 
+const WALKTHROUGH_KEY = "kanagawa_stamp_rally_walkthrough_completed";
+
 const App: React.FC = () => {
   const { uid, error } = useUserRegistration();
+  const [showWalkthrough, setShowWalkthrough] = useState(false);
+
+  useEffect(() => {
+    // ウォークスルーが完了しているかチェック
+    const walkthroughCompleted = localStorage.getItem(WALKTHROUGH_KEY);
+    if (!walkthroughCompleted && uid !== "") {
+      setShowWalkthrough(true);
+    }
+  }, [uid]);
+
+  const handleWalkthroughComplete = () => {
+    localStorage.setItem(WALKTHROUGH_KEY, "true");
+    setShowWalkthrough(false);
+  };
 
   if (uid === "") {
     return (
@@ -117,6 +134,9 @@ const App: React.FC = () => {
             <Route path="/scan/fail" element={<ScanResultFailPage />} />
           </Routes>
         </Suspense>
+        {showWalkthrough && (
+          <Walkthrough onComplete={handleWalkthroughComplete} />
+        )}
       </BrowserRouter>
     </UserContext.Provider>
   );
