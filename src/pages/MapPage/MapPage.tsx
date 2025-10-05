@@ -115,7 +115,7 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
 
   // ダブルタップでズーム
   const lastTap = useRef<number>(0);
-  const handleDoubleTap = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleDoubleTap = () => {
     const now = Date.now();
     const DOUBLE_TAP_DELAY = 300;
     
@@ -154,7 +154,7 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
         onWheel={handleWheel}
         onClick={(e) => {
           e.stopPropagation();
-          handleDoubleTap(e);
+          handleDoubleTap();
         }}
       >
         <img
