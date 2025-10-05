@@ -1,13 +1,15 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BrowserQRCodeReader, type IScannerControls } from "@zxing/browser";
+// useUserContext のインポートは、uuidの使用がなくなったため削除しました。
 
 const QR_PREFIX = import.meta.env.VITE_QR_PREFIX;
 const SUCCESS_PATH = import.meta.env.VITE_SUCCESS_PATH;
 const FAIL_PATH = import.meta.env.VITE_FAIL_PATH;
-const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === "true";
+const USE_MOCK_DATA = import.meta.env.VITE_USE_MITE_USE_MOCK_DATA === "true";
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
+// 環境変数チェックを強化
 if (!QR_PREFIX || !SUCCESS_PATH || !FAIL_PATH) {
   throw new Error(
     "必要な環境変数(.env)が設定されていません: VITE_QR_PREFIX, VITE_SUCCESS_PATH, VITE_FAIL_PATH"
@@ -19,15 +21,46 @@ if (!USE_MOCK_DATA && !apiBaseUrl) {
     );
 }
 
+// 取得したクイズデータ/スタンプデータの型を定義
+type StampData = { 
+    stampNo: string; 
+    quizDto?: { [key: string]: unknown }; // APIがクイズデータのみを返す可能性も考慮しオプショナルに
+    [key: string]: unknown;
+} | null;
+
+
 export const useQRCodeScanner = (
   videoRef: React.RefObject<HTMLVideoElement | null>
 ) => {
   const navigate = useNavigate();
+  
   const [isScanning, setIsScanning] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const codeReader = useRef<BrowserQRCodeReader | null>(null);
   const [scannerControls, setScannerControls] =
     useState<IScannerControls | null>(null);
+
+  // ★★★ 新しい状態：ナビゲーションのトリガーとデータ保持用 ★★★
+  const [quizData, setQuizData] = useState<StampData>(null);
+  const [shouldFail, setShouldFail] = useState(false);
+
+  // ★★★ useEffectでナビゲーションを実行し、警告を回避 ★★★
+  useEffect(() => {
+    if (quizData) {
+      // 成功時：/quiz へナビゲート
+      navigate("/quiz", {
+        state: { stampData: quizData },
+      });
+      // 状態をクリア
+      setQuizData(null); 
+    } else if (shouldFail) {
+      // 失敗時：FAIL_PATH へナビゲート
+      navigate(FAIL_PATH);
+      setShouldFail(false);
+    }
+    // navigateは依存配列に含める
+  }, [quizData, shouldFail, navigate]);
+
 
   const startScan = useCallback(async () => {
     if (isScanning || !videoRef.current) return;
@@ -70,6 +103,7 @@ export const useQRCodeScanner = (
         );
       }
 
+      // videoRef.currentの非nullアサーション
       const videoElement = videoRef.current as HTMLVideoElement; 
 
       const controls = await codeReader.current.decodeFromVideoDevice(
@@ -98,14 +132,13 @@ export const useQRCodeScanner = (
 
                     if (foundStamp) {
                       console.log("クイズデータ取得モック成功:", foundStamp);
-                      navigate("/quiz", {
-                        state: { stampData: foundStamp },
-                      });
+                      // navigate()の代わりに状態をセット
+                      setQuizData(foundStamp as StampData); 
                     } else {
                       console.error(
                         "モックデータに一致するスタンプIDが見つかりませんでした。"
                       );
-                      navigate(FAIL_PATH);
+                      setShouldFail(true); // 失敗フラグをセット
                     }
                   } else {
                     if (!apiBaseUrl) {
@@ -122,16 +155,15 @@ export const useQRCodeScanner = (
                     if (response.ok) {
                       const quizDataFromApi = await response.json();
                       console.log("クイズデータ取得成功:", quizDataFromApi);
-                      navigate("/quiz", {
-                        state: { stampData: quizDataFromApi },
-                      });
+                      // navigate()の代わりに状態をセット
+                      setQuizData(quizDataFromApi as StampData);
                     } else {
                       console.error(
                         "クイズデータ取得失敗:",
                         response.status,
                         await response.text()
                       );
-                      navigate(FAIL_PATH);
+                      setShouldFail(true); // 失敗フラグをセット
                     }
                   }
                 } catch (apiError) {
@@ -139,12 +171,12 @@ export const useQRCodeScanner = (
                     "API呼び出し中にエラーが発生しました:",
                     apiError
                   );
-                  navigate(FAIL_PATH);
+                  setShouldFail(true); // 失敗フラグをセット
                 }
               };
               getQuiz();
             } else {
-              navigate(FAIL_PATH);
+              setShouldFail(true); // 失敗フラグをセット
             }
           }
           if (
@@ -183,7 +215,7 @@ export const useQRCodeScanner = (
         setErrorMessage("カメラの起動に失敗しました: 不明なエラー");
       }
     }
-  }, [videoRef, navigate, isScanning]);
+  }, [videoRef, isScanning]); // navigateはuseEffect内に移動したため削除
 
   const stopScan = useCallback(() => {
     if (scannerControls) {
