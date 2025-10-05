@@ -18,7 +18,7 @@ const ScanResultSuccessPage: React.FC = () => {
   useEffect(() => {
     const stampDataFromState = location.state?.stampData as Stamp | undefined;
 
-    if (stampDataFromState && stampDataFromState.imgPath) {
+    if (stampDataFromState?.imgPath) {
       setStampImagePath(stampDataFromState.imgPath);
       console.log("Stateから画像パスを取得:", stampDataFromState.imgPath);
     } else {

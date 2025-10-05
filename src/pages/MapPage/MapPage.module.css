@@ -1,0 +1,146 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #FDF5E6;
+  min-height: 100vh;
+}
+
+.contentArea {
+  flex-grow: 1;
+  overflow: hidden;
+  padding: 16px;
+  margin-bottom: 6em;
+}
+
+.contentArea h1 {
+  color: #ff9215;
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 3px dashed #ff9215;
+  margin: 20px 8px 30px;
+  font-size: 24px;
+}
+
+.contentArea h2 {
+  color: #e8a97c;
+  margin: 0 8px 12px;
+  padding: 4px 12px;
+  background-color: #fff0d9;
+  border-radius: 8px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-size: 18px;
+}
+
+.mapContainer {
+  overflow: hidden;
+  width: calc(100% - 16px);
+  margin: 0 auto 32px;
+  padding: 8px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  
+  height: auto;
+  
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.mapContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.imageWrapper {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mapImage {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  display: block;
+  
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.mapImage:hover {
+  transform: scale(1.005);
+}
+
+.zoomedOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  background-color: rgba(0, 0, 0, 0.633);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.zoomedMapContainer {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 0;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.zoomedMapContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.zoomedMapImage {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  display: block;
+  cursor: default;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2001;
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
