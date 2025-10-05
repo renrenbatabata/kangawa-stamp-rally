@@ -8,7 +8,6 @@ const FAIL_PATH = import.meta.env.VITE_FAIL_PATH;
 const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === "true";
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
-// 環境変数チェックを強化
 if (!QR_PREFIX || !SUCCESS_PATH || !FAIL_PATH) {
   throw new Error(
     "必要な環境変数(.env)が設定されていません: VITE_QR_PREFIX, VITE_SUCCESS_PATH, VITE_FAIL_PATH"
@@ -24,7 +23,6 @@ export const useQRCodeScanner = (
   videoRef: React.RefObject<HTMLVideoElement | null>
 ) => {
   const navigate = useNavigate();
-  // uuidはGETリクエストでは不要になりましたが、フックの依存配列からは削除しません
   const [isScanning, setIsScanning] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const codeReader = useRef<BrowserQRCodeReader | null>(null);
@@ -72,7 +70,6 @@ export const useQRCodeScanner = (
         );
       }
 
-      // TypeScriptの安全性を高めるため、videoRef.currentがnullでないことを保証し、型アサーションを使用
       const videoElement = videoRef.current as HTMLVideoElement; 
 
       const controls = await codeReader.current.decodeFromVideoDevice(
@@ -80,7 +77,6 @@ export const useQRCodeScanner = (
         videoElement,
         (result, err) => {
           if (result) {
-            // スキャン成功時にリーダーを停止
             controls.stop();
             setScannerControls(null);
             setIsScanning(false);
@@ -92,7 +88,6 @@ export const useQRCodeScanner = (
               const getQuiz = async () => {
                 try {
                   if (USE_MOCK_DATA) {
-                    // モックデータ処理（変更なし）
                     const response = await fetch("/data/add_mock.json");
                     const mockData = await response.json();
 
@@ -113,18 +108,15 @@ export const useQRCodeScanner = (
                       navigate(FAIL_PATH);
                     }
                   } else {
-                    // ライブAPI処理
                     if (!apiBaseUrl) {
                       throw new Error("API base URL is not configured."); 
                     }
                     
-                    // GETリクエスト用のURLを構築 (stampIdをクエリストリングで渡す)
                     const apiUrl = `${apiBaseUrl}/quiz?stampId=${encodeURIComponent(stampId)}`;
                     
                     const response = await fetch(apiUrl, {
-                      method: "GET", // メソッドをGETに変更
+                      method: "GET",
                       headers: { "Content-Type": "application/json" },
-                      // bodyは不要
                     });
 
                     if (response.ok) {
@@ -152,11 +144,9 @@ export const useQRCodeScanner = (
               };
               getQuiz();
             } else {
-              // QRコードのプレフィックスが一致しない場合
               navigate(FAIL_PATH);
             }
           }
-          // NotFoundExceptionなど、読み取り中のエラーは無視して続行
           if (
             err instanceof Error &&
             (err.name === "NotFoundException" ||
@@ -171,7 +161,6 @@ export const useQRCodeScanner = (
       );
       setScannerControls(controls);
     } catch (error: unknown) {
-      // カメラアクセス失敗時のエラーハンドリング
       setIsScanning(false);
       console.error("Camera access error:", error);
       if (error instanceof Error) {
