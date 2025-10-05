@@ -41,7 +41,21 @@ export const useQRCodeScanner = (
   }, [scannerControls]); 
 
   const startScan = useCallback(async () => {
-    if (isScanning || !videoRef.current) return;
+    if (!videoRef.current) return;
+    
+    // 既存のスキャナーが動作中の場合は停止
+    if (scannerControls) {
+      scannerControls.stop();
+      setScannerControls(null);
+    }
+    
+    // スキャン中の場合は一度停止してから再開
+    if (isScanning) {
+      setIsScanning(false);
+      // 状態更新を待つため少し遅延
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    
     setErrorMessage(null);
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -88,9 +102,17 @@ export const useQRCodeScanner = (
         videoElement,
         (result, err) => {
           if (result) {
+            // カメラを確実に停止
             controls.stop();
             setScannerControls(null); 
             setIsScanning(false);
+            
+            // ビデオストリームのトラックを停止
+            if (videoElement.srcObject) {
+              const stream = videoElement.srcObject as MediaStream;
+              stream.getTracks().forEach(track => track.stop());
+              videoElement.srcObject = null;
+            }
             
             const qrData = result.getText();
             
@@ -209,7 +231,14 @@ export const useQRCodeScanner = (
       setIsScanning(false);
       console.log("QR Code Reader stopped via controls");
     }
-  }, [scannerControls]);
+    
+    // ビデオストリームのクリーンアップ
+    if (videoRef.current?.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  }, [scannerControls, videoRef]);
 
   return { isScanning, errorMessage, startScan, stopScan };
 };

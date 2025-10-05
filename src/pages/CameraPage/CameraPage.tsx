@@ -11,7 +11,8 @@ const CameraPage: React.FC = () => {
     return () => {
       stopScan();
     };
-  }, [startScan, stopScan]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // マウント時のみ実行
 
   return (
     <div className={styles.cameraPage}>
