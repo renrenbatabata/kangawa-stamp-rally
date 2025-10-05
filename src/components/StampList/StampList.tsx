@@ -1,7 +1,7 @@
 import styles from "./StampList.module.css";
 import type { Stamp } from "../../types/stamp";
 import StampCard from "../StampCard/StampCard";
-import StampUnComplete from "../../assets/stamp_points/stanm_null.png";
+import StampUnComplete from "../../assets/stamp_points/stamp_null.png";
 import { FaStamp } from "react-icons/fa";
 
 type StampListProps = {

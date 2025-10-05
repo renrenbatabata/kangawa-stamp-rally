@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import stylse from "./HomePage.module.css";
+import styles from "./HomePage.module.css";
 
 //画像インポート
 import logo from "../../assets/images/logo.png";
@@ -14,12 +14,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div
-      className={stylse.homePage}
+      className={styles.homePage}
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className={stylse.overlay}>
-        <img src={logo} alt="Logo" className={stylse.logo} />
-        <button type="button" className={stylse.startButton} onClick={handleStartClick}>
+      <div className={styles.overlay}>
+        <img src={logo} alt="Logo" className={styles.logo} />
+        <button type="button" className={styles.startButton} onClick={handleStartClick}>
           はじめる
         </button>
       </div>
