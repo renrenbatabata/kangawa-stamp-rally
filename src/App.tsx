@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react"
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const StampListPage = lazy(() => import("./pages/StampListPage/StampListPage"));
 const MapPage = lazy(() => import("./pages/MapPage/MapPage"));
-const QuizPage = lazy(() => import("./pages/QuizPage/QuizPage"));
+const QuizPage = lazy(() => import("./pages/Quizpage/QuizPage"));
 const CameraPage = lazy(() => import("./pages/CameraPage/CameraPage"));
 const ScanResultSuccessPage = lazy(
   () => import("./pages/ScanResultSuccessPage/ScanResultSuccessPage")
