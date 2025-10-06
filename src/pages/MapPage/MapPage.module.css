@@ -60,7 +60,6 @@
   display: block;
   padding: 0;
   border: none;
-  background: none;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
@@ -100,12 +99,11 @@
   height: 100%;
   overflow: auto;
   padding: 0;
-  
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+  background-color: #333333ac;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
