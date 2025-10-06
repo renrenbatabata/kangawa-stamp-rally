@@ -7,16 +7,24 @@ type StampBadgeProps = {
   progress: number;
 };
 
+const POPUP_SEEN_KEY = 'stampRallyCompletedPopupSeen';
+
 const StampBadge = ({ progress }: StampBadgeProps) => {
-  const [showPopup, setShowPopup] = useState(false);
   const totalStamps = 4;
   const remainingStamps = totalStamps - progress;
+  
+  const [showPopup, setShowPopup] = useState(false); 
 
   useEffect(() => {
-    if (progress === totalStamps) {
+    const isCompleted = progress === totalStamps;
+    
+    const hasPopupBeenSeen = localStorage.getItem(POPUP_SEEN_KEY) === 'true';
+
+    if (isCompleted && !hasPopupBeenSeen) {
       setShowPopup(true);
     }
-  }, [progress]);
+    
+  }, [progress]); 
 
   const progressIcons = Array.from({ length: totalStamps }, (_, index) => {
     const id = index + 1;
@@ -31,6 +39,7 @@ const StampBadge = ({ progress }: StampBadgeProps) => {
 
   const handleClosePopup = () => {
     setShowPopup(false);
+    localStorage.setItem(POPUP_SEEN_KEY, 'true');
   };
 
   return (
