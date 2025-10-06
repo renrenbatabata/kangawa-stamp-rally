@@ -21,7 +21,7 @@
 }
 
 .stampCard:hover {
-    transform: scale(1.05) rotate(-3deg);
+    transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(249, 213, 167, 0.6);
 }
 
@@ -35,7 +35,7 @@
 }
 
 .stampCard:hover .stampImage {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.1);
 }
 
 .stampInfo {

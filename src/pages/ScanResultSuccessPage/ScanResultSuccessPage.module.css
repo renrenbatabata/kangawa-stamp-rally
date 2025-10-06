@@ -37,6 +37,7 @@
 .stampImage {
     width: 70%;
     max-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.531);
     height: auto;
     object-fit: contain;
     margin-bottom: 40px;
