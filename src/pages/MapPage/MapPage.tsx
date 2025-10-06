@@ -434,8 +434,8 @@ const MapPage: React.FC = () => {
               <div className={styles.helpSection}>
                 <h4>📱 スマートフォンの場合</h4>
                 <ol>
-                  <li>ブラウザのアドレスバーにある🔒をタップ</li>
-                  <li>「カメラ」を「許可」に変更</li>
+                  <li>ブラウザのアドレスバーの左端のアイコンをクリック</li>
+                  <li>権限から「カメラ」を「許可」に変更</li>
                   <li>ページを再読み込み</li>
                 </ol>
               </div>
