@@ -213,7 +213,7 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
 const MapPage: React.FC = () => {
   const [isMapZoomed, setIsMapZoomed] = useState(false);
   const [isProgramZoomed, setIsProgramZoomed] = useState(false);
-  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  // const [showResetConfirm, setShowResetConfirm] = useState(false); // データリセット機能は削除（運営要望：ユーザー数管理のため）
   const [showCameraHelp, setShowCameraHelp] = useState(false);
   const [cameraPermission, setCameraPermission] = useState<'granted' | 'denied' | 'prompt' | 'unknown'>('unknown');
 
@@ -236,21 +236,22 @@ const MapPage: React.FC = () => {
     showWalkthroughEvent();
   };
 
-  const handleResetData = () => {
-    setShowResetConfirm(true);
-  };
+  // データリセット機能は削除（運営要望：ユーザー数管理のため）
+  // const handleResetData = () => {
+  //   setShowResetConfirm(true);
+  // };
 
-  const handleConfirmReset = () => {
-    // LocalStorageのデータをクリア
-    localStorage.clear();
-    
-    // ページをリロードして初期状態に戻す
-    window.location.href = '/';
-  };
+  // const handleConfirmReset = () => {
+  //   // LocalStorageのデータをクリア
+  //   localStorage.clear();
+  //   
+  //   // ページをリロードして初期状態に戻す
+  //   window.location.href = '/';
+  // };
 
-  const handleCancelReset = () => {
-    setShowResetConfirm(false);
-  };
+  // const handleCancelReset = () => {
+  //   setShowResetConfirm(false);
+  // };
 
   const handleShowCameraHelp = async () => {
     // カメラ権限の状態を確認
@@ -372,7 +373,8 @@ const MapPage: React.FC = () => {
             <span className={styles.settingsArrow}>›</span>
           </button>
 
-          <button
+          {/* データリセット機能は削除（運営要望：ユーザー数管理のため） */}
+          {/* <button
             type="button"
             className={`${styles.settingsButton} ${styles.dangerButton}`}
             onClick={handleResetData}
@@ -385,7 +387,7 @@ const MapPage: React.FC = () => {
               </p>
             </div>
             <span className={styles.settingsArrow}>›</span>
-          </button>
+          </button> */}
         </div>
       </div>
       
@@ -470,7 +472,8 @@ const MapPage: React.FC = () => {
         </div>
       )}
 
-      {showResetConfirm && (
+      {/* データリセット確認ダイアログは削除（運営要望：ユーザー数管理のため） */}
+      {/* {showResetConfirm && (
         <div className={styles.confirmOverlay}>
           <div className={styles.confirmDialog}>
             <h2 className={styles.confirmTitle}>データをリセットしますか？</h2>
@@ -504,7 +507,7 @@ const MapPage: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
     </div>
