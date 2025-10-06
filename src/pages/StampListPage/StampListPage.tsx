@@ -79,7 +79,8 @@ const StampListPage: React.FC = () => {
       <div className={styles.container}>
         <Header />
         <div className={styles.messageContainer}>
-          <p>読み込み中...</p>
+          <div className={styles.spinner}></div>
+          <p className={styles.loadingText}>読み込み中...</p>
         </div>
         <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
       </div>

@@ -13,6 +13,7 @@ import { WALKTHROUGH_KEY } from "./utils/walkthroughEvents";
 
 // CSS
 import "./styles/global.css";
+import styles from "./App.module.css";
 
 // レイジーローディング
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
@@ -69,21 +70,12 @@ const AppRoutes: React.FC = () => {
 
   if (uid === "") {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "100vh",
-          padding: "20px",
-          backgroundColor: "#FDF5E6",
-        }}
-      >
-        <h1 style={{ color: "#FB9701", marginBottom: "20px" }}>
+      <div className={styles.loadingContainer}>
+        <div className={styles.spinner}></div>
+        <h1 className={styles.loadingTitle}>
           ユーザー情報をロード中...
         </h1>
-        <p style={{ color: "#555", textAlign: "center" }}>
+        <p className={styles.loadingDescription}>
           初回アクセス時は、ユーザーIDの登録を行っています。
         </p>
       </div>
@@ -92,28 +84,8 @@ const AppRoutes: React.FC = () => {
 
   if (error) {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "100vh",
-          padding: "40px",
-          textAlign: "center",
-          color: "#c0392b",
-          backgroundColor: "#fbe2e1",
-        }}
-      >
-        <div
-          style={{
-            border: "2px solid #c0392b",
-            borderRadius: "8px",
-            padding: "30px",
-            maxWidth: "500px",
-            backgroundColor: "white",
-          }}
-        >
+      <div className={styles.errorContainer}>
+        <div className={styles.errorCard}>
           <h1>接続エラー</h1>
           <p>ユーザー情報の取得または登録中に問題が発生しました。</p>
           <p>
@@ -129,19 +101,9 @@ const AppRoutes: React.FC = () => {
       <SpeedInsights />
       <Suspense
         fallback={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              minHeight: "100vh",
-              backgroundColor: "#FDF5E6",
-              color: "#FB9701",
-              fontSize: "18px",
-              fontWeight: "bold",
-            }}
-          >
-            読み込み中...
+          <div className={styles.loadingContainer}>
+            <div className={styles.spinner}></div>
+            <h1 className={styles.loadingTitle}>読み込み中...</h1>
           </div>
         }
       >
