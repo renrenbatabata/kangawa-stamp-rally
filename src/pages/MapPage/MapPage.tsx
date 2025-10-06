@@ -20,7 +20,7 @@ interface ZoomedMapOverlayProps {
 }
 
 const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt, onClose }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLButtonElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -139,7 +139,19 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
   };
 
   return (
-    <div className={styles.zoomedOverlay} onClick={onClose}>
+    <button
+      type="button"
+      className={styles.zoomedOverlay}
+      onClick={onClose}
+      onKeyUp={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          onClose();
+        }
+      }}
+      tabIndex={0}
+      aria-label={`${imageAlt}を閉じるオーバーレイ`}
+      style={{ background: "none", border: "none", padding: 0, width: "100%", height: "100%" }}
+    >
       <button 
         type="button" 
         className={styles.closeButton} 
@@ -149,8 +161,9 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
         &times;
       </button>
       
-      <div 
-        className={styles.zoomedMapContainer} 
+      <button
+        type="button"
+        className={styles.zoomedMapContainer}
         ref={containerRef}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -164,6 +177,14 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
           e.stopPropagation();
           handleDoubleTap();
         }}
+        onKeyUp={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            handleDoubleTap();
+          }
+        }}
+        tabIndex={0}
+        aria-label={`${imageAlt}を操作`}
+        style={{ padding: 0, border: "none", background: "none" }}
       >
         <img
           ref={imageRef}
@@ -178,14 +199,14 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
           }}
           draggable={false}
         />
-      </div>
+      </button>
       
       {scale > 1 && (
         <div className={styles.zoomIndicator}>
           {Math.round(scale * 100)}%
         </div>
       )}
-    </div>
+    </button>
   );
 };
 
@@ -234,7 +255,7 @@ const MapPage: React.FC = () => {
   const handleShowCameraHelp = async () => {
     // カメラ権限の状態を確認
     try {
-      if (navigator.permissions && navigator.permissions.query) {
+      if (navigator.permissions?.query) {
         const result = await navigator.permissions.query({ name: 'camera' as PermissionName });
         setCameraPermission(result.state as 'granted' | 'denied' | 'prompt');
       } else {
@@ -254,14 +275,12 @@ const MapPage: React.FC = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       // 権限取得成功
-      stream.getTracks().forEach(track => track.stop());
+      stream.getTracks().forEach(track => { track.stop(); });
       setCameraPermission('granted');
-      alert('カメラの使用が許可されました！');
     } catch (error) {
       if (error instanceof Error) {
         if (error.name === 'NotAllowedError') {
           setCameraPermission('denied');
-          alert('カメラの使用が拒否されました。ブラウザの設定から許可してください。');
         }
       }
     }
