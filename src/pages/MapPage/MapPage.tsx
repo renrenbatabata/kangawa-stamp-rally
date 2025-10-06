@@ -184,7 +184,7 @@ const ZoomedMapOverlay: React.FC<ZoomedMapOverlayProps> = ({ imageSrc, imageAlt,
         }}
         tabIndex={0}
         aria-label={`${imageAlt}を操作`}
-        style={{ padding: 0, border: "none", background: "none" }}
+        style={{ padding: 0, border: "none" }}
       >
         <img
           ref={imageRef}
