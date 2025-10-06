@@ -193,6 +193,8 @@ const MapPage: React.FC = () => {
   const [isMapZoomed, setIsMapZoomed] = useState(false);
   const [isProgramZoomed, setIsProgramZoomed] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showCameraHelp, setShowCameraHelp] = useState(false);
+  const [cameraPermission, setCameraPermission] = useState<'granted' | 'denied' | 'prompt' | 'unknown'>('unknown');
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
@@ -227,6 +229,42 @@ const MapPage: React.FC = () => {
 
   const handleCancelReset = () => {
     setShowResetConfirm(false);
+  };
+
+  const handleShowCameraHelp = async () => {
+    // カメラ権限の状態を確認
+    try {
+      if (navigator.permissions && navigator.permissions.query) {
+        const result = await navigator.permissions.query({ name: 'camera' as PermissionName });
+        setCameraPermission(result.state as 'granted' | 'denied' | 'prompt');
+      } else {
+        setCameraPermission('unknown');
+      }
+    } catch {
+      setCameraPermission('unknown');
+    }
+    setShowCameraHelp(true);
+  };
+
+  const handleCloseCameraHelp = () => {
+    setShowCameraHelp(false);
+  };
+
+  const handleRequestCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // 権限取得成功
+      stream.getTracks().forEach(track => track.stop());
+      setCameraPermission('granted');
+      alert('カメラの使用が許可されました！');
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.name === 'NotAllowedError') {
+          setCameraPermission('denied');
+          alert('カメラの使用が拒否されました。ブラウザの設定から許可してください。');
+        }
+      }
+    }
   };
   
   useEffect(() => {
@@ -302,6 +340,21 @@ const MapPage: React.FC = () => {
 
           <button
             type="button"
+            className={styles.settingsButton}
+            onClick={handleShowCameraHelp}
+          >
+            <span className={styles.settingsIcon}>📷</span>
+            <div className={styles.settingsContent}>
+              <h3 className={styles.settingsTitle}>カメラ設定</h3>
+              <p className={styles.settingsDescription}>
+                カメラの使用許可を確認・設定する
+              </p>
+            </div>
+            <span className={styles.settingsArrow}>›</span>
+          </button>
+
+          <button
+            type="button"
             className={`${styles.settingsButton} ${styles.dangerButton}`}
             onClick={handleResetData}
           >
@@ -331,6 +384,71 @@ const MapPage: React.FC = () => {
           imageAlt="拡大プログラム" 
           onClose={handleCloseZoom} 
         />
+      )}
+
+      {showCameraHelp && (
+        <div className={styles.confirmOverlay}>
+          <div className={styles.confirmDialog}>
+            <h2 className={styles.cameraHelpTitle}>📷 カメラ設定</h2>
+            
+            <div className={styles.cameraStatus}>
+              <p className={styles.statusLabel}>現在の状態：</p>
+              {cameraPermission === 'granted' && (
+                <span className={styles.statusGranted}>✅ 許可されています</span>
+              )}
+              {cameraPermission === 'denied' && (
+                <span className={styles.statusDenied}>❌ 拒否されています</span>
+              )}
+              {cameraPermission === 'prompt' && (
+                <span className={styles.statusPrompt}>⏸️ 未設定</span>
+              )}
+              {cameraPermission === 'unknown' && (
+                <span className={styles.statusUnknown}>❓ 確認できません</span>
+              )}
+            </div>
+
+            <div className={styles.cameraHelpContent}>
+              <h3>カメラが使えない場合</h3>
+              
+              <div className={styles.helpSection}>
+                <h4>📱 スマートフォンの場合</h4>
+                <ol>
+                  <li>ブラウザのアドレスバーにある🔒をタップ</li>
+                  <li>「カメラ」を「許可」に変更</li>
+                  <li>ページを再読み込み</li>
+                </ol>
+              </div>
+
+              <div className={styles.helpSection}>
+                <h4>💻 パソコンの場合</h4>
+                <ol>
+                  <li>ブラウザのアドレスバー左側のアイコンをクリック</li>
+                  <li>「カメラ」の設定を「許可」に変更</li>
+                  <li>ページを再読み込み</li>
+                </ol>
+              </div>
+            </div>
+
+            <div className={styles.confirmButtons}>
+              {(cameraPermission === 'prompt' || cameraPermission === 'unknown') && (
+                <button
+                  type="button"
+                  className={styles.resetButton}
+                  onClick={handleRequestCamera}
+                >
+                  カメラを許可する
+                </button>
+              )}
+              <button
+                type="button"
+                className={styles.cancelButton}
+                onClick={handleCloseCameraHelp}
+              >
+                閉じる
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {showResetConfirm && (

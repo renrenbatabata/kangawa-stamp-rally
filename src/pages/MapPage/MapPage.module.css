@@ -349,6 +349,89 @@
   transform: translateY(0);
 }
 
+/* カメラ設定ダイアログ */
+.cameraHelpTitle {
+  color: #FB9701;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.cameraStatus {
+  text-align: center;
+  margin: 0 0 24px 0;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.statusLabel {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.statusGranted,
+.statusDenied,
+.statusPrompt,
+.statusUnknown {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+}
+
+.statusGranted {
+  color: #28a745;
+}
+
+.statusDenied {
+  color: #dc3545;
+}
+
+.statusPrompt {
+  color: #ffc107;
+}
+
+.statusUnknown {
+  color: #6c757d;
+}
+
+.cameraHelpContent {
+  text-align: left;
+  margin: 0 0 24px 0;
+}
+
+.cameraHelpContent h3 {
+  color: #333;
+  font-size: 18px;
+  margin: 0 0 16px 0;
+  font-weight: bold;
+}
+
+.helpSection {
+  margin-bottom: 20px;
+}
+
+.helpSection h4 {
+  color: #FB9701;
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  font-weight: bold;
+}
+
+.helpSection ol {
+  margin: 0 0 0 20px;
+  padding: 0;
+  color: #555;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.helpSection li {
+  margin-bottom: 6px;
+}
+
 @media (max-width: 768px) {
   .contentArea {
     padding: 12px;
@@ -424,6 +507,33 @@
   .resetButton {
     padding: 12px 24px;
     font-size: 15px;
+  }
+
+  .cameraHelpTitle {
+    font-size: 20px;
+  }
+
+  .statusLabel {
+    font-size: 13px;
+  }
+
+  .statusGranted,
+  .statusDenied,
+  .statusPrompt,
+  .statusUnknown {
+    font-size: 16px;
+  }
+
+  .cameraHelpContent h3 {
+    font-size: 16px;
+  }
+
+  .helpSection h4 {
+    font-size: 14px;
+  }
+
+  .helpSection ol {
+    font-size: 13px;
   }
 
   .closeButton {
@@ -524,6 +634,48 @@
     width: 100%;
     padding: 12px 20px;
     font-size: 14px;
+  }
+
+  .cameraHelpTitle {
+    font-size: 18px;
+  }
+
+  .cameraStatus {
+    padding: 12px;
+  }
+
+  .statusLabel {
+    font-size: 12px;
+  }
+
+  .statusGranted,
+  .statusDenied,
+  .statusPrompt,
+  .statusUnknown {
+    font-size: 15px;
+  }
+
+  .cameraHelpContent h3 {
+    font-size: 15px;
+  }
+
+  .helpSection {
+    margin-bottom: 16px;
+  }
+
+  .helpSection h4 {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .helpSection ol {
+    font-size: 12px;
+    margin: 0 0 0 16px;
+    line-height: 1.6;
+  }
+
+  .helpSection li {
+    margin-bottom: 4px;
   }
 
   .mapImage {

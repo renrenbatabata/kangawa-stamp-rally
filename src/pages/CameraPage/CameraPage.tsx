@@ -12,12 +12,17 @@ const CameraPage: React.FC = () => {
   const { isScanning, errorMessage, startScan, stopScan } = useQRCodeScanner(videoRef);
 
   useEffect(() => {
-    startScan();
+    // マウント時にスキャンを開始
+    const initScan = async () => {
+      await startScan();
+    };
+    initScan();
+
+    // アンマウント時にスキャンを停止
     return () => {
       stopScan();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // マウント時のみ実行
+  }, [startScan, stopScan]); // 適切な依存配列
 
   return (
     <div className={styles.cameraPage}>

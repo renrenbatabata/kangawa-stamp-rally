@@ -44,7 +44,11 @@ export const useQRCodeScanner = (
     
     // 既存のスキャナーが動作中の場合は停止
     if (scannerControls) {
-      scannerControls.stop();
+      try {
+        scannerControls.stop();
+      } catch {
+        // 停止エラーは無視
+      }
       setScannerControls(null);
     }
     
@@ -180,42 +184,58 @@ export const useQRCodeScanner = (
       setScannerControls(controls);
     } catch (error: unknown) {
       setIsScanning(false);
+      
+      // カメラリソースのクリーンアップ
+      if (videoRef.current?.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(track => {
+          try {
+            track.stop();
+          } catch {
+            // 停止エラーは無視
+          }
+        });
+        videoRef.current.srcObject = null;
+      }
+      
+      let newErrorMessage: string;
+
       if (error instanceof Error) {
         switch (error.name) {
           case "NotAllowedError":
+            // カメラへのアクセスが拒否された場合
+            newErrorMessage =
+              "カメラの使用が許可されていません。\n設定から「カメラを許可」にしてください。\n\n詳しくはマップページの「その他」→「カメラ設定」をご確認ください。";
+            break;
           case "NotFoundError":
-            setErrorMessage(
-              "カメラへのアクセスが許可されていません。ブラウザの設定を確認してください。"
-            );
+            // カメラが見つからない
+            newErrorMessage =
+              "カメラが見つかりませんでした。\nお使いのデバイスにカメラが搭載されているか確認してください。";
             break;
           case "NotReadableError":
-            setErrorMessage(
-              "カメラが使用中です。他のアプリを閉じてもう一度お試しください。"
-            );
+            // カメラが使用中の場合
+            newErrorMessage =
+              "カメラが使用中です。\n他のアプリでカメラを使っていないか確認してください。";
             break;
           default:
-            setErrorMessage(`カメラの起動に失敗しました: ${error.message}`);
+            newErrorMessage = "カメラの起動に失敗しました。\nしばらく待ってから再度お試しください。";
         }
       } else {
-        setErrorMessage("カメラの起動に失敗しました: 不明なエラー");
+        newErrorMessage = "カメラの起動に失敗しました。\nページを再読み込みしてお試しください。";
       }
+
+      setErrorMessage(newErrorMessage);
     }
-  }, [videoRef, navigate, isScanning, scannerControls]);
+  }, [videoRef, navigate]); // isScanning と scannerControls を削除して無限ループを防止
 
   const stopScan = useCallback(() => {
-    if (scannerControls) {
-      scannerControls.stop();
-      setScannerControls(null);
-      setIsScanning(false);
-    }
-    
     // ビデオストリームのクリーンアップ
     if (videoRef.current?.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach(track => { track.stop(); });
       videoRef.current.srcObject = null;
     }
-  }, [scannerControls, videoRef]);
+  }, [videoRef]);
 
   return { isScanning, errorMessage, startScan, stopScan };
 };
