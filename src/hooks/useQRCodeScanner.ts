@@ -92,7 +92,8 @@ export const useQRCodeScanner = (
         const backCamera = videoInputDevices.find(
           (device) =>
             device.label.includes("back") ||
-            device.label.includes("environment")
+            device.label.includes("environment")||
+            device.label.toLowerCase().includes("video device 1")
         );
         console.log(videoInputDevices);
         console.log(backCamera);
