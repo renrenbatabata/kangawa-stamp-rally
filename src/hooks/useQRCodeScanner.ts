@@ -1,6 +1,9 @@
-import { useState, useRef, useCallback, useEffect } from "react"; 
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BrowserQRCodeReader, type IScannerControls } from "@zxing/browser";
+import {
+  BrowserQRCodeReader,
+  type IScannerControls,
+} from "@zxing/browser";
 
 // 環境変数
 const QR_PREFIX = import.meta.env.VITE_QR_PREFIX;
@@ -16,9 +19,9 @@ if (!QR_PREFIX || !SUCCESS_PATH || !FAIL_PATH) {
   );
 }
 if (!USE_MOCK_DATA && !apiBaseUrl) {
-    throw new Error(
-        "USE_MOCK_DATAがfalseの場合、VITE_API_BASE_URLの設定が必要です。"
-    );
+  throw new Error(
+    "USE_MOCK_DATAがfalseの場合、VITE_API_BASE_URLの設定が必要です。"
+  );
 }
 
 export const useQRCodeScanner = (
@@ -30,6 +33,9 @@ export const useQRCodeScanner = (
   const codeReader = useRef<BrowserQRCodeReader | null>(null);
   const [scannerControls, setScannerControls] =
     useState<IScannerControls | null>(null);
+  // ★ 1. カメラ情報を保持するための状態を追加
+  const [detectedCamera, setDetectedCamera] =
+    useState<MediaDeviceInfo | null>(null);
 
   useEffect(() => {
     return () => {
@@ -37,11 +43,11 @@ export const useQRCodeScanner = (
         scannerControls.stop();
       }
     };
-  }, [scannerControls]); 
+  }, [scannerControls]);
 
   const startScan = useCallback(async () => {
     if (!videoRef.current) return;
-    
+
     // 既存のスキャナーが動作中の場合は停止
     if (scannerControls) {
       try {
@@ -51,14 +57,14 @@ export const useQRCodeScanner = (
       }
       setScannerControls(null);
     }
-    
+
     // スキャン中の場合は一度停止してから再開
     if (isScanning) {
       setIsScanning(false);
       // 状態更新を待つため少し遅延
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
-    
+
     setErrorMessage(null);
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -90,8 +96,15 @@ export const useQRCodeScanner = (
         );
         console.log(videoInputDevices);
         console.log(backCamera);
-        alert(JSON.stringify(videoInputDevices));
-        alert("Using camera: " + (backCamera ? backCamera.label : videoInputDevices[0].label));
+
+        // ★ 2. 検出した背面カメラの情報を状態に保存
+        if (backCamera) {
+          setDetectedCamera(backCamera);
+        } else if (videoInputDevices.length > 0) {
+          // 背面カメラがない場合は、最初のカメラ情報を保存
+          setDetectedCamera(videoInputDevices[0]);
+        }
+
         selectedDeviceId = backCamera
           ? backCamera.deviceId
           : videoInputDevices[0].deviceId;
@@ -100,7 +113,7 @@ export const useQRCodeScanner = (
         // デバイスの列挙に失敗した場合はデフォルトのカメラを使用
       }
 
-      const videoElement = videoRef.current as HTMLVideoElement; 
+      const videoElement = videoRef.current as HTMLVideoElement;
 
       const controls = await codeReader.current.decodeFromVideoDevice(
         selectedDeviceId,
@@ -109,18 +122,20 @@ export const useQRCodeScanner = (
           if (result) {
             // カメラを確実に停止
             controls.stop();
-            setScannerControls(null); 
+            setScannerControls(null);
             setIsScanning(false);
-            
+
             // ビデオストリームのトラックを停止
             if (videoElement.srcObject) {
               const stream = videoElement.srcObject as MediaStream;
-              stream.getTracks().forEach(track => { track.stop(); });
+              stream.getTracks().forEach((track) => {
+                track.stop();
+              });
               videoElement.srcObject = null;
             }
-            
+
             const qrData = result.getText();
-            
+
             if (qrData.startsWith(QR_PREFIX)) {
               const stampId = qrData;
               const getQuiz = async () => {
@@ -143,11 +158,13 @@ export const useQRCodeScanner = (
                     }
                   } else {
                     if (!apiBaseUrl) {
-                      throw new Error("API base URL is not configured."); 
+                      throw new Error("API base URL is not configured.");
                     }
-                    
-                    const apiUrl = `${apiBaseUrl}/quiz?stampId=${encodeURIComponent(stampId)}`;
-                    
+
+                    const apiUrl = `${apiBaseUrl}/quiz?stampId=${encodeURIComponent(
+                      stampId
+                    )}`;
+
                     const response = await fetch(apiUrl, {
                       method: "GET",
                       headers: { "Content-Type": "application/json" },
@@ -155,12 +172,12 @@ export const useQRCodeScanner = (
 
                     if (response.ok) {
                       const quizDataFromApi = await response.json();
-                      
+
                       const stampData = {
                         stampNo: stampId,
                         quizDto: quizDataFromApi,
                       };
-                      
+
                       navigate("/quiz", {
                         state: { stampData: stampData },
                       });
@@ -189,11 +206,11 @@ export const useQRCodeScanner = (
       setScannerControls(controls);
     } catch (error: unknown) {
       setIsScanning(false);
-      
+
       // カメラリソースのクリーンアップ
       if (videoRef.current?.srcObject) {
         const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach(track => {
+        stream.getTracks().forEach((track) => {
           try {
             track.stop();
           } catch {
@@ -202,7 +219,7 @@ export const useQRCodeScanner = (
         });
         videoRef.current.srcObject = null;
       }
-      
+
       let newErrorMessage: string;
 
       if (error instanceof Error) {
@@ -223,24 +240,29 @@ export const useQRCodeScanner = (
               "カメラが使用中です。\n他のアプリでカメラを使っていないか確認してください。";
             break;
           default:
-            newErrorMessage = "カメラの起動に失敗しました。\nしばらく待ってから再度お試しください。";
+            newErrorMessage =
+              "カメラの起動に失敗しました。\nしばらく待ってから再度お試しください。";
         }
       } else {
-        newErrorMessage = "カメラの起動に失敗しました。\nページを再読み込みしてお試しください。";
+        newErrorMessage =
+          "カメラの起動に失敗しました。\nページを再読み込みしてお試しください。";
       }
 
       setErrorMessage(newErrorMessage);
     }
-  }, [videoRef, navigate]); // isScanning と scannerControls を削除して無限ループを防止
+  }, [videoRef, navigate]);
 
   const stopScan = useCallback(() => {
     // ビデオストリームのクリーンアップ
     if (videoRef.current?.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
-      stream.getTracks().forEach(track => { track.stop(); });
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
       videoRef.current.srcObject = null;
     }
   }, [videoRef]);
 
-  return { isScanning, errorMessage, startScan, stopScan };
+  // ★ 3. 戻り値に detectedCamera を追加
+  return { isScanning, errorMessage, startScan, stopScan, detectedCamera };
 };
