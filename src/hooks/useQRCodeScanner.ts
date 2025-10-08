@@ -88,9 +88,14 @@ export const useQRCodeScanner = (
             device.label.includes("back") ||
             device.label.includes("environment")
         );
+        console.log(videoInputDevices);
+        console.log(backCamera);
+        alert(JSON.stringify(videoInputDevices));
+        alert("Using camera: " + (backCamera ? backCamera.label : videoInputDevices[0].label));
         selectedDeviceId = backCamera
           ? backCamera.deviceId
           : videoInputDevices[0].deviceId;
+        console.log(selectedDeviceId);
       } catch {
         // デバイスの列挙に失敗した場合はデフォルトのカメラを使用
       }
