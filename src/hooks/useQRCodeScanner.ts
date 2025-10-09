@@ -109,7 +109,6 @@ export const useQRCodeScanner = (
         selectedDeviceId = backCamera
           ? backCamera.deviceId
           : videoInputDevices[0].deviceId;
-        console.log(selectedDeviceId);
       } catch {
         // デバイスの列挙に失敗した場合はデフォルトのカメラを使用
       }
