@@ -1,6 +1,6 @@
 .quizPage {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -9,7 +9,8 @@
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .quizContent {
@@ -23,10 +24,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    min-height: 400px;
+    justify-content: flex-start;
     box-sizing: border-box;
     position: relative;
+    margin: auto;
 }
 
 .quizTitle {
@@ -51,7 +52,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    flex-grow: 1;
     justify-content: flex-start;
     gap: 10px;
     margin-bottom: 20px;
@@ -84,6 +84,33 @@
     color: white;
     border-color: #2980b9;
     box-shadow: 0 3px 8px rgba(41, 128, 185, 0.3);
+}
+
+.quizOption.correctAnswer {
+    background-color: #2ecc71;
+    color: white;
+    border-color: #27ae60;
+    box-shadow: 0 3px 10px rgba(46, 204, 113, 0.4);
+}
+
+.quizOption.wrongAnswer {
+    background-color: #e74c3c;
+    color: white;
+    border-color: #c0392b;
+    box-shadow: 0 3px 10px rgba(231, 76, 60, 0.4);
+}
+
+.quizOption:disabled {
+    cursor: default;
+}
+
+.quizOption:disabled:hover {
+    transform: none;
+}
+
+.answerDisplayArea {
+    width: 100%;
+    margin-top: 10px;
 }
 
 .answerMessage {
@@ -129,7 +156,8 @@
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
-    margin-top: auto;
+    margin-top: 20px;
+    flex-shrink: 0;
 }
 
 .quizButton:hover {
@@ -141,6 +169,14 @@
 .quizButton:active {
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.quizButton:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 @keyframes fadeInScale {
@@ -173,18 +209,23 @@
 }
 
 @media (max-width: 768px) {
+    .quizPage {
+        padding: 15px;
+    }
+
     .quizContent {
         width: 95%;
         padding: 25px 15px;
-        min-height: 400px;
     }
 
     .quizTitle {
         font-size: 1.8rem;
+        margin-bottom: 20px;
     }
 
     .quizQuestion {
         font-size: 1.4rem;
+        margin-bottom: 25px;
     }
 
     .quizOption {
@@ -199,113 +240,145 @@
     .quizButton {
         font-size: 1.2rem;
         padding: 12px 25px;
+        margin-top: 15px;
     }
 
     .explanation {
         font-size: 1rem;
-        margin: 20px 0;
+        margin: 15px 0 5px 0;
         display: block;
         line-height: 1.4;
         color: #f0f0f0;
     }
 }
 
+/* iPhone 8 Plus以下のサイズ（横幅414px以下） */
 @media (max-width: 480px) {
+    .quizPage {
+        padding: 15px 10px;
+        justify-content: flex-start;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
     .quizContent {
-        padding: 20px 18px;
-        min-height: 320px;
+        padding: 20px 15px;
         width: 96%;
+        margin: 10px 0;
     }
 
     .quizTitle {
         font-size: 1.6rem;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
     }
 
     .quizQuestion {
-        font-size: 1.25rem;
-        margin-bottom: 28px;
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
     }
 
     .quizOption {
         font-size: 1rem;
-        padding: 14px;
+        padding: 13px;
         margin: 0;
     }
 
     .quizOptions {
         gap: 8px;
+        margin-bottom: 15px;
     }
 
     .answerMessage {
-        font-size: 1.2rem;
-        padding: 12px 20px;
+        font-size: 1.15rem;
+        padding: 12px 18px;
+        margin-top: 5px;
     }
 
     .correct {
-        padding: 16px 24px;
+        padding: 15px 20px;
+    }
+
+    .incorrect {
+        padding: 12px 18px;
     }
 
     .quizButton {
         font-size: 1.15rem;
-        padding: 11px 24px;
-        margin: 0;
-        margin-top: 20px;
+        padding: 12px 24px;
+        margin-top: 15px;
     }
 
     .explanation {
-        font-size: .8rem;
-        margin: 20px 0;
+        font-size: 0.9rem;
+        margin: 12px 0 5px 0;
         display: block;
-        line-height: 1.4;
+        line-height: 1.5;
         color: #f0f0f0;
     }
 }
 
+/* iPhone SE、小型デバイス（横幅375px以下） */
 @media (max-width: 375px) {
     .quizPage {
-        padding: 12px;
+        padding: 10px 8px;
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
 
     .quizContent {
-        padding: 8px 15px;
-        min-height: 300px;
+        padding: 18px 12px;
         width: 97%;
+        margin: 8px 0;
     }
 
     .quizTitle {
-        font-size: 1.4rem;
-        margin-bottom: 10px;
+        font-size: 1.45rem;
+        margin-bottom: 12px;
     }
 
     .quizQuestion {
         font-size: 1.15rem;
-        margin-bottom: 25px;
+        margin-bottom: 18px;
+        line-height: 1.5;
     }
 
     .quizOption {
         font-size: 0.95rem;
-        padding: 12px;
+        padding: 12px 10px;
         margin: 0;
     }
 
     .quizOptions {
         gap: 7px;
+        margin-bottom: 12px;
     }
 
     .answerMessage {
-        font-size: 1rem;
-        padding: 2px 5px;
+        font-size: 1.05rem;
+        padding: 10px 15px;
+        margin-top: 5px;
     }
 
     .correct {
-        padding: 14px 22px;
+        padding: 12px 18px;
+    }
+
+    .incorrect {
+        padding: 10px 15px;
     }
 
     .quizButton {
-        font-size: 1.1rem;
-        padding: 10px 22px;
-        margin: 0;
-        margin-top: 10px;
+        font-size: 1.08rem;
+        padding: 11px 22px;
+        margin-top: 12px;
+    }
+
+    .explanation {
+        font-size: 0.85rem;
+        margin: 10px 0 3px 0;
+        display: block;
+        line-height: 1.5;
+        color: #f0f0f0;
     }
 }

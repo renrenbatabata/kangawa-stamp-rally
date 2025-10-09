@@ -510,7 +510,7 @@ const MapPage: React.FC = () => {
         </div>
       )} */}
 
-      <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
+      <FooterNav />
     </div>
   );
 };

@@ -1,11 +1,13 @@
 // React
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // サードパーティ
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 // 内部モジュール
 import { useUserContext } from "../../hooks/useContext";
+import { ROUTES } from "../../constants/routes";
+import { logger } from "../../utils/logger";
 import type { Stamp, QuizData } from "../../types/stamp";
 
 // アセット
@@ -25,16 +27,12 @@ const QuizPage: React.FC = () => {
 
   const stampDataFromState = location.state?.stampData as Stamp | undefined;
 
-  // データがない場合のリダイレクト処理をuseEffect内で実行
-  useEffect(() => {
-    const stampData = location.state?.stampData;
-    if (!stampData) {
-      // データがない場合はカメラページにリダイレクト
-      navigate("/scan", { replace: true });
-    }
-  }, [location, navigate]);
+  // データがない場合は即座にリダイレクト（ちらつき防止）
+  if (!stampDataFromState) {
+    return <Navigate to={ROUTES.SCAN} replace />;
+  }
 
-  const quizDto = stampDataFromState?.quizDto;
+  const quizDto = stampDataFromState.quizDto;
   const initialQuizData: QuizData = quizDto
     ? {
         id: quizDto.quizNo,
@@ -88,8 +86,8 @@ const QuizPage: React.FC = () => {
     try {
       if (USE_MOCK_DATA) {
         // モックモードの場合、既に取得しているデータをそのまま使用
-        console.log("スタンプ登録モック成功:", stampDataFromState);
-        navigate("/scan/success", {
+        logger.log("スタンプ登録モック成功:", stampDataFromState);
+        navigate(ROUTES.SCAN_SUCCESS, {
           state: { stampData: stampDataFromState },
         });
       } else {
@@ -105,22 +103,22 @@ const QuizPage: React.FC = () => {
 
         if (response.ok) {
           const stampDataFromApi = await response.json();
-          console.log("スタンプ登録成功:", stampDataFromApi);
-          navigate("/scan/success", {
+          logger.log("スタンプ登録成功:", stampDataFromApi);
+          navigate(ROUTES.SCAN_SUCCESS, {
             state: { stampData: stampDataFromApi },
           });
         } else {
-          console.error(
+          logger.error(
             "スタンプ登録失敗:",
             response.status,
             await response.text()
           );
-          navigate("/scan/fail");
+          navigate(ROUTES.SCAN_FAIL);
         }
       }
     } catch (apiError) {
-      console.error("API呼び出し中にエラーが発生しました:", apiError);
-      navigate("/scan/fail");
+      logger.error("API呼び出し中にエラーが発生しました:", apiError);
+      navigate(ROUTES.SCAN_FAIL);
     } finally {
       setIsSubmitting(false);
     }
@@ -146,12 +144,13 @@ const QuizPage: React.FC = () => {
                 quizData.options.indexOf(option) + 1 === quizData.answer
                   ? styles.correctAnswer
                   : ""
-              } ${styles.quizOptionWrapper} ${
+              } ${
                 quizCompleted && !isCorrect && selectedOption === option
                   ? styles.wrongAnswer
                   : ""
               }`}
               onClick={() => handleOptionClick(option)}
+              disabled={quizCompleted}
             >
               {option}
             </button>
