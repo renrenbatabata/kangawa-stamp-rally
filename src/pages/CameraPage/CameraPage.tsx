@@ -9,8 +9,8 @@ import styles from "./CameraPage.module.css";
 
 const CameraPage: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  // ★ 1. フックから detectedCamera を受け取る
-  const { isScanning, errorMessage, startScan, stopScan, detectedCamera } = useQRCodeScanner(videoRef);
+  const { isScanning, errorMessage, startScan, stopScan, detectedCamera } =
+    useQRCodeScanner(videoRef);
 
   useEffect(() => {
     // マウント時にスキャンを開始
@@ -25,24 +25,19 @@ const CameraPage: React.FC = () => {
     };
   }, [startScan, stopScan]);
 
-  // ★ 2. detectedCamera が変更されたらアラートを表示する useEffect を追加
+  // デバッグ用：カメラ情報をコンソールに出力
   useEffect(() => {
     if (detectedCamera) {
-      // MediaDeviceInfoオブジェクトの情報を整形して表示
-      const cameraInfo = `
-        検出されたカメラ情報:
-        ---------------------
-        ラベル: ${detectedCamera.label}
-        ID: ${detectedCamera.deviceId}
-        グループID: ${detectedCamera.groupId}
-      `;
-      alert(cameraInfo);
+      console.log("検出されたカメラ情報:", {
+        label: detectedCamera.label,
+        deviceId: detectedCamera.deviceId,
+        groupId: detectedCamera.groupId,
+      });
     }
-  }, [detectedCamera]); // detectedCamera が変更された時だけ実行
+  }, [detectedCamera]);
 
   return (
     <div className={styles.cameraPage}>
-      {/* ... (JSX部分は変更なし) */}
       <video
         ref={videoRef}
         className={errorMessage ? styles.hidden : styles.cameraBackground}

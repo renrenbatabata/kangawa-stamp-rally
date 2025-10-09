@@ -12,6 +12,56 @@ const FAIL_PATH = import.meta.env.VITE_FAIL_PATH;
 const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === "true";
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
+// バックカメラのdeviceIdを保存するためのlocalStorageキー
+const BACK_CAMERA_ID_KEY = "preferredBackCameraId";
+
+/**
+ * バックカメラのdeviceIdを取得する関数
+ * 保存されたdeviceIdを優先し、なければラベルから推測する
+ * @param devices - 利用可能なメディアデバイスのリスト
+ * @returns 利用すべきデバイスID、見つからなければnull
+ */
+const getBackCameraId = (devices: MediaDeviceInfo[]): string | null => {
+  // 1. まず、以前保存したdeviceIdがあるかチェック
+  const savedId = localStorage.getItem(BACK_CAMERA_ID_KEY);
+  if (savedId) {
+    // 保存されたIDが現在の利用可能なデバイスリストにあるか確認
+    const isStillAvailable = devices.some(
+      (device) => device.deviceId === savedId
+    );
+    if (isStillAvailable) {
+      console.log("保存されたバックカメラIDを優先します:", savedId);
+      return savedId; // 💡あればそれを最優先で利用
+    } else {
+      // 保存されていたIDがもう使えない場合は削除（稀なケース）
+      console.warn("保存されたカメラIDが利用不可のため削除します");
+      localStorage.removeItem(BACK_CAMERA_ID_KEY);
+    }
+  }
+
+  // 2. 保存がなければ、ラベルから推測する
+  const backCamera = devices.find((device) => {
+    const lowerLabel = device.label.toLowerCase();
+
+    return (
+      lowerLabel.includes("back") ||
+      lowerLabel.includes("environment") ||
+      lowerLabel.includes("video device 1") ||
+      lowerLabel.includes("背面") ||
+      lowerLabel.includes("リアカメラ")
+    );
+  });
+
+  if (backCamera) {
+    console.log("ラベルからバックカメラを特定しました:", backCamera.deviceId);
+    return backCamera.deviceId;
+  }
+
+  // 3. 見つからなければnullを返す
+  console.warn("特定のバックカメラを見つけられませんでした。");
+  return null;
+};
+
 // 環境変数のチェック
 if (!QR_PREFIX || !SUCCESS_PATH || !FAIL_PATH) {
   throw new Error(
@@ -33,7 +83,6 @@ export const useQRCodeScanner = (
   const codeReader = useRef<BrowserQRCodeReader | null>(null);
   const [scannerControls, setScannerControls] =
     useState<IScannerControls | null>(null);
-  // ★ 1. カメラ情報を保持するための状態を追加
   const [detectedCamera, setDetectedCamera] =
     useState<MediaDeviceInfo | null>(null);
 
@@ -48,7 +97,6 @@ export const useQRCodeScanner = (
   const startScan = useCallback(async () => {
     if (!videoRef.current) return;
 
-    // 既存のスキャナーが動作中の場合は停止
     if (scannerControls) {
       try {
         scannerControls.stop();
@@ -58,10 +106,8 @@ export const useQRCodeScanner = (
       setScannerControls(null);
     }
 
-    // スキャン中の場合は一度停止してから再開
     if (isScanning) {
       setIsScanning(false);
-      // 状態更新を待つため少し遅延
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
 
@@ -89,28 +135,26 @@ export const useQRCodeScanner = (
         if (videoInputDevices.length === 0) {
           throw new Error("カメラが見つかりませんでした。");
         }
-        const backCamera = videoInputDevices.find(
-          (device) =>
-            device.label.includes("back") ||
-            device.label.includes("environment")||
-            device.label.toLowerCase().includes("video device 1")
-        );
-        console.log(videoInputDevices);
-        console.log(backCamera);
 
-        // ★ 2. 検出した背面カメラの情報を状態に保存
-        if (backCamera) {
-          setDetectedCamera(backCamera);
-        } else if (videoInputDevices.length > 0) {
-          // 背面カメラがない場合は、最初のカメラ情報を保存
+        console.log("利用可能なカメラデバイス:", videoInputDevices);
+
+        const backCameraId = getBackCameraId(videoInputDevices);
+
+        if (backCameraId) {
+          selectedDeviceId = backCameraId;
+          // デバイス情報を状態に保存（デバッグ用）
+          const cameraDevice = videoInputDevices.find(
+            (device) => device.deviceId === backCameraId
+          );
+          if (cameraDevice) {
+            setDetectedCamera(cameraDevice);
+          }
+        } else {
+          selectedDeviceId = videoInputDevices[0].deviceId;
           setDetectedCamera(videoInputDevices[0]);
         }
-
-        selectedDeviceId = backCamera
-          ? backCamera.deviceId
-          : videoInputDevices[0].deviceId;
-      } catch {
-        // デバイスの列挙に失敗した場合はデフォルトのカメラを使用
+      } catch (error) {
+        console.warn("デバイスの列挙に失敗しました:", error);
       }
 
       const videoElement = videoRef.current as HTMLVideoElement;
@@ -120,7 +164,6 @@ export const useQRCodeScanner = (
         videoElement,
         (result, err) => {
           if (result) {
-            // カメラを確実に停止
             controls.stop();
             setScannerControls(null);
             setIsScanning(false);
@@ -204,6 +247,19 @@ export const useQRCodeScanner = (
         }
       );
       setScannerControls(controls);
+
+      if (videoElement.srcObject) {
+        const stream = videoElement.srcObject as MediaStream;
+        const videoTrack = stream.getVideoTracks()[0];
+        if (videoTrack) {
+          const settings = videoTrack.getSettings();
+          const actualDeviceId = settings.deviceId;
+          if (actualDeviceId) {
+            console.log("実際に使用されたカメラID:", actualDeviceId);
+            localStorage.setItem(BACK_CAMERA_ID_KEY, actualDeviceId);
+          }
+        }
+      }
     } catch (error: unknown) {
       setIsScanning(false);
 
