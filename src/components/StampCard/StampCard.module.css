@@ -18,10 +18,18 @@
     box-shadow: 0 5px 15px rgba(249, 213, 167, 0.4);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: visible;
 }
 
 .stampCard:hover {
-    box-shadow: 0 10px 20px rgba(249, 213, 167, 0.6);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(249, 213, 167, 0.7);
+}
+
+.stampCard:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(249, 213, 167, 0.5);
 }
 
 .stampImage {
@@ -56,8 +64,54 @@
     font-size: 1rem;
     color: #de7c6a;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-    margin: 5px 0 15px 0;
+    margin: 5px 0 10px 0;
     word-wrap: break-word;
+}
+
+/* 情報アイコン */
+.infoIconWrapper {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.infoIcon {
+    font-size: 1.5rem;
+    color: #d549038e;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+/* タップヒント */
+.tapHint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #ffb087 0%, #ff9966 100%);
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(255, 153, 102, 0.3);
+}
+
+.tapHintText {
+    font-size: 0.85rem;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .popupOverlay {
     position: fixed;
@@ -160,6 +214,14 @@
         font-size: 0.9rem;
     }
 
+    .infoIcon {
+        font-size: 1.3rem;
+    }
+
+    .tapHintText {
+        font-size: 0.8rem;
+    }
+
     .popup {
         width: 340px;
         padding: 18px;
@@ -196,6 +258,24 @@
 
     .stampSubTitle {
         font-size: 1rem;
+    }
+
+    .infoIconWrapper {
+        top: 8px;
+        right: 8px;
+    }
+
+    .infoIcon {
+        font-size: 1.2rem;
+    }
+
+    .tapHint {
+        padding: 5px 10px;
+        margin-top: 6px;
+    }
+
+    .tapHintText {
+        font-size: 0.75rem;
     }
 
     .popup {
@@ -237,6 +317,24 @@
 
     .stampSubTitle {
         font-size: 0.9rem;
+    }
+
+    .infoIconWrapper {
+        top: 6px;
+        right: 6px;
+    }
+
+    .infoIcon {
+        font-size: 1.1rem;
+    }
+
+    .tapHint {
+        padding: 4px 8px;
+        margin-top: 5px;
+    }
+
+    .tapHintText {
+        font-size: 0.7rem;
     }
 
     .popup {

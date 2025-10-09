@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BsInfoCircleFill } from "react-icons/bs";
 import styles from "./StampCard.module.css";
 
 interface StampCardProps {
@@ -23,6 +24,9 @@ const StampCard: React.FC<StampCardProps> = ({ title, subTitle, imgPath, stampTe
 return (
   <>
     <button type = "button" className={styles.stampCard} onClick={handleCardClick}>
+      <div className={styles.infoIconWrapper}>
+        <BsInfoCircleFill className={styles.infoIcon} />
+      </div>
       <div className={styles.stampInfo}>
         <div className={styles.stampStatus}>
             <img
@@ -33,6 +37,9 @@ return (
         </div>
         <h2 className={styles.stampTitle}>{title}</h2>
         <h3 className={styles.stampSubTitle}>{subTitle}</h3>
+        <div className={styles.tapHint}>
+          <span className={styles.tapHintText}>タップして詳細を見る</span>
+        </div>
       </div>
     </button>
 
