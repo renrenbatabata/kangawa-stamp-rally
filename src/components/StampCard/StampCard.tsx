@@ -12,6 +12,7 @@ interface StampCardProps {
 
 const StampCard: React.FC<StampCardProps> = ({ title, subTitle, imgPath, stampText }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isImageZoomed, setIsImageZoomed] = useState(false);
 
   const handleCardClick = () => {
     setIsPopupVisible(true);
@@ -19,6 +20,14 @@ const StampCard: React.FC<StampCardProps> = ({ title, subTitle, imgPath, stampTe
 
   const handleClosePopup = () => {
     setIsPopupVisible(false);
+  };
+
+  const handleImageClick = () => {
+    setIsImageZoomed(true);
+  };
+
+  const handleCloseZoomedImage = () => {
+    setIsImageZoomed(false);
   };
 
 return (
@@ -49,11 +58,52 @@ return (
           <button type = "button" className={styles.closeButton} onClick={handleClosePopup}>
             &times;
           </button>
-          <img src={imgPath} alt="Stamp Logo" className={styles.popupLogo} />
+          <button
+            type="button"
+            className={styles.imageButton}
+            onClick={handleImageClick}
+            aria-label="スタンプ画像を拡大表示"
+          >
+            <img 
+              src={imgPath} 
+              alt="Stamp Logo" 
+              className={styles.popupLogo}
+            />
+          </button>
           <div className={styles.popupTitle}>{title}</div>
           <p className={styles.popupText}>{stampText}</p>
         </div>
       </div>
+    )}
+
+    {isImageZoomed && (
+      <button
+        type="button"
+        className={styles.zoomedImageOverlay}
+        onClick={handleCloseZoomedImage}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            handleCloseZoomedImage();
+          }
+        }}
+        aria-label="拡大画像を閉じる（クリックまたはキーを押す）"
+      >
+        <span 
+          className={styles.zoomedCloseButton}
+          aria-hidden="true"
+        >
+          &times;
+        </span>
+        <div className={styles.zoomedImageContainer}>
+          <img 
+            src={imgPath} 
+            alt={`${title}の拡大画像`}
+            className={styles.zoomedImage}
+          />
+          <div className={styles.zoomedImageCaption}>{title}</div>
+        </div>
+      </button>
     )}
   </>
 );

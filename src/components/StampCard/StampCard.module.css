@@ -23,12 +23,12 @@
 }
 
 .stampCard:hover {
-    transform: translateY(-5px);
+    /* transform: translateY(-5px); */
     box-shadow: 0 12px 25px rgba(249, 213, 167, 0.7);
 }
 
 .stampCard:active {
-    transform: translateY(-2px);
+    /* transform: translateY(-2px); */
     box-shadow: 0 8px 18px rgba(249, 213, 167, 0.5);
 }
 
@@ -142,13 +142,41 @@
     animation: fadeIn 0.4s ease-out;
 }
 
+.imageButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.imageButton:hover {
+    transform: scale(1.05);
+}
+
+.imageButton:active {
+    transform: scale(0.98);
+}
+
+.imageButton:focus {
+    outline: 3px solid #ff9966;
+    outline-offset: 4px;
+    border-radius: 50%;
+}
+
 .popupLogo {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.531);
+    transition: box-shadow 0.3s ease;
+    display: block;
+}
+
+.imageButton:hover .popupLogo {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
 .popupTitle {
@@ -185,12 +213,114 @@
     color: #d16b5a;
 }
 
+/* 拡大画像表示用のオーバーレイ */
+.zoomedImageOverlay {
+    /* ボタンのデフォルトスタイルをリセット */
+    all: unset;
+    
+    /* カスタムスタイル */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: fadeInDark 0.3s ease-out;
+    cursor: pointer;
+}
+
+.zoomedImageOverlay:focus {
+    outline: 2px solid rgba(255, 153, 102, 0.5);
+    outline-offset: -4px;
+}
+
+.zoomedImageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.zoomedImage {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+    animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.zoomedImageCaption {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.zoomedCloseButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 2.5rem;
+    color: white;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2001;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.zoomedImageOverlay:hover .zoomedCloseButton {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: scale(0.8);
     }
 
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInDark {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
     to {
         opacity: 1;
         transform: scale(1);
@@ -228,9 +358,23 @@
         margin: 8px;
     }
 
+    .imageButton {
+        margin-bottom: 18px;
+    }
+
     .popupLogo {
         width: 200px;
         height: 200px;
+    }
+
+    .zoomedCloseButton {
+        width: 45px;
+        height: 45px;
+        font-size: 2.2rem;
+    }
+
+    .zoomedImageCaption {
+        font-size: 1.2rem;
     }
 
     .popupTitle {
@@ -284,10 +428,26 @@
         margin: 6px;
     }
 
+    .imageButton {
+        margin-bottom: 15px;
+    }
+
     .popupLogo {
         width: 180px;
         height: 180px;
-        margin-bottom: 15px;
+    }
+
+    .zoomedCloseButton {
+        top: 15px;
+        right: 15px;
+        width: 42px;
+        height: 42px;
+        font-size: 2rem;
+    }
+
+    .zoomedImageCaption {
+        font-size: 1.1rem;
+        margin-top: 15px;
     }
 
     .popupTitle {
@@ -341,9 +501,36 @@
         width: 280px;
     }
 
+    .imageButton {
+        margin-bottom: 12px;
+    }
+
+    .imageButton:focus {
+        outline-width: 2px;
+        outline-offset: 3px;
+    }
+
     .popupLogo {
         width: 150px;
         height: 150px;
+    }
+
+    .zoomedCloseButton {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.8rem;
+    }
+
+    .zoomedImage {
+        max-height: 70vh;
+        border-radius: 15px;
+    }
+
+    .zoomedImageCaption {
+        font-size: 1rem;
+        margin-top: 12px;
     }
 
     .popupTitle {
