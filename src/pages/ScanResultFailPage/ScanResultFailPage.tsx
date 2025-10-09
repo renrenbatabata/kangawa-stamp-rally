@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 import styles from "./ScanResultFailPage.module.css";
 import background from "../../assets/images/background.png";
 
@@ -11,7 +12,7 @@ const ScanResultFailPage: React.FC = () => {
   // 閉じるボタンがクリックされた時のハンドラー
   const handleCloseClick = () => {
     // カメラページに戻り、再度スキャンを促す
-    navigate("/scan");
+    navigate(ROUTES.SCAN);
   };
 
   return (

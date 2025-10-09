@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // 内部モジュール
+import { ROUTES } from "../../constants/routes";
 import type { Stamp } from "../../types/stamp";
 
 // アセット
@@ -27,7 +28,7 @@ const ScanResultSuccessPage: React.FC = () => {
   }, [location]);
 
   const handleCloseClick = () => {
-    navigate("/stamps");
+    navigate(ROUTES.STAMPS);
   };
 
   const displayedStampPath = stampImagePath ?? undefined;

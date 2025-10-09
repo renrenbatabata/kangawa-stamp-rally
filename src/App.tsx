@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 // 内部モジュール
 import { useUserRegistration } from "./hooks/useUserRegistration";
 import { UserContext } from "./hooks/useContext";
+import { ROUTES } from "./constants/routes";
 import Walkthrough from "./components/Walkthrough/Walkthrough";
 import { WALKTHROUGH_KEY } from "./utils/walkthroughEvents";
 
@@ -63,8 +64,8 @@ const AppRoutes: React.FC = () => {
     setShowWalkthrough(false);
     
     // 初回アクセスの場合は、スタンプリストページに直接遷移
-    if (isFirstTime && location.pathname === '/') {
-      navigate('/stamps', { replace: true });
+    if (isFirstTime && location.pathname === ROUTES.HOME) {
+      navigate(ROUTES.STAMPS, { replace: true });
     }
   };
 
@@ -108,13 +109,13 @@ const AppRoutes: React.FC = () => {
         }
       >
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/stamps" element={<StampListPage />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/quiz" element={<QuizPage />} />
-          <Route path="/scan" element={<CameraPage />} />
-          <Route path="/scan/success" element={<ScanResultSuccessPage />} />
-          <Route path="/scan/fail" element={<ScanResultFailPage />} />
+          <Route path={ROUTES.HOME} element={<HomePage />} />
+          <Route path={ROUTES.STAMPS} element={<StampListPage />} />
+          <Route path={ROUTES.MAP} element={<MapPage />} />
+          <Route path={ROUTES.QUIZ} element={<QuizPage />} />
+          <Route path={ROUTES.SCAN} element={<CameraPage />} />
+          <Route path={ROUTES.SCAN_SUCCESS} element={<ScanResultSuccessPage />} />
+          <Route path={ROUTES.SCAN_FAIL} element={<ScanResultFailPage />} />
         </Routes>
       </Suspense>
       {showWalkthrough && (

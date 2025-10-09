@@ -1,6 +1,9 @@
 // サードパーティ
 import { useNavigate } from "react-router-dom";
 
+// 内部モジュール
+import { ROUTES } from "../../constants/routes";
+
 // アセット
 import logo from "../../assets/images/logo.png";
 import background from "../../assets/images/background.png";
@@ -12,7 +15,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStartClick = () => {
-    navigate("/stamps");
+    navigate(ROUTES.STAMPS);
   };
 
   return (

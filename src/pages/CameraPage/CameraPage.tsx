@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 
 // 内部モジュール
 import { useQRCodeScanner } from "../../hooks/useQRCodeScanner";
+import { logger } from "../../utils/logger";
 
 // CSS
 import styles from "./CameraPage.module.css";
@@ -28,7 +29,7 @@ const CameraPage: React.FC = () => {
   // デバッグ用：カメラ情報をコンソールに出力
   useEffect(() => {
     if (detectedCamera) {
-      console.log("検出されたカメラ情報:", {
+      logger.log("検出されたカメラ情報:", {
         label: detectedCamera.label,
         deviceId: detectedCamera.deviceId,
         groupId: detectedCamera.groupId,

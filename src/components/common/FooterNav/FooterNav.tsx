@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../constants/routes";
 import styles from "./FooterNav.module.css";
 
 // アイコン
@@ -6,14 +7,7 @@ import homeIcon from "../../../assets/icon/home.png";
 import mapIcon from "../../../assets/icon/map.png";
 import CameraButton from "../CameraButton/CameraButton";
 
-// FooterNavのpropsの型を定義
-type FooterNavProps = {
-  homePath: string;
-  cameraPath: string;
-  mapPath: string;
-};
-
-const FooterNav: React.FC<FooterNavProps> = ({ homePath, cameraPath, mapPath }) => {
+const FooterNav: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -21,20 +15,20 @@ const FooterNav: React.FC<FooterNavProps> = ({ homePath, cameraPath, mapPath }) 
       <button
         type="button"
         className={`${styles.footerNavItem} ${styles.home}`}
-        onClick={() => navigate(homePath)}
+        onClick={() => navigate(ROUTES.STAMPS)}
       >
         <img src={homeIcon} alt="ホーム" />
         <p>ホーム</p>
       </button>
 
       <div className={styles.cameraButtonContainer}>
-        <CameraButton onClick={() => navigate(cameraPath)} /> 
+        <CameraButton onClick={() => navigate(ROUTES.SCAN)} /> 
       </div>
 
       <button
         type="button"
         className={`${styles.footerNavItem} ${styles.map}`}
-        onClick={() => navigate(mapPath)} 
+        onClick={() => navigate(ROUTES.MAP)} 
       >
         <img src={mapIcon} alt="マップ" />
         <p>マップ</p>

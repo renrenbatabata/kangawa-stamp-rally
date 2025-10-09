@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // 内部モジュール
 import { useUserContext } from "../../hooks/useContext";
+import { ROUTES } from "../../constants/routes";
 import type { Stamp } from "../../types/stamp";
 import Header from "../../components/common/Header/Header";
 import FooterNav from "../../components/common/FooterNav/FooterNav";
@@ -82,7 +83,7 @@ const StampListPage: React.FC = () => {
           <div className={styles.spinner}></div>
           <p className={styles.loadingText}>読み込み中...</p>
         </div>
-        <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
+        <FooterNav />
       </div>
     );
   }
@@ -94,14 +95,14 @@ const StampListPage: React.FC = () => {
         <div className={styles.messageContainer}>
           <p>{error}</p>
         </div>
-        <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
+        <FooterNav />
 
       </div>
     );
   }
 
     const handleScanButtonClick = () => {
-    navigate("/scan");
+    navigate(ROUTES.SCAN);
   };
 
   return (
@@ -116,7 +117,7 @@ const StampListPage: React.FC = () => {
               <ScanButton onClick={handleScanButtonClick} />
 
         <StampList stamps={stamps} />
-      <FooterNav homePath="/stamps" cameraPath="/scan" mapPath="/map" />
+      <FooterNav />
     </div>
   );
 };
