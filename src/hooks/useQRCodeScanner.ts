@@ -313,7 +313,7 @@ export const useQRCodeScanner = (
 
       setErrorMessage(newErrorMessage);
     }
-  }, [videoRef, navigate]);
+  }, [videoRef, navigate, isScanning, scannerControls]);
 
   const stopScan = useCallback(() => {
     // ビデオストリームのクリーンアップ

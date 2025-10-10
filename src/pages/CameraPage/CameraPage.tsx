@@ -24,7 +24,8 @@ const CameraPage: React.FC = () => {
     return () => {
       stopScan();
     };
-  }, [startScan, stopScan]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // マウント時のみ実行
 
   // デバッグ用：カメラ情報をコンソールに出力
   useEffect(() => {
