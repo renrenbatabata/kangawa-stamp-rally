@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
       className={styles.homePage}
       style={{ backgroundImage: `url(${background})` }}
     >
-      {/* 開発者 rennren sasatomo */}
+      {/* 開発者 renren sasatomo */}
       <div className={styles.overlay}>
         <img src={logo} alt="Logo" className={styles.logo} />
         <button type="button" className={styles.startButton} onClick={handleStartClick}>
