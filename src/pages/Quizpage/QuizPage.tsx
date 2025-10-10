@@ -24,15 +24,11 @@ const QuizPage: React.FC = () => {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [alreadyOwned, setAlreadyOwned] = useState(false);
 
   const stampDataFromState = location.state?.stampData as Stamp | undefined;
-
-  // データがない場合は即座にリダイレクト（ちらつき防止）
-  if (!stampDataFromState) {
-    return <Navigate to={ROUTES.SCAN} replace />;
-  }
-
-  const quizDto = stampDataFromState.quizDto;
+  
+  const quizDto = stampDataFromState?.quizDto;
   const initialQuizData: QuizData = quizDto
     ? {
         id: quizDto.quizNo,
@@ -55,6 +51,11 @@ const QuizPage: React.FC = () => {
       };
 
   const [quizData] = useState<QuizData>(initialQuizData);
+
+  // データがない場合は即座にリダイレクト（ちらつき防止）
+  if (!stampDataFromState) {
+    return <Navigate to={ROUTES.SCAN} replace />;
+  }
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -85,11 +86,24 @@ const QuizPage: React.FC = () => {
 
     try {
       if (USE_MOCK_DATA) {
-        // モックモードの場合、既に取得しているデータをそのまま使用
-        logger.log("スタンプ登録モック成功:", stampDataFromState);
-        navigate(ROUTES.SCAN_SUCCESS, {
-          state: { stampData: stampDataFromState },
-        });
+        // モックモードの場合、既存のスタンプをチェック
+        const response = await fetch("/data/top_mock.json");
+        const existingStamps = await response.json();
+        
+        // 既に持っているスタンプか確認
+        const alreadyHasStamp = existingStamps.some(
+          (stamp: Stamp) => stamp.stampNo === stampId
+        );
+        
+        if (alreadyHasStamp) {
+          logger.log("スタンプは既に登録済みです（モック）:", stampId);
+          setAlreadyOwned(true);
+        } else {
+          logger.log("スタンプ登録モック成功:", stampDataFromState);
+          navigate(ROUTES.SCAN_SUCCESS, {
+            state: { stampData: stampDataFromState },
+          });
+        }
       } else {
         if (!apiBaseUrl) {
           throw new Error("API base URL is not configured.");
@@ -107,6 +121,16 @@ const QuizPage: React.FC = () => {
           navigate(ROUTES.SCAN_SUCCESS, {
             state: { stampData: stampDataFromApi },
           });
+        } else if (response.status === 400 || response.status === 409) {
+          // 登録済みの可能性がある場合、レスポンスを確認
+          const errorData = await response.json();
+          if (errorData.message && errorData.message.includes("すでに獲得済み")) {
+            logger.log("スタンプは既に登録済みです");
+            setAlreadyOwned(true);
+          } else {
+            logger.error("スタンプ登録失敗:", response.status, errorData);
+            navigate(ROUTES.SCAN_FAIL);
+          }
         } else {
           logger.error(
             "スタンプ登録失敗:",
@@ -133,7 +157,7 @@ const QuizPage: React.FC = () => {
         <h1 className={styles.quizTitle}>かながわくクイズ</h1>
         <h2 className={styles.quizQuestion}>{quizData.question}</h2>
         <div className={styles.quizOptions}>
-          {quizData.options.map((option) => (
+          {quizData.options.map((option, index) => (
             <button
               key={option}
               type="button"
@@ -152,7 +176,8 @@ const QuizPage: React.FC = () => {
               onClick={() => handleOptionClick(option)}
               disabled={quizCompleted}
             >
-              {option}
+              <span className={styles.optionNumber}>{index + 1}</span>
+              <span className={styles.optionText}>{option}</span>
             </button>
           ))}
         </div>
@@ -194,14 +219,23 @@ const QuizPage: React.FC = () => {
           </button>
         )}
         {quizCompleted && (
-          <button
-            type="button"
-            className={styles.quizButton}
-            onClick={handleGetStamp}
-            disabled={isSubmitting}
-          >
-            スタンプをもらう！
-          </button>
+          <>
+            {alreadyOwned && (
+              <div className={styles.alreadyOwnedMessage}>
+                <p className={styles.alreadyOwnedText}>
+                  このスタンプはすでに持っているよ！
+                </p>
+              </div>
+            )}
+            <button
+              type="button"
+              className={styles.quizButton}
+              onClick={alreadyOwned ? () => navigate(ROUTES.STAMPS) : handleGetStamp}
+              disabled={isSubmitting && !alreadyOwned}
+            >
+              {alreadyOwned ? 'スタンプ一覧を見る' : 'スタンプをもらう！'}
+            </button>
+          </>
         )}
       </div>
     </div>
