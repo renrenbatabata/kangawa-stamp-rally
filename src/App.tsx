@@ -88,9 +88,9 @@ const AppRoutes: React.FC = () => {
       <div className={styles.errorContainer}>
         <div className={styles.errorCard}>
           <h1>接続エラー</h1>
-          <p>ユーザー情報の取得または登録中に問題が発生しました。</p>
+          <p>サーバーに接続できませんでした。</p>
           <p>
-            恐れ入りますが、ネットワーク接続を確認してから、ページを再読み込みしてください。
+            電波の良いところで、ページを再読み込みしてください。
           </p>
         </div>
       </div>

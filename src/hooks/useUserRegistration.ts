@@ -46,7 +46,7 @@ export const useUserRegistration = () => {
               .json()
               .catch(() => ({ message: "No body available" }));
 
-            const fullErrorMessage = `ユーザー登録/確認に失敗しました。ステータスコード: ${
+            const fullErrorMessage = `サーバーに接続できませんでした。ステータスコード: ${
               response.status
             }。詳細: ${JSON.stringify(errorBody)}`;
             throw new Error(fullErrorMessage);
@@ -55,7 +55,7 @@ export const useUserRegistration = () => {
           const errorMessage =
             error instanceof Error
               ? error.message
-              : "ユーザー登録中に予期せぬエラーが発生しました。";
+              : "サーバーに接続できませんでした。電波の良いところで再度お試しください。";
 
           setError(errorMessage);
         }
