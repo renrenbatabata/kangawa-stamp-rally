@@ -14,28 +14,28 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
       stampName: "スタンプ①",
       stampSubName: "神奈川区の花",
       stampText:
-        "？？？？？",
+        "No.22付近 GREEN×EXPO ２０２７フォトスポット",
     },
     {
       stampNo: "stamp_point_2",
       stampName: "スタンプ②",
       stampSubName: "神奈川区の木",
       stampText:
-        "？？？？？",
+        "No.12 「総務課防災担当」",
     },
     {
       stampNo: "stamp_point_3",
       stampName: "スタンプ③",
       stampSubName: "梅雨の時期を彩る花",
       stampText:
-        "？？？？？",
+        "本部付近 GREEN×EXPO \n ２０２７フォトスポット",
     },
     {
       stampNo: "stamp_point_4",
       stampName: "スタンプ④",
       stampSubName: "横浜市の花",
       stampText:
-        "？？？？？",
+        "No.122 福祉保健課・生活支援課",
     },
   ];
 
@@ -63,6 +63,7 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
                 subTitle={foundStamp.stampSubName}
                 imgPath={foundStamp.imgPath}
                 stampText={foundStamp.stampText}
+                isAcquired={true}
               />
             );
           } else {
@@ -75,6 +76,7 @@ const StampList: React.FC<StampListProps> = ({ stamps }) => {
                 subTitle={fixedStamp.stampSubName}
                 imgPath={displayImgPath}
                 stampText={fixedStamp.stampText}
+                isAcquired={false}
               />
             );
           }
