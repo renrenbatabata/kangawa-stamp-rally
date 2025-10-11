@@ -49,7 +49,7 @@ return (
         <h3 className={styles.stampSubTitle}>{subTitle}</h3>
         <div className={`${styles.tapHint} ${!isAcquired ? styles.hintButton : ''}`}>
           <span className={styles.tapHintText}>
-            {isAcquired ? 'タップして詳細を見る' : 'ヒントを見る'}
+            {isAcquired ? 'タップして詳細を見る' : 'どこにあるか見る'}
           </span>
         </div>
       </div>
@@ -84,9 +84,20 @@ return (
             </div>
           )}
           <div className={styles.popupTitle}>
-            {isAcquired ? title : 'ヒント'}
+            {isAcquired ? title : (
+              <span className={styles.hintTitle}>
+                <span className={styles.hintEmoji}>📍</span>
+                この場所にあるよ
+              </span>
+            )}
           </div>
-          <p className={styles.popupText}>{stampText}</p>
+          <p className={styles.popupText}>
+            {isAcquired ? stampText : (
+              <span className={styles.locationText}>
+                {stampText}
+              </span>
+            )}
+          </p>
         </div>
       </div>
     )}

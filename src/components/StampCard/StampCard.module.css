@@ -224,6 +224,47 @@
     margin-bottom: 10px;
 }
 
+/* ヒントタイトルのスタイル */
+.hintTitle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ff9800;
+    font-size: 1.7rem;
+    text-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
+}
+
+.hintEmoji {
+    display: inline-block;
+    font-size: 1.8rem;
+    animation: lightBulbGlow 1.5s ease-in-out infinite;
+}
+
+/* ピンマークが軽く跳ねるアニメーション */
+@keyframes lightBulbGlow {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+/* 場所案内のスタイル */
+.locationText {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ff6f00;
+    line-height: 1.8;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    padding: 15px 20px;
+    border-radius: 15px;
+    border: 2px solid #ffb74d;
+    box-shadow: 0 3px 8px rgba(255, 152, 0, 0.2);
+    margin-top: 10px;
+}
+
 .popupText {
     font-family: sans-serif;
     font-size: 1.1rem;
@@ -418,6 +459,20 @@
         font-size: 1.4rem;
     }
 
+    .hintTitle {
+        font-size: 1.5rem;
+        gap: 6px;
+    }
+
+    .hintEmoji {
+        font-size: 1.6rem;
+    }
+
+    .locationText {
+        font-size: 1.05rem;
+        padding: 12px 16px;
+    }
+
     .popupText {
         font-size: 1rem;
     }
@@ -490,6 +545,20 @@
     .popupTitle {
         font-size: 1.7rem;
         margin-bottom: 8px;
+    }
+
+    .hintTitle {
+        font-size: 1.4rem;
+        gap: 6px;
+    }
+
+    .hintEmoji {
+        font-size: 1.5rem;
+    }
+
+    .locationText {
+        font-size: 1.2rem;
+        padding: 12px 16px;
     }
 
     .popupText {
@@ -572,6 +641,20 @@
 
     .popupTitle {
         font-size: 1.6rem;
+    }
+
+    .hintTitle {
+        font-size: 1.3rem;
+        gap: 5px;
+    }
+
+    .hintEmoji {
+        font-size: 1.4rem;
+    }
+
+    .locationText {
+        font-size: 0.95rem;
+        padding: 10px 14px;
     }
 
     .popupText {
