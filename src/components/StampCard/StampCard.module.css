@@ -195,13 +195,6 @@
 .imageButton:active {
     transform: scale(0.98);
 }
-
-.imageButton:focus {
-    outline: 3px solid #ff9966;
-    outline-offset: 4px;
-    border-radius: 50%;
-}
-
 .popupLogo {
     width: 150px;
     height: 150px;
@@ -609,11 +602,6 @@
 
     .imageButton {
         margin-bottom: 12px;
-    }
-
-    .imageButton:focus {
-        outline-width: 2px;
-        outline-offset: 3px;
     }
 
     .popupLogo {
