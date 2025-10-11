@@ -15,7 +15,7 @@ const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // 定数
 const BACK_CAMERA_ID_KEY = "preferredBackCameraId";
-const CAMERA_RESET_DELAY_MS = 100;
+const CAMERA_RESET_DELAY_MS = 500; // Android対策：待機時間を延長（100ms → 500ms）
 
 /**
  * バックカメラのdeviceIdを取得する関数
@@ -81,6 +81,8 @@ export const useQRCodeScanner = (
 ) => {
   const navigate = useNavigate();
   const [isScanning, setIsScanning] = useState(false);
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const codeReader = useRef<BrowserQRCodeReader | null>(null);
   const [scannerControls, setScannerControls] =
@@ -97,23 +99,46 @@ export const useQRCodeScanner = (
   }, [scannerControls]);
 
   const startScan = useCallback(async () => {
-    if (!videoRef.current) return;
+    logger.log("startScan: カメラ起動開始");
+    
+    if (!videoRef.current) {
+      logger.warn("startScan: videoRef.currentがnullです");
+      return;
+    }
 
+    // 既存のスキャナーコントロールを停止
     if (scannerControls) {
       try {
+        logger.log("startScan: 既存のscannerControlsを停止");
         scannerControls.stop();
-      } catch {
-        // 停止エラーは無視
+      } catch (error) {
+        logger.warn("startScan: scannerControls停止エラー:", error);
       }
       setScannerControls(null);
     }
 
+    // 既存のビデオストリームをクリーンアップ（重要：Android対策）
+    if (videoRef.current.srcObject) {
+      logger.log("startScan: 既存のビデオストリームをクリーンアップ");
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach((track) => {
+        try {
+          track.stop();
+        } catch (error) {
+          logger.warn("startScan: トラック停止エラー:", error);
+        }
+      });
+      videoRef.current.srcObject = null;
+    }
+
     if (isScanning) {
+      logger.log("startScan: 既にスキャン中のため待機");
       setIsScanning(false);
       await new Promise((resolve) => setTimeout(resolve, CAMERA_RESET_DELAY_MS));
     }
 
     setErrorMessage(null);
+    setIsCameraReady(false);
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       setErrorMessage(
@@ -165,6 +190,12 @@ export const useQRCodeScanner = (
         return;
       }
 
+      // カメラが準備完了したら通知
+      const handleCameraReady = () => {
+        setIsCameraReady(true);
+      };
+      videoElement.addEventListener('loadedmetadata', handleCameraReady, { once: true });
+
       const controls = await codeReader.current.decodeFromVideoDevice(
         selectedDeviceId,
         videoElement,
@@ -173,6 +204,7 @@ export const useQRCodeScanner = (
             controls.stop();
             setScannerControls(null);
             setIsScanning(false);
+            setIsProcessing(true); // 処理中状態を開始
 
             // ビデオストリームのトラックを停止
             if (videoElement.srcObject) {
@@ -184,11 +216,15 @@ export const useQRCodeScanner = (
             }
 
             const qrData = result.getText();
+            logger.log("QRコード読み取り成功:", qrData);
 
             if (qrData.startsWith(QR_PREFIX)) {
               const stampId = qrData;
               const getQuiz = async () => {
                 try {
+                  // Android対策：カメラリソースの完全な解放を待つ
+                  await new Promise((resolve) => setTimeout(resolve, 300));
+                  
                   if (USE_MOCK_DATA) {
                     const response = await fetch("/data/add_mock.json");
                     const mockData = await response.json();
@@ -241,7 +277,10 @@ export const useQRCodeScanner = (
               };
               getQuiz();
             } else {
-              navigate(FAIL_PATH);
+              // Android対策：カメラリソースの完全な解放を待つ
+              setTimeout(() => {
+                navigate(FAIL_PATH);
+              }, 300);
             }
           }
           if (
@@ -269,6 +308,8 @@ export const useQRCodeScanner = (
       }
     } catch (error: unknown) {
       setIsScanning(false);
+      setIsCameraReady(false);
+      setIsProcessing(false);
 
       // カメラリソースのクリーンアップ
       if (videoRef.current?.srcObject) {
@@ -316,16 +357,42 @@ export const useQRCodeScanner = (
   }, [videoRef, navigate, isScanning, scannerControls]);
 
   const stopScan = useCallback(() => {
-    // ビデオストリームのクリーンアップ
+    logger.log("カメラを停止します");
+    
+    // 1. スキャナーコントロールの停止
+    if (scannerControls) {
+      try {
+        scannerControls.stop();
+        logger.log("scannerControls.stop() 完了");
+      } catch (error) {
+        logger.warn("scannerControls停止エラー:", error);
+      }
+      setScannerControls(null);
+    }
+    
+    // 2. ビデオストリームのクリーンアップ
     if (videoRef.current?.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach((track) => {
-        track.stop();
+        try {
+          track.stop();
+          logger.log(`トラック停止: ${track.kind}`);
+        } catch (error) {
+          logger.warn("トラック停止エラー:", error);
+        }
       });
       videoRef.current.srcObject = null;
     }
-  }, [videoRef]);
+    
+    // 3. 状態のリセット
+    setIsScanning(false);
+    setIsCameraReady(false);
+    setIsProcessing(false);
+    setErrorMessage(null);
+    
+    logger.log("カメラ停止完了");
+  }, [videoRef, scannerControls]);
 
-  // ★ 3. 戻り値に detectedCamera を追加
-  return { isScanning, errorMessage, startScan, stopScan, detectedCamera };
+  // ★ 3. 戻り値に detectedCamera, isCameraReady, isProcessing を追加
+  return { isScanning, isCameraReady, isProcessing, errorMessage, startScan, stopScan, detectedCamera };
 };

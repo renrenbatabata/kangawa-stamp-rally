@@ -10,7 +10,7 @@ import styles from "./CameraPage.module.css";
 
 const CameraPage: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { isScanning, errorMessage, startScan, stopScan, detectedCamera } =
+  const { isScanning, isCameraReady, isProcessing, errorMessage, startScan, stopScan, detectedCamera } =
     useQRCodeScanner(videoRef);
 
   useEffect(() => {
@@ -38,8 +38,21 @@ const CameraPage: React.FC = () => {
     }
   }, [detectedCamera]);
 
+  // ローディング画面を表示する条件
+  const showLoading = (isScanning && !isCameraReady) || isProcessing;
+
   return (
     <div className={styles.cameraPage}>
+      {/* ローディング画面 */}
+      {showLoading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingSpinner}></div>
+          <p className={styles.loadingText}>
+            {isProcessing ? "データを送信中..." : "カメラを起動中..."}
+          </p>
+        </div>
+      )}
+
       <video
         ref={videoRef}
         className={errorMessage ? styles.hidden : styles.cameraBackground}
@@ -69,7 +82,7 @@ const CameraPage: React.FC = () => {
         </div>
 
         <div className={styles.buttonContainer}>
-          {isScanning && !errorMessage && (
+          {isScanning && !errorMessage && isCameraReady && (
             <p className={styles.scanningMessage}>スキャン中...</p>
           )}
         </div>
