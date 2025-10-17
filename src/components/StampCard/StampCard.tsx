@@ -43,6 +43,7 @@ return (
               src={imgPath}
               alt={title}
               className={`${styles.stampImage} ${!isAcquired ? styles.notAcquiredImage : ''}`}
+              loading="lazy"
             />
         </div>
         <h2 className={styles.stampTitle}>{title}</h2>
@@ -72,6 +73,7 @@ return (
                 src={imgPath} 
                 alt="Stamp Logo" 
                 className={styles.popupLogo}
+                loading="lazy"
               />
             </button>
           ) : (
@@ -80,6 +82,7 @@ return (
                 src={imgPath} 
                 alt="ヒント画像" 
                 className={styles.popupLogo}
+                loading="lazy"
               />
             </div>
           )}
@@ -126,6 +129,7 @@ return (
             src={imgPath} 
             alt={`${title}の拡大画像`}
             className={styles.zoomedImage}
+            loading="lazy"
           />
           <div className={styles.zoomedImageCaption}>{title}</div>
         </div>

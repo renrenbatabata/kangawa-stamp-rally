@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
     >
       {/* 開発者 renren sasatomo */}
       <div className={styles.overlay}>
-        <img src={logo} alt="Logo" className={styles.logo} />
+        <img src={logo} alt="Logo" className={styles.logo} fetchPriority="high" />
         <button type="button" className={styles.startButton} onClick={handleStartClick}>
           はじめる
         </button>

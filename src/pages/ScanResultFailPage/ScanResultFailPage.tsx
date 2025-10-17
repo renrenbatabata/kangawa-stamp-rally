@@ -24,7 +24,7 @@ const ScanResultFailPage: React.FC = () => {
         <h1 className={styles.title}>読みとり しっぱい</h1>
 
         {/* 失敗時のアイコンがあれば表示 */}
-        <img src={failIcon} alt="スキャン失敗" className={styles.failImage} />
+        <img src={failIcon} alt="スキャン失敗" className={styles.failImage} loading="lazy" />
 
         <p className={styles.message}>
           QRコードをもう一度

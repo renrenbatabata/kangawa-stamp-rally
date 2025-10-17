@@ -44,6 +44,7 @@ const ScanResultSuccessPage: React.FC = () => {
           src={displayedStampPath}
           alt="スタンプゲット成功！"
           className={styles.stampImage}
+          loading="lazy"
         />
         <button
           type="button"

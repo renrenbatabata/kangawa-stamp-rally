@@ -92,6 +92,7 @@ const Walkthrough: React.FC<WalkthroughProps> = ({ onComplete }) => {
               src={steps[currentStep].imageUrl}
               alt={steps[currentStep].altText}
               className={styles.kametaroImage}
+              loading="eager"
             />
           </div>
 
