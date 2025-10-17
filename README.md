@@ -166,6 +166,15 @@ npm run build
 npm run preview
 ```
 
+#### ビルド時の最適化
+ビルド時には以下の最適化が自動的に実行されます：
+- 📦 **画像圧縮**: PNGファイルが最大78%圧縮
+- 🗜️ **コード圧縮**: Gzip (.gz) と Brotli (.br) の両方を生成
+- ✂️ **コード分割**: ライブラリごとに最適なチャンクに分割
+- 🎯 **Tree-shaking**: 未使用コードの自動削除
+
+ビルド完了後、`dist/assets/`フォルダに圧縮ファイルが生成されます。
+
 ### その他のコマンド
 
 ```bash
@@ -260,6 +269,29 @@ import styles from "./Component.module.css";
 - ✅ ユーザーフレンドリーなエラーメッセージ
 - ✅ ローディング状態の適切な管理
 - ✅ 開発環境専用ロガーの実装
+
+### ⚡ パフォーマンス最適化
+- ✅ **画像最適化**: PNGファイルを70-78%圧縮（vite-plugin-imagemin）
+  - background.png: 2.9MB → 650KB (-78%)
+  - map.png: 1.6MB → 1.2MB (-23%)
+  - stamp_icon_unachieved.png: 1.2MB → 285KB (-78%)
+- ✅ **コード圧縮**: GzipとBrotli圧縮の両方を適用
+  - Gzip圧縮: 最大74%削減
+  - Brotli圧縮: 最大80%削減（より効率的）
+- ✅ **チャンク分割の最適化**:
+  - React関連ライブラリを1つのチャンクに統合
+  - QRコードライブラリを独立したチャンクに分離
+  - 初回ロード時間の短縮
+- ✅ **遅延読み込み**: 全画像にloading="lazy"または適切な優先度設定
+  - ファーストビュー画像: fetchPriority="high"
+  - その他の画像: loading="lazy"
+- ✅ **フォント最適化**:
+  - font-display: swap（フォント読み込み中もテキスト表示）
+  - preconnect/dns-prefetchによる事前接続
+- ✅ **ビルド最適化**:
+  - Tree-shaking有効化
+  - CSSコード分割
+  - ソースマップの本番無効化
 
 ### 開発体制
 - **開発言語**: TypeScript（型安全性の確保）
